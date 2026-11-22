@@ -1,8 +1,8 @@
 // GET /api/video?id=<videoId>
 // Returns the video details and its caption tracks (with signed URLs the browser downloads directly).
-import { BLOCKED_MESSAGE, VIDEO_ID, blockedIds, getPlayer, json } from '../_youtube.js';
+import { BLOCKED_MESSAGE, VIDEO_ID, blockedIds, getPlayer, json } from './youtube.js';
 
-export async function onRequestGet({ request, env, waitUntil }) {
+export async function handleVideo(request, env, ctx) {
   const id = new URL(request.url).searchParams.get('id') || '';
   if (!VIDEO_ID.test(id)) return json({ success: false, message: 'Invalid YouTube video ID.' }, 400);
   if (blockedIds(env).has(id)) return json({ success: false, message: BLOCKED_MESSAGE });
@@ -53,6 +53,6 @@ export async function onRequestGet({ request, env, waitUntil }) {
     200,
     { 'Cache-Control': 'public, max-age=1800' },
   );
-  waitUntil(cache.put(cacheKey, response.clone()));
+  ctx.waitUntil(cache.put(cacheKey, response.clone()));
   return response;
 }

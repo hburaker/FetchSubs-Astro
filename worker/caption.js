@@ -1,9 +1,9 @@
 // GET /api/caption?url=<signed YouTube timedtext URL>
 // Fallback only: the browser normally downloads captions from YouTube directly. Restricted to YouTube's
 // timedtext endpoint so it can't be used as an open proxy.
-import { BLOCKED_MESSAGE, blockedIds } from '../_youtube.js';
+import { BLOCKED_MESSAGE, blockedIds } from './youtube.js';
 
-export async function onRequestGet({ request, env }) {
+export async function handleCaption(request, env) {
   let target;
   try {
     target = new URL(new URL(request.url).searchParams.get('url') || '');

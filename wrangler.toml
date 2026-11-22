@@ -1,7 +1,19 @@
-# Used by `wrangler pages dev` / `wrangler pages deploy`. The Cloudflare Pages dashboard ignores most of it.
-name = "fetchsubs"
-pages_build_output_dir = "dist"
+# Cloudflare Workers + Static Assets.
+# Build: `npm run build` (writes dist/), deploy: `npx wrangler deploy`.
+# `name` must match the Worker name in the Cloudflare dashboard.
+name = "fetchsubs-astro"
+main = "worker/index.js"
 compatibility_date = "2026-11-01"
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+# Serves dist/404.html with a 404 status for unknown pages.
+not_found_handling = "404-page"
+# /about is served from about.html.
+html_handling = "auto-trailing-slash"
+# Only API calls run the Worker; every other request is a free static asset request.
+run_worker_first = ["/api/*"]
 
 [vars]
 # Comma-separated YouTube video IDs that rights holders asked us to block.

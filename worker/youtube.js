@@ -1,4 +1,4 @@
-// Shared helpers for the Pages Functions. Files starting with "_" are not routed by Cloudflare Pages.
+// Shared helpers for the API routes in worker/index.js.
 
 // The ANDROID_VR InnerTube client returns caption tracks without a PO token, and its signed timedtext URLs
 // use ip=0.0.0.0, so the visitor's browser can download them directly.
