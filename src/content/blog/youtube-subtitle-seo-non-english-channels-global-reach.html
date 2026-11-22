@@ -1,0 +1,56 @@
+---
+title: "YouTube Subtitle SEO for Non-English Channels: A Practical Plan"
+summary: "How a non-English YouTube channel can reach viewers in other languages: translated titles first, then accurate subtitles, and how to measure the result."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-03-04"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 26
+---
+<p>If your channel is in Turkish, Korean, Portuguese or any language other than English, two things put your videos in front of people who don't speak it: translated titles and descriptions, which help them find the video, and subtitles, which let them watch it once they've clicked. YouTube documents the first as a discovery feature. The second is what keeps the new viewer. This post is about doing both in that order, without the inflated promises that usually come with "multilingual SEO".</p>
+<p>I run FetchSubs from Türkiye, so the non-English side of this is not abstract to me. The plan below sticks to what YouTube actually documents and says clearly where it is guessing.</p>
+
+<h2>What YouTube documents, and what it doesn't</h2>
+<p>A lot of advice claims that YouTube indexes every word of every subtitle track, so an English track on a Turkish video will rank for English searches. YouTube doesn't say that anywhere I could find. Its page <a href="https://support.google.com/youtube/answer/16090438" target="_blank" rel="noopener">How YouTube search works</a> names relevance, engagement and quality, and for relevance it mentions the title, tags, description and video content. Caption tracks aren't listed. Maybe they count, maybe they don't; nobody outside YouTube knows.</p>
+<p>Here is what is documented:</p>
+<ul>
+    <li>Translated titles and descriptions can show up in YouTube search results for viewers who speak those languages. That's from YouTube's <a href="https://support.google.com/youtube/answer/4792576" target="_blank" rel="noopener">tools to translate your content</a> page.</li>
+    <li>Viewers can turn on auto-translate for captions in the player, which machine-translates an existing track into their language (see <a href="https://support.google.com/youtube/answer/100078" target="_blank" rel="noopener">Manage caption settings</a>). It only works from captions that exist, and it translates their mistakes along with everything else.</li>
+    <li>For eligible channels, YouTube offers <a href="https://support.google.com/youtube/answer/15569972" target="_blank" rel="noopener">automatic dubbing</a>, and creators can also upload their own <a href="https://support.google.com/youtube/answer/13338784" target="_blank" rel="noopener">multi-language audio</a> tracks. Both are bigger steps than subtitles, but they exist.</li>
+</ul>
+<p>That changes the order of work. The cheapest documented step is translating the title and description. Subtitles come next, because a viewer who finds an English title and then can't understand a word will leave.</p>
+
+<h2>Pick the target language from your data</h2>
+<p>English is the obvious choice, but not automatically the right one. A Brazilian cooking channel may get more out of Spanish; a Turkish history channel may already have viewers in Germany or Azerbaijan. Before translating anything, open YouTube Analytics and look at two cards in the <b>Audience</b> tab: <b>Top geographies</b> and <b>Top subtitle/CC languages</b>. The second one shows which subtitle languages your viewers already turn on, which is a fairly direct sign of demand.</p>
+
+<h2>Step 1: Translate the title and description</h2>
+<p>In YouTube Studio, open <b>Subtitles</b>, choose the video, click <b>Add language</b>, pick the target language and add a title and description for it. YouTube's <a href="https://support.google.com/youtube/answer/6289575" target="_blank" rel="noopener">Translate your own video titles &amp; descriptions</a> page has the exact steps.</p>
+<p>Don't translate the title word for word. Write the title someone in that language would actually search for. Type the topic into YouTube's search box with your interface set to the target language and look at the suggestions; they show you common phrasing. If your video is about a dish, a place or a craft with an established name in the target language, use that name.</p>
+
+<h2>Step 2: Make an accurate subtitle track</h2>
+<p>Everything depends on the source-language captions being right, because a translation of an error is just a second error.</p>
+<ol>
+    <li><b>Check the video language.</b> YouTube uses the video's language setting as the original language for subtitles and translations. You can change it under the video's details; see <a href="https://support.google.com/youtube/answer/6304325" target="_blank" rel="noopener">Change the language of your uploaded video</a>.</li>
+    <li><b>Get your own-language captions.</b> YouTube's <a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">automatic captioning</a> supports a long list of languages, including Turkish, Korean, Portuguese, Japanese, Arabic and Hindi. Once the automatic track exists, paste the video link into <a href="/youtube-to-srt">FetchSubs</a> and download that track as SRT.</li>
+    <li><b>Correct it.</b> Fix names, places, numbers and anything said quickly or over background noise. This is also where you remove the odd word that only made sense on screen.</li>
+    <li><b>Translate the SRT file.</b> A professional translator gives the best result. If you use machine translation such as DeepL or Google Translate, read every line afterwards; idioms, jokes and cultural references are where it fails. Whatever tool you use, check that the cue numbers and timestamp lines came back unchanged.</li>
+    <li><b>Upload it as a new language.</b> In <b>Subtitles</b>, add the target language, choose <b>Upload file</b> and then <b>With timing</b>. The steps are on YouTube's <a href="https://support.google.com/youtube/answer/2734796" target="_blank" rel="noopener">Add subtitles &amp; captions</a> page.</li>
+</ol>
+<p>A note on what FetchSubs can and can't do here: it downloads caption tracks that already exist on YouTube. It doesn't translate, and it can't transcribe audio. If YouTube hasn't produced automatic captions for your video, because the language isn't supported or the audio is too difficult, there is nothing to download yet. In that case you need a script, a manual transcript or a speech-to-text tool such as the open-source Whisper model.</p>
+<p>To see what a finished multilingual video looks like from the outside, try "Me at the zoo" (<code>jNQXAC9IVRw</code>), the first video on YouTube. FetchSubs lists two manually uploaded tracks for it, English and German. The German TXT begins "Also hier sind wir vor den Elefanten.", a translation of the English first line rather than an automatic caption. A viewer in Germany gets a proper German track instead of relying on auto-translate.</p>
+
+<h2>Translate for meaning, not keywords</h2>
+<p>When you review the English (or Spanish, or German) track, prefer the specific term people in that language use over a vague literal translation. A Japanese woodworking video should say "joinery" where that's what the speaker means, not "wood connecting method". But don't add words that weren't spoken. Subtitles are a record of what is said; stuffing them with search phrases makes them worse for the people reading them, and there's no documented benefit to doing it.</p>
+<p>Keep reading speed in mind too. Some languages need noticeably more characters to say the same thing. If a translated line is too long to read in the time it's on screen, shorten it rather than leaving it. Our guide to <a href="/blog/translating-youtube-subtitles-multilingual-content-guide">translating subtitles for multilingual content</a> goes into the editing side.</p>
+
+<h2>Measuring whether it worked</h2>
+<p>Give it at least a month, then compare the translated videos with similar ones you left alone:</p>
+<ul>
+    <li><b>Top geographies</b> in the Audience tab: are views from the target countries growing?</li>
+    <li><b>Top subtitle/CC languages</b>: are viewers actually using the new track?</li>
+    <li>The <b>YouTube search</b> traffic source in the Reach tab, and its search terms card: do queries in the target language start to appear?</li>
+</ul>
+<p>Expect revenue to change in either direction. YouTube's <a href="https://support.google.com/youtube/answer/9314357" target="_blank" rel="noopener">ad revenue analytics</a> page says CPMs vary by geography, so a new audience in a different region can earn more or less per view than your existing one. Don't assume that any particular market pays more until your own numbers show it.</p>
+
+<h2>Where to start</h2>
+<p>Pick three to five videos on topics that don't age: recipes, tutorials, places, history. Translate their titles and descriptions first. Add subtitles to the ones that start getting impressions. If your channel is eligible for automatic dubbing, try it on one video and compare. Measure, then decide whether to do the rest of the catalogue. For the general picture of what captions do for discovery in any language, see <a href="/blog/youtube-seo-masterclass-subtitles-transcripts-growth">YouTube SEO and captions</a>.</p>

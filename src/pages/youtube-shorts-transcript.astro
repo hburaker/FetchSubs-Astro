@@ -1,0 +1,192 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ToolWidget from '../components/ToolWidget.astro';
+import Faq from '../components/Faq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../data/landing';
+import type { FaqItem } from '../data/site';
+
+const page = findLanding('youtube-shorts-transcript');
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do I get the transcript of a YouTube Short?",
+    answer: "Copy the Short's link with Share and then Copy link, paste it into the box at the top of this page and press Get Transcript. FetchSubs lists the caption tracks the Short has; click TXT for plain text, SRT or VTT for timed captions, or RAW to read the text in a new browser tab.",
+  },
+  {
+    question: "Can you get a transcript of a YouTube Short on your phone?",
+    answer: "Yes. In the YouTube app tap Share, then Copy link, open fetchsubs.com in your mobile browser and paste the link. There is no app or extension to install, and the TXT, SRT and VTT files download straight to your phone.",
+  },
+  {
+    question: "Why does my YouTube Short only have auto-generated captions?",
+    answer: "Most creators publish Shorts quickly and never upload their own subtitle file, so the only text track is the one YouTube creates with speech recognition. FetchSubs labels it (Auto-generated) so you know it may contain small mistakes worth checking.",
+  },
+  {
+    question: "Why is there no transcript for this Short?",
+    answer: "FetchSubs exports caption tracks that already exist on YouTube; it does not transcribe audio itself. Shorts that are only music, sound effects or on-screen text, very new uploads, private Shorts and Shorts whose creator turned off captions have no track to export.",
+  },
+  {
+    question: "Does the youtube.com/shorts/ link format work?",
+    answer: "Yes. Links in the form youtube.com/shorts/VIDEO_ID work directly, as do regular watch links, youtu.be short links and embed links for the same video.",
+  },
+  {
+    question: "Is the YouTube Shorts transcript extractor free?",
+    answer: "Yes. FetchSubs is free to use with no sign-up, no watermark and no browser extension. You can extract as many Shorts transcripts as you need.",
+  },
+  {
+    question: "Can I use a Shorts transcript as captions on TikTok or Instagram Reels?",
+    answer: "You can download the SRT file and import it into an editor such as CapCut, Premiere Pro or DaVinci Resolve to add or burn in captions before posting elsewhere. Only reuse content you own or have permission to use.",
+  },
+  {
+    question: "Can I download a Shorts transcript in another language?",
+    answer: "If the Short has subtitle tracks in other languages, every one of them appears in the list and can be downloaded as TXT, SRT or VTT. FetchSubs does not translate captions itself.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"YouTube Shorts Transcript"}
+  fullTitle={"YouTube Shorts Transcript – Free Captions & Text | FetchSubs"}
+  description={"Get the transcript or captions of any YouTube Short. Paste the Shorts link and export TXT, SRT or VTT, auto-generated captions included. Free."}
+>
+<Breadcrumb name={"YouTube Shorts Transcript"} path={'/' + page.slug} />
+
+<div class="hero">
+    <h1>YouTube Shorts Transcript</h1>
+    <p>Paste a YouTube Shorts link and get its captions as plain text or a timed subtitle file in seconds. Download the transcript as <strong>TXT</strong>, grab <strong>SRT</strong> or <strong>VTT</strong> captions for editing, or open the clean text in a new tab. Auto-generated Shorts captions are included, and it is free with no sign-up.</p>
+</div>
+
+<ToolWidget button={"Get Transcript"} placeholder={"Paste a YouTube Shorts link, e.g. https://www.youtube.com/shorts/..."} />
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">How to Get a YouTube Shorts Transcript in 3 Steps</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Copy the Shorts link</h3>
+            <p>On the Short, tap or click Share and choose Copy link. A link like youtube.com/shorts/ID, a youtu.be link or a normal watch link all work.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Paste it and press Get Transcript</h3>
+            <p>FetchSubs reads the Short and lists every caption track it has, marking each one as official or auto-generated.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Choose TXT, SRT, VTT or RAW</h3>
+            <p>TXT saves the spoken words, SRT and VTT keep the timing, and RAW shows the text in a new tab. Files are named after the Short and its language code.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="link-title">
+    <h2 class="section-title" id="link-title">How to Copy a YouTube Shorts Link on Mobile and Desktop</h2>
+    <p class="content-text">
+        Shorts play in a full-screen vertical player that hides the address bar on phones, so the first question most people have is simply where to
+        find the link. It only takes a couple of taps.
+    </p>
+    <h3>In the YouTube app (Android and iPhone)</h3>
+    <p class="content-text">
+        While the Short is playing, tap the <strong>Share</strong> arrow on the right side of the screen, then tap <strong>Copy link</strong>.
+        Switch to your mobile browser, open fetchsubs.com and long-press the input box to paste. The copied link usually looks like
+        <code>https://youtube.com/shorts/abc123XYZ?si=...</code>; the extra <code>si</code> tracking parameter is fine and can stay.
+    </p>
+    <h3>On a desktop browser</h3>
+    <p class="content-text">
+        Open the Short on youtube.com and copy the URL straight from the address bar, which reads <code>https://www.youtube.com/shorts/VIDEO_ID</code>.
+        You can also click the three-dot menu or the Share button beside the player and choose <strong>Copy</strong>. Whichever you use, the
+        11-character video ID at the end is what FetchSubs needs, so watch, youtu.be and embed versions of the same Short return the same captions.
+    </p>
+    <div class="landing-note">
+        Tip: the transcript of a Short is just as easy to get as that of a long video. If you need the full guide for regular uploads, see the
+        <a href="/youtube-transcript">YouTube transcript downloader</a> page, which covers longer videos in more depth.
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="auto-title">
+    <h2 class="section-title" id="auto-title">Why Most Shorts Only Have Auto-Generated Captions</h2>
+    <p class="content-text">
+        Shorts are made to be filmed, edited and published fast, often straight from a phone. Very few creators take the extra step of uploading a
+        reviewed subtitle file, so for most Shorts the only text track is the one YouTube produces with automatic speech recognition. FetchSubs lists it
+        with the label <strong>(Auto-generated)</strong>, while a subtitle file uploaded by the creator is shown as <strong>(Official)</strong>.
+        You can read more about how these machine captions work on our <a href="/youtube-auto-generated-subtitles">auto-generated subtitles</a> page.
+    </p>
+    <p class="content-text">
+        Auto captions on Shorts are usually good enough to copy a script or quote a line, but they have a few habits worth knowing about. Background music,
+        which is very common in Shorts, can drown out words. Fast talking, slang, brand names and usernames are often misspelled. And because Shorts are
+        short, a single mistake is more noticeable, so it is worth playing the clip once while you read the text.
+    </p>
+    <p class="content-text">
+        Some Shorts have no transcript at all. FetchSubs exports captions that already exist on YouTube and does not transcribe audio itself, so a Short
+        that is pure music or sound effects, relies only on on-screen text, was uploaded minutes ago, is private, or has captions switched off by its
+        creator will not show any track. Burned-in text that is part of the video image is not a caption track either, so it cannot be extracted.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="uses-title">
+    <h2 class="section-title" id="uses-title">What You Can Do With a Shorts Transcript</h2>
+    <p class="section-subtitle">
+        A Short is usually only 15 to 60 seconds of speech, which makes its transcript a compact, ready-made script you can reuse in many places.
+    </p>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>TikTok and Reels captions</h3>
+            <p>Cross-posting your own Short? Download the SRT and import it into CapCut, Premiere Pro or DaVinci Resolve to add captions without retyping a single word.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Blog and social posts</h3>
+            <p>Turn the TXT transcript of your Short into a LinkedIn post, an X thread, a newsletter paragraph or the intro of a blog article.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Studying viral hooks</h3>
+            <p>Collect the first lines of top-performing Shorts in your niche and compare how they open, pace information and end with a call to action.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Script templates</h3>
+            <p>Use a transcript as a structural reference for your next script: hook, setup, payoff and closing line, then write your own version in your own words.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Descriptions and SEO</h3>
+            <p>Pull exact phrases from your Short to write a clearer title, description and hashtags that match what you actually say on camera.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Accessibility</h3>
+            <p>Share a readable text version of a Short with viewers who are deaf or hard of hearing, or who prefer to read rather than watch with sound on.</p>
+        </div>
+    </div>
+    <p class="content-text">
+        Want to summarize a batch of Shorts transcripts or rewrite a script with an AI assistant? Download the TXT version and follow the prompts on our
+        <a href="/youtube-transcript-for-chatgpt">YouTube transcript for ChatGPT</a> page. Need only clean text without timings for a longer video? Use
+        <a href="/youtube-to-text">YouTube to Text</a>. Editing captions for a video project? The <a href="/youtube-to-srt">YouTube to SRT</a> guide explains
+        how SRT files work in common editors.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="format-title">
+    <h2 class="section-title" id="format-title">Which Format to Choose for a Short</h2>
+    <p class="content-text">
+        Every caption track of a Short can be downloaded in four ways. Pick <strong>TXT</strong> when you want the words only, one caption line per row,
+        ready to paste into a document or an AI tool. Pick <strong>SRT</strong> when you need timed captions for a video editor or for re-uploading to another
+        platform. Pick <strong>VTT</strong> for web players and HTML5 video. And use <strong>RAW</strong> when you just want to read the text in a new browser
+        tab without saving a file, which is handy on a phone. A Shorts transcript in TXT looks like this:
+    </p>
+    <div class="code-sample" set:html={`stop scrolling if you still peel garlic
+the slow way
+put the cloves in a jar
+close the lid and shake it hard
+for about twenty seconds
+and the skins just fall off`} />
+    <p class="content-text">
+        Respect the creator: transcripts of other people's Shorts are great for research, study and inspiration, but republishing someone else's script word
+        for word as your own content is not. For your own Shorts, reuse the text however you like. More answers are on the <a href="/faq">FAQ page</a>.
+    </p>
+</section>
+
+<Faq items={faqs} />
+
+<RelatedTools current={page.slug} />
+</Layout>

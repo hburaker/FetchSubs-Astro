@@ -1,0 +1,59 @@
+---
+title: "How to Transcribe a Podcast Using YouTube's Auto Captions"
+summary: "If your podcast is on YouTube, its auto captions are a free first-draft transcript. How to download them, clean them up and publish them properly."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 11
+---
+<p>If your podcast episodes are on YouTube, YouTube has probably transcribed them already. For supported languages it generates automatic captions after upload, and that caption track is a rough transcript of the whole episode with timestamps. You can download it as a text file in a minute and edit it into something publishable in a lot less time than typing it from scratch.</p>
+<p>To be precise about the tool: FetchSubs doesn't transcribe audio. It exports caption tracks that YouTube already has. For a podcast you upload yourself, that usually means YouTube's automatic captions, unless you've uploaded your own subtitle file. So the quality of your first draft is the quality of YouTube's speech recognition, and this guide is mostly about what to do with it.</p>
+
+<h2>What YouTube's automatic captions give you</h2>
+<p>A studio-recorded podcast is good input for speech recognition: people taking turns, speaking clearly into decent microphones. Still, the result is a draft. YouTube's own <a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">automatic captioning</a> page says the captions can misrepresent what was said because of mispronunciation, accents, dialects or background noise, and asks creators to review them. In a podcast, the words that suffer most are the ones that matter most: guest names, company names, book titles and technical terms.</p>
+<p>The track also has no speaker names. In a two-person interview you get one continuous stream of text, and you'll add the "Host:" and "Guest:" labels yourself.</p>
+<p>Sometimes there are no automatic captions at all. The same YouTube page lists the usual reasons, and several are typical of podcasts:</p>
+<ul>
+    <li>the episode is very long, and YouTube says some videos are too long for automatic captions;</li>
+    <li>people talk over each other, or switch between languages mid-sentence;</li>
+    <li>there's a long stretch of silence at the very beginning;</li>
+    <li>the audio quality is poor, or the language isn't supported;</li>
+    <li>the episode is new and the captions are still processing. YouTube says processing time depends on how complex the audio is.</li>
+</ul>
+<p>If YouTube has no caption track for an episode, FetchSubs has nothing to download either. Our post on <a href="/blog/youtube-transcript-not-available">when a YouTube transcript isn't available</a> goes through the causes and the alternatives.</p>
+
+<h2>Downloading the transcript</h2>
+<ol>
+    <li>Copy the episode's YouTube link. A normal watch link, a youtu.be short link or an embed link all work.</li>
+    <li>Paste it into the <a href="/youtube-transcript">FetchSubs transcript tool</a>. You'll get a list of every caption track the video has, each marked as either auto-generated or added by the uploader.</li>
+    <li>Choose the auto-generated track in the episode's language and click <b>TXT</b> for plain text you can edit, or <b>SRT</b> if you want the timestamps for show notes and chapters. <b>RAW</b> opens the clean text in a new browser tab if you just want to read it.</li>
+</ol>
+<p>There's no sign-up, and nothing is stored on our side. One episode at a time, though: FetchSubs doesn't download whole playlists.</p>
+<p>If the podcast isn't yours, downloading the transcript to read or take notes from is one thing; publishing it is another. A transcript of someone else's show is their content, and putting it on your site needs their permission. Our <a href="/blog/copyright-youtube-subtitles-what-you-can-do">subtitle copyright guide</a> covers this in more detail.</p>
+
+<h2>Cleaning it up</h2>
+<p>Plan the edit in passes rather than fixing everything as you go.</p>
+<p><b>Names and terms first.</b> Make a list of every proper noun in the episode: your name, the guest's, the show's, sponsors, books, products. Search the TXT file for the ways each one could have been misheard and fix them with find-and-replace. This one pass removes a large share of the embarrassing errors.</p>
+<p><b>Then the shape of the text.</b> The TXT file has one caption per line and keeps the line breaks inside each caption, so the raw file looks like short broken lines rather than sentences. Join them into paragraphs. Starting a new paragraph whenever the speaker changes or the topic shifts makes the next step much easier.</p>
+<p><b>Then speakers.</b> Add speaker labels as you go through the episode. If you're unsure who said something, the SRT file tells you the exact time, so you can jump to that moment in the video and listen.</p>
+<p><b>Last, decide how clean you want it.</b> A verbatim transcript keeps every repeated word and false start; a clean-read transcript removes them without changing the meaning. For a transcript page, clean-read is easier to read. Whatever you choose, don't polish a guest's words into something they didn't say.</p>
+<p>For a sense of scale: if you and your guest speak at around 150 words a minute, a 45-minute episode is close to 7,000 words. That's a long page, which is why the next section matters.</p>
+
+<h2>Publishing it on your site</h2>
+<p>A transcript does two concrete jobs on your episode page.</p>
+<p>The first is accessibility. Under WCAG, a prerecorded audio-only piece of content needs a text alternative that presents the same information. That's <a href="https://www.w3.org/WAI/WCAG22/Understanding/audio-only-and-video-only-prerecorded.html" target="_blank" rel="noopener">Success Criterion 1.2.1</a>, at Level A, the most basic level. For an audio podcast, the transcript is how you meet it. Our <a href="/blog/digital-accessibility-law-wcag-video-transcripts-guide">accessibility and transcripts guide</a> explains where that matters legally.</p>
+<p>The second is text. Search engines and readers can use what's written on a page, and an episode page with a short blurb and an audio player has very little of it. A transcript puts the names, tools and topics from the conversation on the page. Nobody can promise that this will rank, and Google's guidance on <a href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" target="_blank" rel="noopener">helpful, people-first content</a> is a reminder that a wall of unedited text isn't the goal. A layout that works for readers:</p>
+<ul>
+    <li>a short summary of the episode at the top, written by you;</li>
+    <li>chapters with start times, taken from the SRT file;</li>
+    <li>links to everything mentioned in the episode;</li>
+    <li>the edited transcript below that, with speaker labels.</li>
+</ul>
+<p>If you also want the corrected text on YouTube, upload it back to the episode: in YouTube Studio go to <b>Subtitles</b>, choose the video, click <b>Add</b> under subtitles and pick <b>Upload file</b>. YouTube offers <b>With timing</b> for an SRT file and <b>Without timing</b> for a plain transcript; its <a href="https://support.google.com/youtube/answer/2734796" target="_blank" rel="noopener">Add subtitles &amp; captions</a> page has the details. Then viewers on YouTube get the accurate version too.</p>
+
+<h2>Using AI tools on the transcript</h2>
+<p>A cleaned transcript is a good input for an AI assistant. Useful requests are narrow ones: list every book, tool and link mentioned; suggest chapter titles for these timestamped sections; draft a three-sentence episode summary. Check the output against the episode. Assistants occasionally attribute a point to the wrong speaker or invent a detail, and in a podcast that means putting words in a real person's mouth. Our post on <a href="/blog/how-to-convert-youtube-videos-to-blog-content">turning videos into blog posts</a> has more on getting from transcript to article.</p>
+
+<h2>When YouTube's captions aren't enough</h2>
+<p>For a clear two-person conversation in a supported language, YouTube's automatic captions plus an editing pass usually get you a usable transcript. They are a weaker starting point for heavy crosstalk, strong accents, several languages in one episode, or shows where YouTube never generated captions. In those cases, a dedicated speech-to-text tool such as the open-source Whisper model, a transcript from your podcast host if it offers one, or a human transcriptionist will save you more time than fighting a poor automatic track.</p>

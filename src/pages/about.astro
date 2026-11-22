@@ -1,0 +1,96 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { jsonLd } from '../data/site';
+
+const aboutPage = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  url: 'https://fetchsubs.com/about',
+  name: 'About FetchSubs',
+  mainEntity: {
+    '@type': 'Person',
+    name: 'Halit Burak Eroğlu',
+    jobTitle: 'Software Developer',
+    nationality: 'Türkiye',
+    email: 'mailto:halitburakeroglu@gmail.com',
+  },
+};
+---
+<Layout
+  title="About FetchSubs"
+  fullTitle="About FetchSubs – Who Builds It and How It Works"
+  description="FetchSubs is a free YouTube subtitle and transcript downloader built and run by Halit Burak Eroğlu, an independent developer in Türkiye."
+>
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={jsonLd(aboutPage)} />
+</Fragment>
+
+<div class="doc-page">
+    <h1>About FetchSubs</h1>
+
+    <p>
+        FetchSubs is a free tool for downloading the subtitles and transcripts of YouTube videos as SRT, VTT or plain text.
+        It is an independent project, built and maintained by one person, and it is not affiliated with YouTube or Google.
+    </p>
+
+    <h2>Who runs FetchSubs</h2>
+    <p>
+        I'm <strong>Halit Burak Eroğlu</strong>, a software developer based in Türkiye. I started FetchSubs because I kept needing
+        the text of lectures and talks I watched on YouTube: to search them, take notes, quote them accurately and paste them into
+        other tools. YouTube shows a transcript panel, but there is no button to download it, and copying it by hand is slow and messy.
+        FetchSubs is the tool I wanted for that job, made available to everyone.
+    </p>
+    <p>
+        I write the code, run the server, answer the email and review every guide published on the blog. If something on the site is
+        wrong or broken, it's my responsibility, and I want to hear about it.
+    </p>
+
+    <h2>How the tool works</h2>
+    <p>
+        When you paste a YouTube link, the FetchSubs server reads the list of caption tracks that YouTube already publishes for that
+        video, both the creator's own subtitles and YouTube's automatic (speech-recognition) captions, using the open-source
+        <a href="https://github.com/Tyrrrz/YoutubeExplode" target="_blank" rel="noopener">YoutubeExplode</a> library. When you pick a
+        language and a format, the server downloads that one track and converts it to SRT, VTT or TXT on the fly.
+    </p>
+    <ul>
+        <li><strong>Nothing is stored.</strong> Video links and subtitle files are processed in memory for your request and are not saved to a database.</li>
+        <li><strong>No transcription.</strong> FetchSubs does not convert audio to text. If a video has no captions on YouTube, there is nothing to download.</li>
+        <li><strong>No accounts, no installs.</strong> It works in any modern browser, on desktop and mobile.</li>
+    </ul>
+    <p>
+        The tool is free and is supported by advertising. Ads never gate the download, and there are no paid tiers.
+    </p>
+
+    <h2>How the guides are written</h2>
+    <p>
+        The <a href="/blog">FetchSubs blog</a> explains practical tasks around subtitles and transcripts: getting a transcript on desktop or
+        phone, choosing between <a href="/blog/srt-vtt-txt-subtitle-format-comparison-guide">SRT, VTT and TXT</a>, cleaning up auto-generated
+        captions, or using a transcript with an AI assistant. Every guide is checked against the tool itself, and example output is taken from
+        real downloads rather than made up. When a guide describes YouTube's own interface, it links to the official YouTube Help Center
+        because that interface changes. Articles are updated when something changes, and the date of the last update is shown on the page.
+    </p>
+    <p>
+        <strong>About AI assistance:</strong> some guides are drafted with the help of AI writing tools. Before publishing, I check every
+        instruction, example and claim against the tool and against official documentation, and I remove anything I cannot verify.
+        Earlier versions of some articles contained unsourced statistics and generic author names; those have been corrected.
+    </p>
+
+    <h2>Using subtitles responsibly</h2>
+    <p>
+        Subtitles belong to the people who created the videos. FetchSubs is meant for personal use, study, research, accessibility and
+        working with your own content. Please respect creators' rights and YouTube's Terms of Service when you reuse a transcript. See the
+        <a href="/terms">Terms of Use</a> for details, including how rights holders can contact me.
+    </p>
+
+    <h2>Get in touch</h2>
+    <p>
+        Bug reports, feature ideas and questions are all welcome. The <a href="/contact">contact page</a> explains what to include so I can help quickly.
+    </p>
+
+    <div class="contact-box" style="margin-top: 2rem; padding: 1.5rem; background: rgba(56, 189, 248, 0.1); border-radius: 1rem; border: 1px solid var(--accent-primary);">
+        <p style="margin-bottom: 0.5rem; color: var(--text-main); font-weight: 600;">Email</p>
+        <a href="mailto:halitburakeroglu@gmail.com" style="color: var(--accent-primary); font-size: 1.2rem; text-decoration: none; font-weight: 700;">halitburakeroglu@gmail.com</a>
+        <p style="margin-top: 1rem; font-size: 0.9rem;">I read every message myself.</p>
+    </div>
+</div>
+</Layout>

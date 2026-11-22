@@ -1,0 +1,19 @@
+---
+// Internal links to the English tool pages, excluding the current one.
+import { ENGLISH_LANDING } from '../data/landing';
+
+interface Props {
+  /** Slug of the current landing page (omit on the homepage). */
+  current?: string;
+  heading?: string;
+}
+const { current, heading = 'More Free YouTube Subtitle Tools' } = Astro.props;
+const pages = ENGLISH_LANDING.filter((p) => p.slug !== current);
+---
+<section class="content-section" aria-labelledby="related-title">
+  <h2 class="section-title" id="related-title">{heading}</h2>
+  <div class="related-tools">
+    {current && <a href="/">YouTube Subtitle Downloader<span>All formats and languages in one place</span></a>}
+    {pages.map((p) => <a href={`/${p.slug}`}>{p.linkTitle}<span>{p.linkBlurb}</span></a>)}
+  </div>
+</section>

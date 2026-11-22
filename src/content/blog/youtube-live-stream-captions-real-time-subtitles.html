@@ -1,0 +1,59 @@
+---
+title: "YouTube Live Stream Captions: Your Options and Their Limits"
+summary: "How captions work on YouTube live streams: automatic live captions (English only), 608/708 and HTTP POST captions, and what's left after the stream ends."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 20
+---
+<p>YouTube gives you two ways to caption a live stream. You can turn on automatic live captions, which only work in English, only at normal latency, and are still being rolled out to channels. Or you can send your own captions, written by a human captioner or captioning software, either embedded in the video signal or over HTTP. After the stream ends, the live captions don't stay on the video; YouTube generates new automatic captions for the archive, and those are what tools like FetchSubs can download.</p>
+<p>Below are the details, taken from YouTube's help pages, plus what I saw when I downloaded captions from a few archived streams.</p>
+
+<h2>Option 1: Automatic live captions</h2>
+<p>YouTube's <a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">automatic captioning help page</a> sets out the conditions, and there are quite a few:</p>
+<ul>
+    <li>English only.</li>
+    <li>Normal latency only. Low-latency and ultra-low-latency streams, which includes mobile live streams, don't get them.</li>
+    <li>They're turned on per stream, not for the whole channel.</li>
+    <li>They're being rolled out gradually; the troubleshooting section mentions channels with more than 1,000 subscribers.</li>
+</ul>
+<p>To turn them on, the help page says: click <strong>Create</strong> and then <strong>Go live</strong>, choose <strong>Stream</strong> from the left-hand menu, turn on <strong>Closed captions</strong> in the stream settings, choose <strong>Automatic captions</strong> as the source, and select English as the video language.</p>
+<p>The same page notes that YouTube encourages creators to use professional captions first, and lists the usual reasons automatic ones fail: poor sound, an unsupported language, and several people speaking at once or several languages mixed. That last one is common on live streams: panel discussions, call-ins, a co-host talking over a game. If you rely on automatic captions, the single biggest thing you control is audio. Use one decent microphone per speaker, keep music under speech, and avoid cross-talk.</p>
+<p>There's also a catch with latency. Many streamers pick low latency to keep chat responsive. If you want automatic captions, you have to give that up and stream at normal latency.</p>
+
+<h2>Option 2: Sending your own captions</h2>
+<p>For anything where accuracy matters, such as a public meeting, a lecture, a press briefing or a stream in a language other than English, you send captions yourself. They usually come from a human captioner (often called CART, for Communication Access Realtime Translation) or from captioning software. YouTube's <a href="https://support.google.com/youtube/answer/3068031" target="_blank" rel="noopener">live caption requirements</a> page describes two methods:</p>
+<ul>
+    <li><strong>Embedded 608/708 captions.</strong> If your encoder supports it, you choose EIA-608/CEA-708 captions in the encoder settings and the captions travel inside the video stream.</li>
+    <li><strong>HTTP POST.</strong> Captioning software sends text to a signed caption ingestion URL that YouTube gives you. The page names supported software such as Total Eclipse, Case CATalyst, CaptionMaker and StreamText.Net. You add a 30 or 60 second broadcast delay in the stream's advanced settings so the captions can catch up with the picture.</li>
+</ul>
+<p>A few limits from the same page: YouTube currently supports only one caption track per live stream (even though the 608/708 standard allows up to four), each stream entry point can take only one caption feed, and the computer sending captions should have an accurate clock. If you broadcast in two languages, you'll have to choose one for live captions and add the other to the archive afterwards.</p>
+<p>If you use OBS or similar software, check your encoder or plugin documentation for 608/708 support before the event rather than during it. Captioning is the sort of thing that's easy to test with a private stream and painful to debug live.</p>
+
+<h2>What happens after the stream ends</h2>
+<p>This is the part people often get wrong. The help page says that live automatic captions don't remain on the video after the stream ends. Instead, YouTube generates new automatic captions in the normal way it does for uploads, and they may be different from what viewers saw live. So the archive's automatic track is a fresh transcription, not a recording of the live captions.</p>
+<p>That has two consequences. First, if you want an accurate archive, upload a corrected caption file to the archived video in YouTube Studio, the same way you would for any upload. Second, the archive gets automatic captions under the same conditions as any other video, and YouTube lists "the video is too long" among the reasons they may not appear. Long streams are exactly where that bites.</p>
+
+<h2>Getting the transcript with FetchSubs</h2>
+<p>FetchSubs reads caption tracks that are attached to a video. For a live stream, that realistically means after the stream has ended and YouTube has processed the archive. I wouldn't count on it during the broadcast, and processing time isn't fixed: YouTube says only that it depends on how complex the audio is.</p>
+<p>While updating this article I checked a handful of archived news live streams of NASA briefings, most of them about the Artemis II mission. Most had a single automatic English track. A Reuters stream of a Voyager update listed automatic tracks in about twenty languages. And a nearly hour-long PBS NewsHour stream had no caption tracks at all when I checked. So "it was streamed on YouTube" doesn't guarantee there's anything to download. If you see no tracks, <a href="/blog/youtube-transcript-not-available">this explainer on missing transcripts</a> lists the usual causes.</p>
+<p>When there is a track, you can download it as SRT, VTT or TXT. For show notes, a blog post or searching for a quote, take <a href="/youtube-to-text">plain text</a>. If you take SRT, expect overlapping cues. The automatic SRT I downloaded from an Associated Press stream of the Artemis II crew starts like this:</p>
+<pre class="code-sample">1
+00:00:01,800 --&gt; 00:00:05,080
+Following the completion of this public
+
+2
+00:00:03,360 --&gt; 00:00:07,680
+affairs event,</pre>
+<p>The second cue begins before the first one ends. YouTube times automatic captions as rolling lines, two on screen at once, and that carries through to the file. Video players handle it, but a subtitle editor will flag the overlaps, so if you plan to edit and re-upload, budget time for cleanup or start from the TXT and re-time it with YouTube's auto-sync.</p>
+<p>If it's your own stream, the transcript is yours to reuse for show notes or an article. If it's someone else's, quoting a few lines with a link is one thing and republishing the whole transcript is another; see <a href="/blog/copyright-youtube-subtitles-what-you-can-do">what you can and can't do with YouTube subtitles</a>.</p>
+
+<h2>A quick pre-stream checklist</h2>
+<ul>
+    <li>Decide on the caption source: automatic (English, normal latency) or your own captioner.</li>
+    <li>If automatic: set latency to normal and confirm the stream language is English.</li>
+    <li>If your own captions: test the 608/708 or HTTP POST setup on a private stream, with the broadcast delay set.</li>
+    <li>Sort out the audio: one mic per speaker, music down, no talking over each other.</li>
+    <li>After the stream: check the archive's captions, and upload a corrected file if the stream will keep getting views.</li>
+</ul>

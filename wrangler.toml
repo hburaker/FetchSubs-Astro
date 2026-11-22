@@ -1,0 +1,8 @@
+# Used by `wrangler pages dev` / `wrangler pages deploy`. The Cloudflare Pages dashboard ignores most of it.
+name = "fetchsubs"
+pages_build_output_dir = "dist"
+compatibility_date = "2026-11-01"
+
+[vars]
+# Comma-separated YouTube video IDs that rights holders asked us to block.
+BLOCKED_VIDEO_IDS = ""

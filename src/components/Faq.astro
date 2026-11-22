@@ -1,0 +1,29 @@
+---
+// Visible FAQ + matching FAQPage JSON-LD generated from the same list, so they can never drift apart.
+import { jsonLd, type FaqItem } from '../data/site';
+
+interface Props {
+  items: FaqItem[];
+  heading?: string;
+}
+const { items, heading = 'Frequently Asked Questions' } = Astro.props;
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: items.map((f) => ({
+    '@type': 'Question',
+    name: f.question,
+    acceptedAnswer: { '@type': 'Answer', text: f.answer },
+  })),
+};
+---
+<section class="content-section faq-list" aria-labelledby="faq-title">
+  <h2 class="section-title" id="faq-title">{heading}</h2>
+  {items.map((item) => (
+    <details>
+      <summary>{item.question}</summary>
+      <p>{item.answer}</p>
+    </details>
+  ))}
+</section>
+<script type="application/ld+json" is:inline set:html={jsonLd(schema)} />

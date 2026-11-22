@@ -1,0 +1,67 @@
+---
+title: "Importing YouTube SRT Files into DaVinci Resolve and Premiere Pro"
+summary: "Get a video's YouTube captions as SRT, clean the file, then import it into DaVinci Resolve or Premiere Pro as a subtitle or caption track."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 12
+---
+<p>If a video already has captions on YouTube, you don't have to retype them in your editor. Download the track as an SRT file, fix it up, and import it into DaVinci Resolve or Premiere Pro, where it becomes a subtitle or caption track you can restyle and export again. The import itself takes a minute. Most of the real work is cleaning the file before it gets there, so that's where most of this article goes.</p>
+
+<h2>When this workflow makes sense</h2>
+<p>It fits a few common jobs: cutting a shorter version of a video you already published, making a burned-in subtitle version for social media, or rebuilding a project when the original caption file is lost. In all of these the video is yours, or a client's who has asked you to work on it.</p>
+<p>It doesn't fit footage that has never been on YouTube. If the video isn't uploaded, there are no YouTube captions to download, and Premiere's own Speech to Text or a transcription service is the more direct route. It also gets awkward if your timeline differs from the uploaded version. The SRT is timed to the exact file YouTube has, so if you've trimmed the start or moved scenes around, the subtitles will be off from that point on. That's fixable, and I cover it in <a href="/blog/fix-subtitle-timing-errors-srt-sync-adjustment-guide">fixing subtitle timing in SRT files</a>.</p>
+
+<h2>Step 1: pick the right track</h2>
+<p>Paste the video link into <a href="/youtube-to-srt">FetchSubs</a> and you'll see every caption track the video has, with auto-generated ones labelled. Download SRT rather than VTT for this job: SRT is the format both Adobe and Blackmagic document for import, and it's the simpler of the two to clean by hand. (The differences are covered in the <a href="/blog/srt-vtt-txt-subtitle-format-comparison-guide">SRT vs VTT vs TXT comparison</a>.)</p>
+<p>If the video has both an uploaded track and an auto-generated one, the choice matters more than you'd think. I downloaded both English tracks of NASA's <em>Perseverance Rover's Descent and Touchdown on Mars</em> video while writing this. Here are the first cues of each.</p>
+<p>The uploaded (official) track:</p>
+<pre class="code-sample">1
+00:00:00,400 --&gt; 00:00:03,280
+We are starting the straighten
+up and fly right maneuver,
+
+2
+00:00:03,280 --&gt; 00:00:07,360
+where the spacecraft will jettison the
+entry balance masses in preparation for</pre>
+<p>The auto-generated track:</p>
+<pre class="code-sample">1
+00:00:00,400 --&gt; 00:00:04,240
+We are starting the straighten up and
+
+2
+00:00:02,080 --&gt; 00:00:06,560
+fly right maneuver where the spacecraft
+
+3
+00:00:04,240 --&gt; 00:00:08,639
+will jettison the entry balance masses</pre>
+<p>Look at the timestamps in the second file. Cue 2 starts at 2.08 seconds, while cue 1 is still on screen until 4.24. That's how YouTube's rolling auto captions work: each line overlaps the one before it. In that file, 55 of the 63 cues overlap the next one. The official track has 30 cues and no overlaps. An editor that expects one subtitle at a time on a track won't treat overlapping cues the way YouTube's player does, so if there's an uploaded track, start from that one.</p>
+
+<h2>Step 2: clean the file before you import it</h2>
+<p>Fixing text in a plain SRT is quicker than fixing dozens of clips on a timeline, so I do the cleanup first. The free <strong>Subtitle Edit</strong> is good for this. Its <em>Tools → Fix common errors…</em> dialog has options for overlapping display times, short and long display times, and short lines that can be merged, according to <a href="https://niksedk.github.io/subtitleedit-avalonia/features/fix-common-errors.html" target="_blank" rel="noopener">its documentation</a>.</p>
+<p>Then read the text against the audio. The two Perseverance tracks disagree in places that matter: the auto track has <em>Indicate shoot deploy</em> where the official one has <em>indicates chute deploy</em>, <em>440 m/s</em> where the official one says <em>450 meters per second</em>, and <em>Heat shield set</em> instead of <em>Heat shield sep</em>. Numbers and technical terms are where auto captions slip most, and they're exactly what a viewer will notice.</p>
+<p>If you need a target for line length and duration, Netflix publishes one of the few detailed public style guides. Its <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/217350977-English-USA-Timed-Text-Style-Guide" target="_blank" rel="noopener">English (USA) guide</a> allows 42 characters per line, two lines at most, and up to 20 characters per second for adult programmes. Its <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/215758617-Timed-Text-Style-Guide-General-Requirements" target="_blank" rel="noopener">general requirements</a> set a minimum of five-sixths of a second per subtitle and a maximum of seven seconds. These are Netflix's rules, not a universal law, but they're a reasonable default. Even NASA's official track breaks them: 25 of its 57 lines are longer than 42 characters, and one cue stays up for 10.7 seconds. That's fine in YouTube's player. For a burned-in version, I'd rebreak those lines.</p>
+<p>One small thing I noticed in the official track: most first lines end with a non-breaking space. When I printed the file in a Windows terminal, those showed up as <code>Â</code>, which is what happens when UTF-8 text is read with the wrong encoding. If odd characters appear at line ends after you import, that's the likely reason, and a find-and-replace fixes it.</p>
+
+<h2>Step 3: import into DaVinci Resolve</h2>
+<p>Blackmagic's <a href="https://documents.blackmagicdesign.com/SupportNotes/DaVinci_Resolve_15_New_Features_Guide.pdf" target="_blank" rel="noopener">DaVinci Resolve 15 New Features Guide</a>, from the release that added subtitle tracks, describes the basic route: right-click in the Media Pool, choose <em>Import Subtitle</em>, then drag the subtitle clip into the empty area above your video tracks. Resolve creates a subtitle track, and each cue becomes its own clip that you can trim, move and retext.</p>
+<p>Where you drop the file matters. The subtitles keep their spacing relative to the first cue, so after dropping, scrub to the first spoken line and check that the subtitle starts with it. Then jump to a line near the end. If the first line is right and the last one isn't, the timeline and the source don't match, and no amount of nudging single clips will fix that.</p>
+<p>Resolve 19 added a second, separate option. According to the <a href="https://documents.blackmagicdesign.com/SupportNotes/DaVinci_Resolve_19_New_Features_Guide.pdf" target="_blank" rel="noopener">Resolve 19 New Features Guide</a>, you can right-click a clip in the Media Pool and choose <em>Audio Transcription → Import from Subtitles</em> to load an SRT as that clip's transcription. The guide warns that the clip's timecode has to match the timecode in the SRT. Camera footage often carries its own timecode rather than starting at zero, while a YouTube SRT always counts from the start of the uploaded video, so this route works best with clips that start at 00:00:00:00.</p>
+<p>When the subtitles are done, Resolve can include them in the render from the Deliver page, either burned into the picture or as a separate file. The exact options vary between versions, so check the manual for yours.</p>
+
+<h2>Step 4: import into Premiere Pro</h2>
+<p>In Premiere it's even simpler. Adobe's help on <a href="https://helpx.adobe.com/premiere/desktop/add-text-images/insert-captions/import-caption-file-from-third-party-service.html" target="_blank" rel="noopener">importing caption files</a> says to import the SRT into your project like any other media, then drag it from the Project panel into the sequence. Premiere creates a new caption track and places the captions on it. You edit the text in the Text panel.</p>
+<p>For styling, use a track style rather than styling captions one by one. Style one caption, then in the Properties panel use the redefine-style option and choose to apply it to all captions on the track (Adobe explains this in <a href="https://helpx.adobe.com/premiere/desktop/add-text-images/stylize-text/apply-linked-and-track-styles.html" target="_blank" rel="noopener">Apply linked and track styles</a>). Caption styles always apply to the whole track, which is what you want for a consistent look across a series.</p>
+<p>For export, Premiere can write captions as a sidecar SubRip (.srt) file, or you can burn them into the video. If you plan to upload the edited video to YouTube, the sidecar file is usually the better choice: you upload it as a caption track, and viewers can turn it off. The <a href="/blog/open-captions-vs-closed-captions-difference-guide">open vs closed captions</a> article covers that trade-off.</p>
+
+<h2>Problems you're likely to run into</h2>
+<ul>
+    <li><strong>Everything is off by the same amount.</strong> Usually the file was dropped at the wrong spot, or the timeline has a different start than the uploaded video. Select all subtitle clips and slide them together.</li>
+    <li><strong>The offset grows over time.</strong> That points to a speed or frame-rate difference between your timeline and the uploaded file. Fix it in the SRT (Subtitle Edit has a <em>Change frame rate</em> tool) rather than on the timeline.</li>
+    <li><strong>Subtitles that overlap or pile up.</strong> You've probably imported an auto-generated track with overlapping cues. Fix the overlaps in the SRT and import again.</li>
+    <li><strong>The video has no captions to download.</strong> Auto captions can take a while after upload, and some videos never get them. See <a href="/blog/youtube-transcript-not-available">why a YouTube transcript isn't available</a>.</li>
+</ul>
+<p>One more limit to keep in mind: FetchSubs only downloads caption tracks that already exist on YouTube. It doesn't transcribe audio or edit subtitles. The editing happens in Subtitle Edit, Resolve or Premiere. The download just saves you from typing out a video that YouTube has already captioned.</p>

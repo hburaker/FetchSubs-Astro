@@ -1,0 +1,85 @@
+---
+title: "Open vs Closed Captions: The Difference and When to Use Each"
+summary: "Open captions are burned into the picture; closed captions are a separate track viewers switch on. How each works, what each costs you and how to choose."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 22
+---
+<p>Closed captions are a separate text track that the viewer can switch on and off. Open captions are part of the picture itself: they are rendered into every frame, everyone sees them, and nobody can turn them off. Both count as captions for accessibility purposes; W3C's <a href="https://www.w3.org/WAI/WCAG22/Understanding/captions-prerecorded.html" target="_blank" rel="noopener">guidance on WCAG 1.2.2</a> explicitly accepts either. The real choice is about where the video will be watched and what you want viewers to be able to do with the text.</p>
+
+<h2>Where the names come from</h2>
+<p>The terms come from American television. In the 1970s, caption data was hidden in the broadcast signal (on what became known as line 21) and only appeared on sets with a decoder, so the captions were "closed" to everyone else. Open captions were simply printed on the picture for all viewers; PBS's <em>The French Chef</em> started carrying them in 1972. Our <a href="/blog/history-of-subtitles-silent-film-to-youtube-captions">history of subtitles</a> covers how one turned into the other.</p>
+<p>You will also see other names for the same idea. Open captions are often called burned-in, hardcoded or "hard subs"; closed captions are "soft subs" or simply a caption track. And captions are not quite the same as subtitles: captions are meant for viewers who can't hear the audio, so they include speaker labels and sounds like <code>[door slams]</code>, while subtitles traditionally translate the dialogue for viewers who can hear it. Either one can be open or closed.</p>
+
+<h2>What a closed caption track really is</h2>
+<p>A closed caption track is a text file with timings. On YouTube, when a creator uploads an SRT or VTT file, it becomes a track that viewers select with the CC button. When I downloaded the English track of "Me at the zoo", YouTube's first video, with FetchSubs, the first cue of the SRT file looked like this:</p>
+<pre class="code-sample">1
+00:00:01,200 --&gt; 00:00:03,360
+All right, so here we are, in front of the
+elephants</pre>
+<p>Because it's text, a lot follows from it. Viewers can change the font, size, colour and background (on a computer: <strong>Settings</strong>, <strong>Subtitles/CC</strong>, <strong>Options</strong>, as described on YouTube's <a href="https://support.google.com/youtube/answer/100078" target="_blank" rel="noopener">captions help page</a>). A video can carry a separate track for every language. The text appears in YouTube's transcript panel, and tools like <a href="/youtube-to-srt">FetchSubs</a> can save it as SRT, VTT or TXT. A viewer with low vision can make the captions bigger; a viewer who doesn't need them can hide them.</p>
+<p>The weakness is that closed captions depend on the player. If the video file is downloaded, re-uploaded somewhere else, or played in a player that ignores the track, the captions don't travel with it unless someone also moves the file.</p>
+
+<h2>What open captions are</h2>
+<p>Open captions are pixels. Once you export a video with burned-in captions, the text is part of the image in the same way as the background. That has real advantages: the captions show up on every platform and in every player, they survive downloads and re-shares, and you control exactly how they look and where they sit in the frame.</p>
+<p>It also has costs. Viewers can't turn them off, resize them or pick another language. You can't fix a typo without exporting the video again. And because the captions are no longer text, no tool can read them as text: FetchSubs downloads caption tracks, so a video whose only captions are burned in has nothing for it to download, unless YouTube has generated an automatic track from the audio.</p>
+
+<h2>Side by side</h2>
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; color: var(--text-muted);">
+    <tr style="border-bottom: 2px solid var(--glass-border); text-align: left;">
+        <th style="padding: 10px;"></th>
+        <th style="padding: 10px;">Closed captions</th>
+        <th style="padding: 10px;">Open captions</th>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Viewer can turn off</td>
+        <td style="padding: 10px;">Yes</td>
+        <td style="padding: 10px;">No</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Viewer can resize or restyle</td>
+        <td style="padding: 10px;">Yes, if the player allows it</td>
+        <td style="padding: 10px;">No</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Several languages</td>
+        <td style="padding: 10px;">One track per language</td>
+        <td style="padding: 10px;">One language per video file</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Works in any player</td>
+        <td style="padding: 10px;">Only where the track is supported and attached</td>
+        <td style="padding: 10px;">Yes</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Fixing a mistake</td>
+        <td style="padding: 10px;">Edit and re-upload the text file</td>
+        <td style="padding: 10px;">Re-export and re-upload the video</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px;">Text can be downloaded or searched</td>
+        <td style="padding: 10px;">Yes</td>
+        <td style="padding: 10px;">No</td>
+    </tr>
+</table>
+
+<h2>Making open captions from an SRT file</h2>
+<p>You need a caption file first. For a video that's already on YouTube, the quickest route is to download its existing track as SRT, correct it, and use that as the source. Then burn it in with your editor:</p>
+<ul>
+    <li><strong>DaVinci Resolve:</strong> import the SRT onto a subtitle track in the timeline. On the Deliver page, turn on <strong>Export Subtitle</strong> in the subtitle settings of the render settings and choose <strong>Burn into video</strong>.</li>
+    <li><strong>Premiere Pro:</strong> in the export settings, open the Captions section and choose <strong>Burn Captions Into Video</strong>. Adobe's <a href="https://helpx.adobe.com/premiere-pro/using/export-settings-reference-premiere-pro.html" target="_blank" rel="noopener">export settings reference</a> describes the option. If captions appear in an export where you didn't want them, check whether they are visible in the preview window and whether the caption track is switched on.</li>
+    <li><strong>FFmpeg:</strong> if you're comfortable on the command line, a build with libass (most common builds include it) can burn an SRT in one step:</li>
+</ul>
+<pre class="code-sample">ffmpeg -i input.mp4 -vf subtitles=captions.srt output.mp4</pre>
+<p>Our <a href="/blog/video-editor-guide-subtitles-davinci-resolve-premiere-pro">guide to subtitles in DaVinci Resolve and Premiere Pro</a> goes through the editor routes in more detail, including styling.</p>
+
+<h2>How I'd choose</h2>
+<p><strong>For the main video on YouTube, use closed captions.</strong> Viewers get control, you can add languages later, and fixing a mistake means re-uploading a small text file rather than the whole video. Burned-in captions on a YouTube upload also cause a specific problem: YouTube may still generate automatic captions from the audio, and a viewer who turns on CC then sees two layers of text, often on top of each other.</p>
+<p><strong>For short clips in social feeds, open captions are often the practical choice.</strong> Feeds tend to autoplay video with the sound off, and support for uploaded caption files differs from platform to platform and changes often. Burning the captions in guarantees they're seen. If a platform does accept a caption file, consider using that instead, since it keeps the viewer's control. Our guide to <a href="/blog/how-to-add-subtitles-instagram-reels-youtube-shorts">adding subtitles to Reels and Shorts</a> covers those formats.</p>
+<p><strong>For files you hand to someone else</strong>, such as a clip for a presentation or a video for a kiosk screen, open captions are safer, because you don't know which player will be used.</p>
+<p><strong>For accessibility, closed captions have the edge</strong> when the player supports them, because hard-of-hearing viewers with low vision can enlarge the text and nobody is stuck with a style that's hard to read. Open captions still satisfy WCAG; just make them large enough and give them a solid or semi-transparent background.</p>
+
+<h2>One caption file, both outputs</h2>
+<p>In practice you rarely have to pick just one. Keep a single corrected SRT as the master. Upload it to YouTube as a closed caption track, and burn the same file into the cut-down versions for social media. When you fix a mistake, fix it in the master first, so the two versions don't drift apart. If you are writing that master file from scratch, our <a href="/blog/why-subtitles-are-necessary-for-inclusivity">caption checklist for creators</a> covers what to include, and the <a href="/blog/digital-accessibility-law-wcag-video-transcripts-guide">guide to accessibility law for video</a> explains when captions are required rather than optional.</p>

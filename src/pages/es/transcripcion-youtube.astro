@@ -1,0 +1,189 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ToolWidget from '../../components/ToolWidget.astro';
+import Faq from '../../components/Faq.astro';
+import RelatedTools from '../../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../../data/landing';
+import type { FaqItem } from '../../data/site';
+
+const page = findLanding('es/transcripcion-youtube');
+
+const faqs: FaqItem[] = [
+  {
+    question: "¿Cómo obtener la transcripción de un video de YouTube?",
+    answer: "Copia el enlace del video, pégalo en el cuadro de la parte superior de esta página y pulsa Descargar. FetchSubs muestra todos los idiomas de subtítulos del video; haz clic en TXT junto al idioma que quieras para obtener el texto sin marcas de tiempo, o en SRT o VTT para descargar los subtítulos con tiempos.",
+  },
+  {
+    question: "¿La transcripción de YouTube con FetchSubs es gratis?",
+    answer: "Sí. FetchSubs es totalmente gratuito. No necesitas registrarte, instalar una extensión ni descargar ningún programa, y no hay límite de archivos.",
+  },
+  {
+    question: "¿Cómo descargar subtítulos de YouTube en SRT?",
+    answer: "Pega el enlace, pulsa Descargar, busca el idioma en la lista y haz clic en SRT. El archivo .srt se guarda con el nombre del video y el código de idioma, listo para abrir en Premiere Pro, DaVinci Resolve, CapCut o VLC.",
+  },
+  {
+    question: "¿Se pueden descargar los subtítulos automáticos de YouTube?",
+    answer: "Sí. Los subtítulos generados automáticamente por el reconocimiento de voz de YouTube aparecen junto a los subtítulos subidos por el creador, marcados con la etiqueta “(Automáticos)”. Puedes descargar ambos en SRT, VTT o TXT.",
+  },
+  {
+    question: "¿Puedo transcribir un video de YouTube que no tiene subtítulos?",
+    answer: "No con FetchSubs. La herramienta no transcribe el audio por sí misma; solo exporta las pistas de subtítulos que ya existen en YouTube. La mayoría de los videos con voz clara tienen subtítulos automáticos, pero si el creador los desactivó o el video es privado, no hay nada que descargar. En ese caso necesitas un programa de reconocimiento de voz.",
+  },
+  {
+    question: "¿Funciona la transcripción de YouTube Shorts?",
+    answer: "Sí. Puedes pegar enlaces de Shorts (youtube.com/shorts/...) igual que cualquier otro video. También funcionan los enlaces youtube.com/watch, youtu.be y los enlaces de inserción (embed).",
+  },
+  {
+    question: "¿Puedo descargar la transcripción desde el móvil?",
+    answer: "Sí. FetchSubs es una página web que funciona en el navegador, sin aplicaciones. Copia el enlace desde el botón Compartir de la app de YouTube, abre esta página en el navegador del teléfono, pégalo y descarga el archivo.",
+  },
+  {
+    question: "¿Qué hago si el video no tiene subtítulos en español?",
+    answer: "FetchSubs solo muestra los idiomas que el video tiene realmente y no traduce. Si no hay pista en español, puedes descargar la transcripción en el idioma original, por ejemplo en inglés, y traducirla después con la herramienta de traducción que prefieras.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"Transcripción de YouTube a Texto"}
+  fullTitle={"Transcripción de YouTube y Descargar Subtítulos | FetchSubs"}
+  description={"Pega un enlace de YouTube y descarga la transcripción o los subtítulos en SRT, VTT o TXT. Todos los idiomas, subtítulos automáticos incluidos. Gratis."}
+>
+<Breadcrumb name={"Transcripción de YouTube"} path={'/' + page.slug} homeName={"Inicio"} />
+
+<div class="hero">
+    <h1>Transcripción de YouTube a Texto</h1>
+    <p>Pega el enlace de un video de YouTube y descarga su transcripción o sus subtítulos en segundos, como <strong>SRT</strong>, <strong>VTT</strong> o texto plano <strong>TXT</strong>. Aparecen todos los idiomas que tenga el video, incluidos los subtítulos automáticos. Gratis, sin registro, sin extensiones ni instalaciones.</p>
+</div>
+
+<ToolWidget
+    placeholder={"Pega un enlace de YouTube, p. ej. https://www.youtube.com/watch?v=..."}
+    button={"Descargar"}
+    loading={"Obteniendo los datos del video y los subtítulos..."}
+    tracksHeading={"Subtítulos y transcripciones disponibles"}
+    duration={"Duración:"}
+    source={"Fuente:"}
+    watch={"Ver video"}
+    auto={"(Automáticos)"}
+    official={"(Oficiales)"}
+    networkError={"Error de red o servidor no disponible. Comprueba que el enlace de YouTube sea válido."}
+    downloadError={"Error de red durante la descarga. Inténtalo de nuevo."}
+    invalidUrl={"Eso no parece un enlace de YouTube. Pega un enlace de youtube.com, youtu.be o Shorts."}
+    noTracks={"Este video no tiene subtítulos ni subtítulos automáticos en YouTube."}
+/>
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">Cómo transcribir un video de YouTube a texto en 3 pasos</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Paso 1: Copia el enlace del video</h3>
+            <p>Abre el video en YouTube y copia la URL de la barra de direcciones o del botón Compartir. Sirven los enlaces normales, youtu.be, Shorts y de inserción.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Paso 2: Pégalo y pulsa Descargar</h3>
+            <p>FetchSubs lee el video y muestra todas sus pistas de subtítulos, indicando cuáles subió el creador y cuáles generó YouTube automáticamente.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Paso 3: Elige el formato</h3>
+            <p>Haz clic en SRT, VTT o TXT junto al idioma que necesites y el archivo se descarga al instante. Si solo quieres leer el texto, ábrelo en una pestaña nueva con RAW.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="formats-title">
+    <h2 class="section-title" id="formats-title">Transcripción de YouTube a texto: ¿qué formato elegir?</h2>
+    <p class="content-text">
+        Cada idioma de la lista se puede obtener de cuatro maneras distintas. La mejor opción depende de dónde vayas a usar la transcripción:
+    </p>
+    <p class="content-text">
+        <strong>SRT</strong> es el formato de subtítulos más compatible. Cada bloque va numerado y lleva su hora de inicio y de fin. Lo aceptan casi todos los editores de video,
+        reproductores y redes sociales, así que si buscas pasar de YouTube a SRT, esta es la opción indicada.
+    </p>
+    <div class="code-sample" set:html={`1
+00:00:01,200 --&gt; 00:00:03,900
+Hola a todos, en el video de hoy
+
+2
+00:00:03,900 --&gt; 00:00:06,450
+les explico cómo hacer pan de masa madre en casa.`} />
+    <p class="content-text">
+        <strong>VTT (WebVTT)</strong> es muy parecido al SRT, pero está pensado para la web. Úsalo cuando añadas subtítulos a un reproductor HTML5 en tu propio sitio o a una plataforma de cursos en línea.
+    </p>
+    <p class="content-text">
+        <strong>TXT</strong> elimina por completo las marcas de tiempo y deja solo lo que se dice, línea por línea. Es el formato más práctico para tomar apuntes, pegar el texto en un documento
+        o llevarlo a una herramienta de inteligencia artificial. El mismo fragmento en TXT se ve así:
+    </p>
+    <div class="code-sample" set:html={`Hola a todos, en el video de hoy
+les explico cómo hacer pan de masa madre en casa.`} />
+    <p class="content-text">
+        <strong>RAW</strong> abre ese mismo texto limpio en una pestaña nueva del navegador, sin descargar ningún archivo. Es útil para leerlo rápido o seleccionar y copiar solo una parte.
+        Si quieres más detalles sobre cada formato, consulta nuestras páginas en inglés <a href="/youtube-to-srt">YouTube to SRT</a> y <a href="/youtube-to-text">YouTube to Text</a>.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="who-title">
+    <h2 class="section-title" id="who-title">¿Para qué sirve descargar la transcripción de YouTube?</h2>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>Estudiantes</h3>
+            <p>Convierte clases, conferencias y tutoriales en texto para hacer resúmenes, subrayar lo importante y repasar antes del examen sin volver a ver el video entero.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Creadores de contenido</h3>
+            <p>Descarga los subtítulos automáticos de tus propios videos, corrígelos y reutilízalos como artículo de blog, newsletter o publicación en redes sociales.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Editores de video</h3>
+            <p>Importa el archivo SRT en Premiere Pro, DaVinci Resolve, Final Cut Pro o CapCut para añadir subtítulos sin tener que escribirlos de nuevo.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Estudiantes de idiomas</h3>
+            <p>Usa la transcripción de videos en inglés, francés o alemán para estudiar vocabulario en contexto y seguir las frases mientras escuchas el audio.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Investigadores y periodistas</h3>
+            <p>Busca palabras clave dentro de entrevistas, debates y noticias, cita con precisión y mantén tus fuentes organizadas en texto.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Accesibilidad</h3>
+            <p>Ofrece subtítulos y una versión en texto a personas sordas o con dificultades auditivas cuando insertas o vuelves a publicar un video.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="youtube-title">
+    <h2 class="section-title" id="youtube-title">La transcripción en YouTube frente a FetchSubs</h2>
+    <p class="content-text">
+        YouTube también permite ver la transcripción: en la versión de escritorio, despliega la descripción del video y pulsa <strong>“Mostrar transcripción”</strong>. Se abre un panel con el texto
+        y sus marcas de tiempo, pero no ofrece ningún archivo. Para quedarte con el texto tienes que seleccionar y copiar a mano una lista larga, con los tiempos mezclados entre las frases,
+        y en la aplicación móvil no hay forma de guardarlo como archivo.
+    </p>
+    <p class="content-text">
+        FetchSubs convierte esas mismas pistas en archivos listos para usar: TXT para el texto limpio sin tiempos, SRT o VTT para subtítulos sincronizados. Todos los idiomas aparecen en una
+        sola lista y los subtítulos automáticos se descargan igual que los oficiales, por eso es una forma rápida de conseguir una transcripción de YouTube gratis. La transcripción de Shorts funciona
+        exactamente igual; encontrarás más detalles en la página en inglés <a href="/youtube-shorts-transcript">YouTube Shorts Transcript</a>. También puedes usar la
+        <a href="/">herramienta de la página principal</a> para descargar subtítulos de YouTube en cualquier idioma.
+    </p>
+    <p class="content-text">
+        <strong>¿Subtítulos automáticos u oficiales?</strong> Las pistas marcadas como “(Oficiales)” las subió el propio creador y suelen tener mejor puntuación y ortografía.
+        Las marcadas como “(Automáticos)” las genera el reconocimiento de voz de YouTube: funcionan bien cuando se habla con claridad, pero pueden faltar signos de puntuación
+        y fallar en nombres propios o términos técnicos. Revisa el texto antes de usarlo en un trabajo, un artículo o como subtítulos publicados.
+    </p>
+    <div class="landing-note">
+        <strong>¿Y si el video no tiene transcripción?</strong> FetchSubs no transcribe el audio por sí mismo: solo exporta las pistas de subtítulos que ya existen en YouTube.
+        La mayoría de los videos con voz clara tienen subtítulos automáticos generados por YouTube. Pero si el creador los desactivó, si el video es muy reciente y los subtítulos automáticos
+        aún no están listos, o si el video es privado, la lista aparecerá vacía. En ese caso tendrás que recurrir a un programa de reconocimiento de voz (speech-to-text).
+    </div>
+</section>
+
+<Faq items={faqs} heading={"Preguntas frecuentes"} />
+
+<RelatedTools current={page.slug} heading={"Más herramientas gratuitas (en inglés)"} />
+</Layout>

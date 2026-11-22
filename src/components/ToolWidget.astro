@@ -1,0 +1,79 @@
+---
+// Shared YouTube subtitle tool (search box + result card). Used by the homepage and every landing page.
+// All text props are optional; pass them to localize the widget.
+interface Props {
+  placeholder?: string;
+  button?: string;
+  loading?: string;
+  tracksHeading?: string;
+  duration?: string;
+  source?: string;
+  watch?: string;
+  auto?: string;
+  official?: string;
+  networkError?: string;
+  downloadError?: string;
+  invalidUrl?: string;
+  noTracks?: string;
+}
+const {
+  placeholder = 'Paste a YouTube link, e.g. https://www.youtube.com/watch?v=...',
+  button = 'Download',
+  loading = 'Fetching video details and subtitles...',
+  tracksHeading = 'Available Subtitle Tracks',
+  duration = 'Duration:',
+  source = 'Source:',
+  watch = 'Watch Video',
+  auto = '(Auto-generated)',
+  official = '(Official)',
+  networkError = 'Network error or server unavailable. Please ensure the URL is valid.',
+  downloadError = 'Network error during download. Please try again.',
+  invalidUrl = 'That does not look like a YouTube link. Paste a youtube.com, youtu.be or Shorts URL.',
+  noTracks = 'This video has no subtitles or auto-generated captions on YouTube.',
+} = Astro.props;
+---
+<div class="search-box" id="fetchsubs-tool"
+     data-label-auto={auto}
+     data-label-official={official}
+     data-label-network-error={networkError}
+     data-label-download-error={downloadError}
+     data-label-invalid-url={invalidUrl}
+     data-label-no-tracks={noTracks}>
+  <label for="videoUrl" class="visually-hidden">YouTube video URL</label>
+  <input type="url" id="videoUrl" inputmode="url" autocomplete="off" placeholder={placeholder} />
+  <button id="fetchBtn" type="button">{button}</button>
+</div>
+
+<div id="loading-container">
+  <div class="progress-bg">
+    <div class="progress-fill" style="width: 100%;"></div>
+  </div>
+  <p style="text-align: center; margin-top: 1rem; color: var(--text-muted);">{loading}</p>
+</div>
+
+<div id="result-container" class="video-card">
+  <div class="video-info">
+    <img id="vid-thumb" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" alt="Video thumbnail" class="video-thumb" width="320" height="180" />
+    <div class="video-content">
+      <p id="vid-title" class="vid-title"></p>
+      <div id="vid-author" class="author"></div>
+      <div class="meta">
+        <span><strong style="color:white">{duration}</strong> <span id="vid-duration"></span></span>
+        <span><strong style="color:white">{source}</strong> <a href="#" id="vid-link" target="_blank" rel="noopener nofollow" style="color: var(--accent-primary);">{watch}</a></span>
+      </div>
+      <p id="vid-desc" style="font-size: 0.9rem; color: var(--text-muted);"></p>
+    </div>
+  </div>
+
+  <div class="subs-section">
+    <h3 style="margin-bottom: 1rem;">{tracksHeading}</h3>
+    <div id="subs-grid" class="subs-grid"></div>
+  </div>
+</div>
+
+<div id="error-message" role="alert" style="display:none; color: #ff6b6b; text-align: center; margin-top: 2rem;"></div>
+
+<script>
+  import { initTool } from '../lib/tool';
+  initTool();
+</script>

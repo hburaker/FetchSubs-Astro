@@ -1,0 +1,62 @@
+---
+title: "Adding Translated Subtitles to Your Own YouTube Videos"
+summary: "For creators: prepare a clean source SRT, get it translated without breaking the timing, upload it in YouTube Studio, and translate titles too."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 13
+---
+<p>This guide is for creators who want to add subtitles in other languages to their own channel. The workflow is: fix your original-language captions first, export them as an SRT file, have the text translated while keeping the timestamps intact, upload each translation as a new language in YouTube Studio, and translate the title and description at the same time. Each step has one or two traps, and they're covered below.</p>
+<p>One boundary before we start: this is about your own videos. Translating someone else's video and publishing the subtitles is a different matter, because a translation is a derivative work that the owner controls. See <a href="/blog/copyright-youtube-subtitles-what-you-can-do">copyright and YouTube subtitles</a> for that.</p>
+
+<h2>Why bother, when YouTube can auto-translate?</h2>
+<p>YouTube's player can machine-translate captions for viewers on the fly. That's better than nothing, but you have no say in the quality, and it translates whatever is in the source track, including the mistakes. If your original-language captions are automatic and get your product name wrong, every machine translation will get it wrong too, in its own way.</p>
+<p>An uploaded translation is a track you control. It also comes with something auto-translation doesn't: YouTube says on its <a href="https://support.google.com/youtube/answer/4792576" target="_blank" rel="noopener">translation tools page</a> that viewers who speak other languages can find and watch your videos with subtitles, and that translated titles and descriptions can show up in YouTube search for viewers who speak those languages. That second point is easy to miss: the subtitles help people who've found the video; the translated title is what helps them find it.</p>
+
+<h2>Step 1: Get a clean source file</h2>
+<p>A translation is only as good as the text it starts from. If your video has captions you uploaded or corrected yourself, start from those. If it only has YouTube's automatic captions, correct them first, in YouTube Studio's editor or in a subtitle editor, because errors multiply once they're translated into several languages. I've written up <a href="/blog/youtube-auto-generated-subtitles-accuracy">where automatic captions usually go wrong</a> as a checklist.</p>
+<p>To get the file, paste your video's link into FetchSubs and download the track as SRT. The tool lists every caption track the video has and marks the automatic ones, so make sure you pick your own track rather than the automatic one if both exist. The <a href="/youtube-to-srt">YouTube to SRT</a> page does exactly this. You get a file like this:</p>
+<pre class="code-sample">1
+00:00:01,200 --&gt; 00:00:03,360
+All right, so here we are, in front of the
+elephants
+
+2
+00:00:05,318 --&gt; 00:00:07,974
+the cool thing about these guys is that they
+have really...</pre>
+<p>That is the opening of "Me at the zoo", the first video uploaded to YouTube, downloaded with FetchSubs. It's a useful example because the video carries two uploaded tracks, English and German, and that's exactly how your translated tracks will look to anyone who checks your video later.</p>
+<p>Why SRT rather than plain text? Because the timing lines are already in it. If you send a translator plain text, someone has to put it back into cues afterwards, and that's where lines drift out of sync.</p>
+
+<h2>Step 2: Translate without breaking the file</h2>
+<p>Whoever translates, whether a person, a machine translation service or both, the rules for the file are the same:</p>
+<ul>
+    <li>Translate only the text lines. The cue numbers and the <code>00:00:01,200 --&gt; 00:00:03,360</code> lines must stay exactly as they are.</li>
+    <li>Keep the blank line between cues. Some editors and online forms collapse blank lines, and the file stops parsing.</li>
+    <li>Save as plain UTF-8. YouTube's <a href="https://support.google.com/youtube/answer/2734698" target="_blank" rel="noopener">supported file formats</a> page says SRT files must be plain UTF-8 and that style markup isn't recognised. This matters for languages with characters outside basic Latin, Turkish included: a file saved in an old regional encoding shows up as garbage.</li>
+    <li>Watch the length. A translation often runs longer than the original, but the cue still lasts the same time. Netflix's <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/217350977-English-Timed-Text-Style-Guide" target="_blank" rel="noopener">English timed text style guide</a> caps lines at 42 characters and reading speed at 20 characters per second for adult programmes; YouTube doesn't enforce those numbers, but they're a sensible yardstick. If a translated line is too long to read in time, shorten the wording rather than the timing.</li>
+</ul>
+<p>On choosing a method: machine translation is fast and fine for a first draft in widely used language pairs. For anything you care about, have a fluent speaker review it, ideally someone who knows your subject, because machine translation tends to stumble on jargon, jokes and on-screen references. Many professional translation tools can open SRT files directly and protect the timing lines for you, which removes the most common failure. A free desktop subtitle editor is handy for checking the result line by line against the video before you upload.</p>
+
+<h2>Step 3: Upload the translation in YouTube Studio</h2>
+<p>The steps on YouTube's <a href="https://support.google.com/youtube/answer/2734796" target="_blank" rel="noopener">Add subtitles and captions</a> help page are:</p>
+<ol>
+    <li>Sign in to YouTube Studio and choose <strong>Subtitles</strong> from the left menu.</li>
+    <li>Select the video.</li>
+    <li>Click <strong>Add language</strong> and pick the language of your translation.</li>
+    <li>Under <strong>Subtitles</strong>, click <strong>Add</strong>.</li>
+    <li>Choose <strong>Upload file</strong>, then <strong>With timing</strong>, and continue.</li>
+    <li>Choose your translated SRT file and save.</li>
+</ol>
+<p>Pick the language carefully: a Portuguese file labelled as Spanish will be shown to the wrong viewers. If the video doesn't have a language set yet, Studio asks for one first; that's the original language, not the translation.</p>
+<p>Then play the video with the new track switched on and skim through it. Look at the first and last few cues, and at any long passage, since that's where timing problems show up.</p>
+
+<h2>Step 4: Translate the title and description too</h2>
+<p>On the same Subtitles screen, each language has a <strong>Title and description</strong> column. YouTube's <a href="https://support.google.com/youtube/answer/6289575" target="_blank" rel="noopener">help page on translated titles and descriptions</a> describes the steps. This is the part that gets the video in front of viewers searching in that language, so don't leave it out once the subtitles are done. Keep the translated title natural; a word-for-word translation of an English title packed with keywords usually reads badly.</p>
+
+<h2>Step 5: Check it from the outside</h2>
+<p>Once it's published, paste the video link into FetchSubs again. You should see your new language listed alongside the original, without the automatic label. If you don't, go back to the Subtitles page in Studio and check that the track was actually published. This is also a quick way to audit a whole set of videos one by one: what languages each one actually has, and whether any still rely only on automatic captions.</p>
+
+<h2>Which languages first</h2>
+<p>Start with the languages your viewers already speak. YouTube Analytics shows where your audience is; if a meaningful share comes from one country or region, subtitles in that language serve people who are already watching. After that, pick languages where you can get a fluent reviewer. One good translation that a native speaker has checked is worth more than five unchecked ones. And start with videos that keep getting views, such as tutorials and evergreen explainers, rather than your newest upload.</p>

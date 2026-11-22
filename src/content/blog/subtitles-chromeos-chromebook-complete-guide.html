@@ -1,0 +1,54 @@
+---
+title: "YouTube Subtitles on a Chromebook: Download and Use Them"
+summary: "Download YouTube captions on a Chromebook as SRT, VTT or TXT, watch a video with an SRT via Google Drive, and when Live Caption is the better option."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 17
+---
+<p>Getting YouTube subtitles onto a Chromebook is easy: FetchSubs runs in Chrome like any other website, and the SRT, VTT or TXT file lands in the Downloads folder of the Files app. Using that file afterwards needs a little more thought than on Windows or macOS, where you'd simply open the video in a desktop player and point it at the subtitle file. This post covers both halves, plus Live Caption, which is sometimes the better answer.</p>
+
+<h2>Downloading the subtitles</h2>
+<ol>
+    <li>Copy the YouTube link from Chrome's address bar (or from the Share button under the video).</li>
+    <li>Open fetchsubs.com in a new tab, paste the link into the box and press <strong>Download</strong> or Enter.</li>
+    <li>A list of the video's caption tracks appears. Each row shows the language and whether it is <strong>(Official)</strong>, meaning uploaded by the creator, or <strong>(Auto-generated)</strong> by YouTube's speech recognition.</li>
+    <li>Click <strong>SRT</strong>, <strong>VTT</strong> or <strong>TXT</strong> on the row you want. Or click <strong>RAW</strong> to read the text in a new tab without saving anything.</li>
+</ol>
+<p>Chrome saves the file to <strong>Downloads</strong>, which you'll find in the left-hand list of the Files app. The name is built from the video title and the language code, such as <code>Me_at_the_zoo_en.srt</code>, with <code>_auto</code> added for auto-generated tracks.</p>
+<p>Which format? SRT if the captions are going onto a video, VTT if you're putting a video on a web page, TXT if you only need the words. The <a href="/blog/srt-vtt-txt-subtitle-format-comparison-guide">SRT vs VTT vs TXT post</a> shows real samples of each.</p>
+<p>If the Chromebook belongs to a school or an employer, the administrator decides which sites you can open and whether downloads are allowed. If the file won't save on a managed device, that is usually a policy setting rather than a problem with the file.</p>
+
+<h2>Watching a video with an SRT file</h2>
+<p>This is where Chromebooks differ from other laptops. Google's Chromebook Help doesn't describe a way to load a separate subtitle file into the built-in Gallery app, so I wouldn't plan around it. Two routes are documented and work on any Chromebook that can run them.</p>
+
+<h3>Option 1: Add the SRT as a caption track in Google Drive</h3>
+<p>Google Drive can attach caption files to videos you've uploaded, and on a Chromebook Drive is never far away. According to Google's help page on <a href="https://support.google.com/drive/answer/1372218" target="_blank" rel="noopener">adding caption tracks to your video files</a>, the steps on drive.google.com are:</p>
+<ol>
+    <li>Upload the video to Drive if it isn't there already.</li>
+    <li>Right-click the video, open <strong>File information</strong> and choose <strong>Manage caption tracks</strong>.</li>
+    <li>Click <strong>Add new caption tracks</strong>, then <strong>Select file</strong>, and pick the SRT from Downloads.</li>
+    <li>Set the language and a name for the track, then click <strong>Upload</strong>.</li>
+</ol>
+<p>Drive accepts both SubRip (.srt) and WebVTT (.vtt). A few limits from the same page: the caption file has to be under 2&nbsp;MB, SRT files have to be plain UTF-8, and the captions belong to that version of the video, so uploading a new version removes them. A subtitle file for even a long talk is normally far below 2&nbsp;MB, because it is only text.</p>
+<p>This only makes sense if the video file is actually yours or you have the right to keep a copy of it. If you're just watching something on YouTube, you don't need a file at all: the CC button in YouTube's player shows the same captions.</p>
+
+<h3>Option 2: An Android video player</h3>
+<p>Many Chromebooks can install Android apps from Google Play, but not all of them, and school or work devices may have it turned off (see <a href="https://support.google.com/chromebook/answer/7021273" target="_blank" rel="noopener">Install &amp; use Android apps on your Chromebook</a>). If your device has the Play Store, you can install a video player that supports external subtitle files and open the video and the SRT from there. Support for separate subtitle files varies between apps and versions, so check the app's description before you rely on it, and keep the video and the SRT in the same folder with the same base name (<code>lecture.mp4</code> and <code>lecture.srt</code>), which is the convention most players look for.</p>
+
+<h2>Live Caption: captions for things that don't have any</h2>
+<p>ChromeOS has its own captioning feature, Live Caption, which turns speech into captions as it plays and shows them in a small box. Google's Chromebook Help describes it as creating captions for audio and video played in the Chrome browser, so YouTube and other video you watch in a browser tab are covered. To turn it on (from <a href="https://support.google.com/chromebook/answer/10616170" target="_blank" rel="noopener">Use captions on your Chromebook</a>):</p>
+<ol>
+    <li>Select the time at the bottom right of the screen.</li>
+    <li>Select <strong>Settings</strong>, then <strong>Accessibility</strong>.</li>
+    <li>Under <em>Audio and captions</em>, select <strong>Captions</strong>.</li>
+    <li>Turn on <strong>Live Caption</strong>.</li>
+</ol>
+<p>If that switch isn't there, Google says the feature isn't supported on your device yet. In the same menu you can change the caption font size, and you can drag the caption box to another part of the screen. Google's Chrome help also says that the audio and captions for Live Caption are processed locally and never leave the device, which is worth knowing if you're captioning something private (<a href="https://support.google.com/chrome/answer/10538231" target="_blank" rel="noopener">Manage captions and translations in Chrome</a>). Menu names move around between ChromeOS releases, so if the steps don't match, search Settings for "captions".</p>
+
+<h2>Live Caption or a downloaded file?</h2>
+<p>They solve different problems, and on a Chromebook it's easy to end up using both.</p>
+<p>Live Caption is for watching. It works on things that have no captions of their own, and you don't have to do anything per video once it's switched on. But the captions scroll past and are gone; you can't search them, quote them or keep them.</p>
+<p>A downloaded file is for working with the text. A TXT transcript can go into Google Docs for notes, an SRT can go onto a video you're editing, and either one stays on the Chromebook after the video is gone. The catch is that FetchSubs can only download captions that already exist on YouTube. It doesn't listen to the audio, so for a video with no caption tracks, Live Caption is the tool that will give you something.</p>
+<p>If you mostly want transcripts for study, the <a href="/youtube-transcript">YouTube transcript</a> page and the post on <a href="/blog/how-to-get-transcript-of-youtube-video">getting a transcript of a YouTube video</a> cover that use in more detail.</p>

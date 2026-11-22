@@ -1,0 +1,76 @@
+---
+title: "Using YouTube Studio's Built-In Subtitle Editor"
+summary: "How to fix auto-generated captions, edit timings and add a new language in YouTube Studio, and when editing an SRT on your computer is quicker."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 23
+---
+<p>YouTube Studio has its own subtitle editor, and for small fixes it's the quickest place to correct captions on your own videos: open <strong>Subtitles</strong> in the left menu, pick the video, and edit the track in the browser. For automatic captions you first make an editable copy with <strong>Duplicate and edit</strong>. For long transcripts with lots of errors, downloading the file, fixing it in a text editor and uploading it again is usually faster.</p>
+<p>The steps below follow YouTube's own help pages, linked in each section, because Studio's layout changes now and then. If a button has moved, the help page is the place to check.</p>
+
+<h2>What auto-generated captions usually get wrong</h2>
+<p>It helps to know what you're looking for before you start editing. Here are the first lines of the auto-generated English track of Steve Jobs' 2005 Stanford commencement address, exported to SRT with FetchSubs:</p>
+<pre class="code-sample">2
+00:00:07,520 --&gt; 00:00:11,880
+this program is brought to you by
+
+3
+00:00:08,960 --&gt; 00:00:14,880
+Stanford University please visit us at
+
+...
+
+5
+00:00:20,519 --&gt; 00:00:23,519
+thank
+
+6
+00:00:26,080 --&gt; 00:00:30,400
+you I'm uh honored to be with you today</pre>
+<p>The recognition itself is good here; the words are right. The problems are typical, though. There is almost no punctuation, filler words like "uh" are kept, "thank you" is split across two captions several seconds apart, and the timings overlap (block 3 starts before block 2 ends). YouTube's help page on automatic captions says plainly that they "might misrepresent the spoken content" because of accents, dialects or background noise, and advises creators to review them (<a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">Use automatic captioning</a>). In practice the things to check first are names, technical terms, numbers, and any sentence that spans several captions.</p>
+<p>For a longer look at where auto captions go wrong, see <a href="/blog/youtube-auto-generated-subtitles-accuracy">how accurate YouTube's auto-generated subtitles are</a>.</p>
+
+<h2>Opening the editor</h2>
+<p>According to YouTube Help (<a href="https://support.google.com/youtube/answer/2734705" target="_blank" rel="noopener">Edit or remove captions</a>):</p>
+<ol>
+    <li>Sign in to YouTube Studio.</li>
+    <li>Select <strong>Subtitles</strong> from the left menu.</li>
+    <li>Click the video you want to work on.</li>
+    <li>Find the language in the Subtitles column and click <strong>Edit</strong>.</li>
+</ol>
+<p>Automatic captions can't be edited in place. Choose <strong>Duplicate and edit</strong>, then <strong>Continue</strong>. YouTube creates a new caption track that includes your changes. The help page warns that continuing overwrites any draft you already have for that language, so if you've started edits earlier, finish or publish those first.</p>
+
+<h2>Fixing text and timing</h2>
+<p>Click into the caption text and type your correction. If you don't see timestamps next to the captions, click <strong>Edit timings</strong> to show them and adjust when each caption appears and disappears.</p>
+<p>A few habits make this go faster:</p>
+<ul>
+    <li>Play the video and fix captions as they come up, rather than reading the text cold. Errors in names and jargon are much easier to hear than to spot.</li>
+    <li>When a sentence is split oddly, like "thank" / "you" above, move the stray word into the neighbouring caption rather than leaving a one-word caption on screen.</li>
+    <li>Keep each caption short enough to read comfortably. If you add punctuation and the line grows long, split it.</li>
+</ul>
+<p>When you're done, click <strong>Publish</strong> to make the changes live. There is no reason to wait for a perfect pass; you can come back and edit the track again later.</p>
+
+<h2>Adding a new language</h2>
+<p>For a language the video doesn't have yet, YouTube Help (<a href="https://support.google.com/youtube/answer/2734796" target="_blank" rel="noopener">Add subtitles &amp; captions</a>) describes this route: on the video's Subtitles page click <strong>Add language</strong>, choose the language, then click <strong>Add</strong> under Subtitles. You then pick one of three methods:</p>
+<ul>
+    <li><strong>Upload file</strong>, choosing <em>With timing</em> for a subtitle file such as SRT or VTT, or <em>Without timing</em> for a plain transcript.</li>
+    <li><strong>Auto-sync</strong>: paste or upload a transcript and YouTube works out the timing, which can take a few minutes. The text has to be in the language spoken in the video, and the help page says it isn't recommended for videos over an hour or with poor audio.</li>
+    <li><strong>Type manually</strong>: play the video and type captions as you go; the timings are set automatically. The help page lists a set of keyboard shortcuts for this mode, such as seeking back or forward a second, pausing, and moving between subtitles. Check the page for the exact keys rather than guessing.</li>
+</ul>
+<p>For a translation, the upload route usually gives the best result: export the corrected track in the original language, translate it (by hand, with a translator, or with machine translation that a fluent speaker checks), and upload it <em>With timing</em>. Because the timings come along with the file, the translated captions line up with the video. The post on <a href="/blog/how-to-translate-youtube-subtitles">translating YouTube subtitles</a> goes through that process.</p>
+
+<h2>When to edit outside Studio instead</h2>
+<p>The browser editor is fine for a handful of fixes. It gets slow when the same mistake appears forty times, say a guest's surname that the speech recognition never gets right. A text editor's find-and-replace fixes that everywhere in one go.</p>
+<p>For that round trip you need the captions as a file. For your own videos, Studio can give it to you: <strong>Options</strong>, then <strong>Download subtitles</strong>. YouTube Help also mentions this as the way to change timing on automatic captions: download the file and upload it again. FetchSubs works too if you prefer it; paste the video link, pick the auto-generated or official track, and download SRT. Either way:</p>
+<ol>
+    <li>Open the SRT in a plain text editor (not a word processor, which can add formatting).</li>
+    <li>Fix names and terms with find-and-replace, then read through for punctuation and odd splits.</li>
+    <li>Don't touch the numbered lines or the <code>--&gt;</code> timing lines unless you mean to change the timing, and keep the blank line between blocks.</li>
+    <li>Save as UTF-8 and upload it with <strong>Upload file</strong> &gt; <em>With timing</em>.</li>
+</ol>
+<p>If you want to nudge every caption earlier or later by the same amount, that's also easier on the file than in the browser. The post on <a href="/blog/fix-subtitle-timing-errors-srt-sync-adjustment-guide">fixing subtitle timing in SRT files</a> covers how.</p>
+
+<h2>Which to use</h2>
+<p>Use Studio's editor when the auto captions are mostly right and you're fixing a few words, or when you want to check how the captions look over the video before publishing. Download and edit the file when there are many repeated errors, when you're translating, or when you want a copy of the corrected captions for other platforms. A clean SRT kept on your own disk is also a backup that doesn't depend on YouTube.</p>

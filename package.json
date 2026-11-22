@@ -1,0 +1,21 @@
+{
+  "name": "fetchsubs-astro",
+  "type": "module",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "wrangler pages dev dist --port 8788",
+    "deploy": "astro build && wrangler pages deploy dist"
+  },
+  "dependencies": {
+    "astro": "^7.4.13"
+  },
+  "devDependencies": {
+    "wrangler": "^4.166.0"
+  },
+  "engines": {
+    "node": ">=22.23.4"
+  }
+}

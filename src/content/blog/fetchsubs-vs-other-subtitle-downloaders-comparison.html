@@ -1,0 +1,85 @@
+---
+title: "FetchSubs vs Other Ways to Get YouTube Subtitles"
+summary: "When FetchSubs is the right tool and when YouTube itself, yt-dlp, a multi-site downloader or an AI transcript site will serve you better."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-18"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 18
+---
+<p>FetchSubs does one thing: you paste a YouTube link, it lists every caption track the video has, and you download one as SRT, VTT or TXT, or read it as RAW text in a new tab. It runs in the browser, needs no account and costs nothing. It doesn't work with other video sites, download whole playlists, translate, summarise, or transcribe videos that have no captions. If you need any of those, another tool will suit you better, and this post tries to say which.</p>
+<p>A disclosure first: I built FetchSubs, so read this with that in mind. To keep it fair I've only described other tools from their own pages or documentation, as they read in November 2026. Sites change their features and plans often, so check before you rely on any detail here.</p>
+
+<h2>YouTube itself</h2>
+<p>Before reaching for any downloader, it's worth knowing what YouTube already gives you.</p>
+<p><strong>The transcript panel.</strong> Many videos have a transcript you can open from the video description. It scrolls with the video, and clicking a line jumps to that moment (YouTube Help: <a href="https://support.google.com/youtube/answer/15930243" target="_blank" rel="noopener">View video transcripts</a>). If you only want to read along or find a spot in a long video, that is all you need, and nothing leaves YouTube.</p>
+<p><strong>Your own videos in YouTube Studio.</strong> If the video is on your channel, Studio lets you download its captions: on the Subtitles page, open the language, then <strong>Options</strong> and <strong>Download subtitles</strong> (<a href="https://support.google.com/youtube/answer/2734705" target="_blank" rel="noopener">Edit or remove captions</a>). No third-party tool needed.</p>
+<p><strong>Auto-translated subtitles.</strong> YouTube can show machine-translated subtitles in the player, and its help pages refer to "auto-translated subtitles" alongside automatic captions. FetchSubs doesn't offer these. It lists the caption tracks the video actually has and nothing else, so if a video only has English captions, FetchSubs will only show English.</p>
+<p>Where YouTube falls short is getting the text out. The transcript panel is for reading on YouTube, and Studio only works for videos you own. That gap, any public video to a file, is what FetchSubs and the tools below fill.</p>
+
+<h2>yt-dlp, for bulk and automation</h2>
+<p><a href="https://github.com/yt-dlp/yt-dlp" target="_blank" rel="noopener">yt-dlp</a> is a free, open-source command-line downloader. Despite the name it handles a long list of sites, and it can download subtitles without the video. A command like this saves the English subtitles of a video, including the auto-generated track, and converts them to SRT:</p>
+<pre class="code-sample">yt-dlp --skip-download --write-subs --write-auto-subs --sub-langs en --convert-subs srt "VIDEO_URL"</pre>
+<p>Those options come straight from its README: <code>--write-subs</code> and <code>--write-auto-subs</code> pick the manual and automatic tracks, <code>--sub-langs</code> accepts a list or <code>all</code>, <code>--skip-download</code> leaves the video itself alone, and <code>--convert-subs</code> currently converts to ASS, LRC, SRT or VTT (conversion uses FFmpeg, so install that too). It also works on playlists, which is the thing FetchSubs can't do.</p>
+<p>For anyone comfortable in a terminal, yt-dlp is the better tool for more than a handful of videos, for scripts, and for sites other than YouTube. It also runs on your own computer, so no website sees which videos you look up. The trade-off is setup: Python or a standalone binary, FFmpeg for conversion, and updates when YouTube changes something. For one video on a phone or a school Chromebook, that is a lot of overhead.</p>
+
+<h2>Other web downloaders</h2>
+<p>There are several sites that work the way FetchSubs does: paste a link, pick a language and a format. Some cover far more than YouTube. <a href="https://downsub.com/" target="_blank" rel="noopener">DownSub</a>, for example, says on its homepage that it works with YouTube and more than 50 other video sites, and offers SRT, VTT and TXT. If your videos come from somewhere other than YouTube, a multi-site tool like that is the obvious choice, because FetchSubs only understands YouTube links.</p>
+<p>For YouTube captions, the differences between these sites are mostly practical: how many steps there are, how many ads, whether manual and auto-generated tracks are clearly told apart, whether there is a paid tier. Try one on a video you know and see whether the output is what you expect.</p>
+
+<h2>AI transcript and summary sites</h2>
+<p>A newer group of sites builds AI features on top of the transcript. NoteGPT's YouTube transcript page, for example, advertises AI summarisation next to the transcript and a TXT download, with free and premium options. If what you actually want is a summary, a site like that saves a step.</p>
+<p>FetchSubs deliberately stops at the text. My reasoning: the transcript is the part you can check, and once you have it you can paste it into whichever assistant you already use and ask your own questions. The post on <a href="/blog/summarize-youtube-video-with-chatgpt-claude">summarising a YouTube video with ChatGPT or Claude</a> shows that workflow, and the <a href="/youtube-transcript-for-chatgpt">transcript for ChatGPT</a> page explains which format to copy. Whether that extra step is worth it is up to you.</p>
+
+<h2>Speech-to-text services, for videos without captions</h2>
+<p>Every tool above, FetchSubs included, depends on captions that already exist on YouTube. When a video has none, there is nothing to download, whichever site you try. The only way to get text then is a transcription service or model that listens to the audio itself. Those cost time or money, but they are the only real option for a video with no caption tracks. The post on <a href="/blog/youtube-transcript-not-available">transcripts that aren't available</a> explains why some videos have no captions at all.</p>
+
+<h2>Accuracy: mostly the same everywhere</h2>
+<p>For downloaders that fetch YouTube's own captions, the words come from the same place, so no downloader is "more accurate" than another. What decides quality is the track you pick. A track the creator uploaded is usually clean. An auto-generated one is machine output, and YouTube's own help page warns that automatic captions "might misrepresent the spoken content" because of accents, dialects or background noise (<a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">Use automatic captioning</a>). Where tools differ is formatting: line breaks, file names, how the two kinds of track are labelled.</p>
+<p>FetchSubs labels every row as <strong>(Official)</strong> or <strong>(Auto-generated)</strong> and adds <code>_auto</code> to the file name of auto-generated downloads, because mixing the two up is the most common way to end up with a worse transcript than you needed.</p>
+
+<h2>Side by side</h2>
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; color: var(--text-muted);">
+    <tr style="border-bottom: 2px solid var(--glass-border); text-align: left;">
+        <th style="padding: 10px;"></th>
+        <th style="padding: 10px;">FetchSubs</th>
+        <th style="padding: 10px;">YouTube transcript panel</th>
+        <th style="padding: 10px;">yt-dlp</th>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Install needed</td>
+        <td style="padding: 10px;">No, browser only</td>
+        <td style="padding: 10px;">No</td>
+        <td style="padding: 10px;">Yes, plus FFmpeg to convert</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Sites</td>
+        <td style="padding: 10px;">YouTube only</td>
+        <td style="padding: 10px;">YouTube</td>
+        <td style="padding: 10px;">Many</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Output</td>
+        <td style="padding: 10px;">SRT, VTT, TXT files; RAW text in a tab</td>
+        <td style="padding: 10px;">On-screen text</td>
+        <td style="padding: 10px;">YouTube's formats, convertible to SRT, VTT, ASS, LRC</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Playlists / many videos</td>
+        <td style="padding: 10px;">No, one video at a time</td>
+        <td style="padding: 10px;">No</td>
+        <td style="padding: 10px;">Yes</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px;">Translation, summaries, transcribing audio</td>
+        <td style="padding: 10px;">No</td>
+        <td style="padding: 10px;">No (the player can show auto-translated subtitles)</td>
+        <td style="padding: 10px;">No</td>
+    </tr>
+</table>
+
+<h2>So which one?</h2>
+<p>For one YouTube video, when you want a file or text you can copy, on whatever device you're holding: FetchSubs. That is the case I built it for.</p>
+<p>For many videos, playlists, scripts or other sites: yt-dlp, if you're happy with a terminal; a multi-site web downloader if you're not.</p>
+<p>For reading along on YouTube, or downloading captions of your own uploads: YouTube's transcript panel and YouTube Studio. For a ready-made summary: an AI transcript site. For a video with no captions: a speech-to-text service.</p>
+<p>On privacy, since it comes up: FetchSubs has no accounts and doesn't store the links you paste or the files you download; they're handled in memory for that one request. Like most free sites it uses Google Analytics and Google ads, and the hosting keeps ordinary server logs. The <a href="/privacy">privacy page</a> has the details. Whatever tool you use, read its privacy policy if the videos you look up are sensitive.</p>

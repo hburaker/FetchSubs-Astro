@@ -1,0 +1,208 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ToolWidget from '../components/ToolWidget.astro';
+import Faq from '../components/Faq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../data/landing';
+import type { FaqItem } from '../data/site';
+
+const page = findLanding('youtube-auto-generated-subtitles');
+
+const faqs: FaqItem[] = [
+  {
+    question: "Can you download auto-generated subtitles from YouTube?",
+    answer: "Yes. YouTube shows auto captions in the player but gives viewers no download button. FetchSubs lets you export them. Paste the video link, press Find Captions and click SRT, VTT or TXT next to the track marked (Auto-generated).",
+  },
+  {
+    question: "How do I know if a subtitle track is auto-generated?",
+    answer: "FetchSubs labels every track. Captions made by YouTube's speech recognition show (Auto-generated) after the language name, while subtitles uploaded by the creator show (Official).",
+  },
+  {
+    question: "How accurate are YouTube auto-generated captions?",
+    answer: "For one clear speaker with a good microphone they are often very close to what was said. Accuracy drops with strong accents, technical jargon, names, background music, overlapping speakers and poor audio. Punctuation and capitalization are also limited, so expect to proofread.",
+  },
+  {
+    question: "Why does a video have no auto-generated subtitles?",
+    answer: "The creator may have disabled automatic captions, the spoken language may not be supported, the video may be too new for YouTube to have processed it, it may be very long or mostly music, or it may be private or restricted. FetchSubs cannot export a track that YouTube has not created.",
+  },
+  {
+    question: "Does FetchSubs transcribe the audio itself?",
+    answer: "No. FetchSubs exports caption tracks that already exist on YouTube, both official and auto-generated. It does not run its own speech recognition, so if YouTube has no captions for a video, there is nothing to download.",
+  },
+  {
+    question: "Can I download auto-generated captions in other languages?",
+    answer: "Auto captions are created in the language spoken in the video. Any other language tracks the video has, official or auto-generated, also appear in the list and can be downloaded. FetchSubs does not translate captions itself.",
+  },
+  {
+    question: "Which format should I choose for auto-generated captions?",
+    answer: "Choose SRT for video editors and media players, VTT for HTML5 and web players, and TXT if you only want the words without timestamps. RAW opens the plain text in a new browser tab without saving a file.",
+  },
+  {
+    question: "Is it free to download YouTube auto captions?",
+    answer: "Yes. FetchSubs is free, needs no account, browser extension or software, and works in any modern browser on desktop or mobile.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"Download YouTube Auto-Generated Subtitles"}
+  fullTitle={"Download YouTube Auto-Generated Subtitles Free | FetchSubs"}
+  description={"Download YouTube's auto-generated captions as SRT, VTT or TXT in any available language. No account, extension or software needed."}
+>
+<Breadcrumb name={"Auto-Generated Subtitles"} path={'/' + page.slug} />
+
+<div class="hero">
+    <h1>Download YouTube Auto-Generated Subtitles</h1>
+    <p>Most YouTube videos have captions that YouTube created automatically with speech recognition, even when the creator never uploaded subtitles. Paste a link to export those <strong>auto-generated captions</strong> as <strong>SRT</strong>, <strong>VTT</strong> or <strong>TXT</strong> in any language the video offers. No account, extension or software needed.</p>
+</div>
+
+<ToolWidget button={"Find Captions"} />
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">How to Download Auto-Generated Subtitles in 3 Steps</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Copy the video link</h3>
+            <p>Copy the URL from the address bar or the Share button. Watch, youtu.be, Shorts and embed links all work.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Paste it and press Find Captions</h3>
+            <p>FetchSubs lists every caption track on the video. Automatic tracks are marked (Auto-generated), creator uploads are marked (Official).</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Pick a format and download</h3>
+            <p>Click SRT, VTT or TXT to save the file, named after the video title and language code, or RAW to read the text in a new tab.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="what-title">
+    <h2 class="section-title" id="what-title">What Are YouTube Auto-Generated Captions?</h2>
+    <p class="content-text">
+        Auto-generated captions, sometimes called automatic captions or ASR captions, are subtitles that YouTube produces itself using automatic speech
+        recognition (ASR). After a video is uploaded, YouTube analyses the audio, turns speech into text and lines each phrase up with the moment it is spoken.
+        The result is a full caption track with timings, created without any work from the creator.
+    </p>
+    <p class="content-text">
+        Viewers usually see these captions in the player's CC menu as something like <em>English (auto-generated)</em>. YouTube displays them in the player and the transcript panel but
+        offers viewers no way to save them as a file. FetchSubs reads the same track and lets anyone export it, so you can get the words of a lecture, interview, tutorial
+        or podcast episode even when nobody wrote subtitles for it.
+    </p>
+    <h3>Auto-generated vs official subtitles</h3>
+    <p class="content-text">
+        When you paste a link, FetchSubs shows each track with a clear label. <strong>(Official)</strong> means the creator uploaded or typed the subtitles
+        themselves, so they are usually proofread and correctly punctuated. <strong>(Auto-generated)</strong> means YouTube's speech recognition produced the
+        text. If a video has both in the same language, the official track is normally the better choice; if only the automatic one exists, it is still a
+        fast, free starting point. Both kinds download in exactly the same formats.
+    </p>
+    <div class="code-sample" set:html={`1
+00:00:00,640 --&gt; 00:00:03,120
+so today we're going to look at how
+
+2
+00:00:03,120 --&gt; 00:00:05,680
+sourdough starters actually work and why
+
+3
+00:00:05,680 --&gt; 00:00:08,240
+yours might not be rising`} />
+    <p class="content-text">
+        Above is the start of a typical auto-generated track exported as SRT. Notice the lowercase text and missing punctuation, which is normal for ASR captions.
+        If you only need the words, the <a href="/youtube-to-text">YouTube to Text</a> tool explains the TXT format, and the
+        <a href="/youtube-to-srt">YouTube to SRT</a> page covers using timed captions in video editors.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="accuracy-title">
+    <h2 class="section-title" id="accuracy-title">How Accurate Are Auto Captions, and How to Clean Them</h2>
+    <p class="content-text">
+        Speech recognition has improved a lot, and for a single clear speaker in a quiet room, auto captions can be close to word-perfect. In real-world videos,
+        though, a few things regularly cause errors:
+    </p>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>Accents and fast speech</h3>
+            <p>Strong regional accents, mumbling and very fast delivery lead to swapped or missing words.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Jargon and names</h3>
+            <p>Technical terms, product names, people and places are often spelled phonetically or replaced with common words.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Music and noise</h3>
+            <p>Background music, crowds and wind lower accuracy, and song lyrics are frequently skipped or shown as [Music].</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Multiple speakers</h3>
+            <p>When people talk over each other, lines merge and there is no indication of who is speaking.</p>
+        </div>
+    </div>
+    <h3>Tips for cleaning auto-generated subtitles</h3>
+    <p class="content-text">
+        Start by downloading the format that fits the job. If you are going to publish captions, take the <strong>SRT</strong> and open it in a subtitle editor
+        such as Subtitle Edit or Aegisub, which let you fix text while watching the video so the timing stays intact. If you need a readable document, take the
+        <strong>TXT</strong> file, which contains one caption line per row, and join the lines into paragraphs in your text editor.
+    </p>
+    <p class="content-text">
+        Then work through a quick checklist: use find-and-replace to correct names and terms that are misspelled the same way every time; add sentence
+        punctuation and capital letters; remove filler such as "um" and "uh" if you want a clean read; and delete bracketed tags like [Music] or [Applause]
+        if they are not useful. For long transcripts, an AI assistant can help with punctuation and paragraphing; see the
+        <a href="/youtube-transcript-for-chatgpt">YouTube transcript for ChatGPT</a> page for prompts. Always spot-check the result against the video,
+        especially numbers, quotes and anything you plan to cite.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="missing-title">
+    <h2 class="section-title" id="missing-title">When a Video Has No Auto-Generated Captions</h2>
+    <p class="content-text">
+        If FetchSubs finds no tracks, YouTube has not created captions for that video. The most common reasons are:
+    </p>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>Disabled by the creator</h3>
+            <p>Channel owners can turn off automatic captions or remove the auto track in YouTube Studio.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Unsupported language</h3>
+            <p>Automatic captions are only available for a set of languages. Speech in other languages gets no auto track.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Very new or very long videos</h3>
+            <p>Processing can take hours after upload, and some very long videos or live stream archives are never captioned automatically.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Music or no speech</h3>
+            <p>Music videos, ambient footage and silent clips usually have no recognizable speech to turn into text.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Poor audio</h3>
+            <p>Heavy noise, low volume or several overlapping voices can stop YouTube from generating a track at all.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Private or restricted</h3>
+            <p>Private, removed and some age- or region-restricted videos cannot be read, so their captions are not available.</p>
+        </div>
+    </div>
+    <div class="landing-note">
+        FetchSubs does not transcribe audio itself. It exports caption tracks that already exist on YouTube, official or auto-generated. If a video has no
+        captions, try again later for a fresh upload, or check whether the creator has published a transcript elsewhere. More answers are on the
+        <a href="/faq">FAQ page</a>.
+    </div>
+    <p class="content-text">
+        Auto captions are especially common on <a href="/youtube-shorts-transcript">YouTube Shorts</a>, where creators rarely upload their own subtitles.
+        For the complete guide to transcripts of regular videos, see the <a href="/youtube-transcript">YouTube transcript</a> page, or go back to the
+        <a href="/">YouTube subtitle downloader</a> home page.
+    </p>
+</section>
+
+<Faq items={faqs} />
+
+<RelatedTools current={page.slug} />
+</Layout>

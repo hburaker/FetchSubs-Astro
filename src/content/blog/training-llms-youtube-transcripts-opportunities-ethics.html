@@ -1,0 +1,55 @@
+---
+title: "Training AI on YouTube Transcripts: What the Rules Say"
+summary: "Can you train an AI model on YouTube transcripts? What YouTube's terms and copyright say, the 2024 subtitle dataset story, and the creator opt-in setting."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 15
+---
+<p>Short answer: you can't simply collect YouTube transcripts in bulk and train a model on them. YouTube's Terms of Service forbid automated access without YouTube's written permission, and the words in a transcript belong to whoever made the video. The legitimate routes are narrower: your own videos, data you have a licence for, and, since late 2024, videos whose creators have opted in to third-party AI training.</p>
+<p>I run FetchSubs, a tool that downloads caption tracks one video at a time, so I get asked about this. This article sets out what the rules actually say, what happened when a large subtitle dataset turned up in AI training data, and what creators can do. It is not legal advice.</p>
+
+<h2>Why transcripts are attractive to model builders</h2>
+<p>Most text on the web is written for reading: articles, documentation, product pages. Transcripts are speech, with its false starts, explanations and back-and-forth, across almost every subject and many languages. For a model meant to hold a conversation or explain things the way people do out loud, that is useful material. It's also easy to see why the idea comes up: the captions are already there, in text, next to millions of videos.</p>
+<p>Easy to see doesn't mean free to take, though.</p>
+
+<h2>What YouTube's terms say</h2>
+<p>YouTube's <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">Terms of Service</a> list what you may not do with the service. Two items are directly relevant. You may not access, reproduce or download any part of the service or its content except where the service provides a way, YouTube or the rights holders give written permission, or the law allows it. And you may not access the service using automated means such as robots, botnets or scrapers, with exceptions for public search engines that follow YouTube's robots.txt and for anyone with YouTube's prior written permission.</p>
+<p>A script that walks through thousands of videos downloading caption tracks is the kind of automated access the second item describes. That is true whether the script calls YouTube directly or a third-party site like FetchSubs. Our own <a href="/terms">terms</a> prohibit automated or high-volume requests, and the site is not designed for it: no API, no batch or playlist downloads.</p>
+
+<h2>What copyright adds</h2>
+<p>Separately from YouTube's rules, a video's script and spoken words are normally protected by copyright, owned by the creator. An automatic caption track is a machine's rendering of those same words, so it doesn't create a new owner. Whether training a model on copyrighted text needs permission is a question courts and legislators are still working through, and the answer differs by country:</p>
+<ul>
+    <li>In the United States, AI developers argue training is fair use, and several lawsuits brought by authors, artists and publishers are testing that. Fair use is decided case by case on four factors, explained on the <a href="https://www.copyright.gov/fair-use/" target="_blank" rel="noopener">US Copyright Office's fair use page</a>.</li>
+    <li>In the European Union, Article 4 of the <a href="https://eur-lex.europa.eu/eli/dir/2019/790/oj/eng" target="_blank" rel="noopener">Copyright in the Digital Single Market Directive (2019/790)</a> allows text and data mining of lawfully accessible works, unless the rights holder has expressly reserved that use, for online content by machine-readable means.</li>
+</ul>
+<p>Neither of these overrides a platform's contract terms, and neither settles the ethical question of using someone's work for a purpose they never agreed to.</p>
+
+<h2>What happened with the "YouTube Subtitles" dataset</h2>
+<p>This stopped being hypothetical in July 2024. An investigation by <a href="https://www.proofnews.org/apple-nvidia-anthropic-used-thousands-of-swiped-youtube-videos-to-train-ai/" target="_blank" rel="noopener">Proof News</a>, co-published with Wired, looked at a dataset called YouTube Subtitles, part of a larger public training collection known as the Pile, released by the non-profit EleutherAI. It reported that the dataset contained subtitles from 173,536 videos on more than 48,000 channels, including over 12,000 videos that had since been deleted from YouTube. Proof News reported that Anthropic, Nvidia, Apple and Salesforce had used the dataset.</p>
+<p>The responses were telling. Anthropic said YouTube's terms cover direct use of the platform, which is distinct from using the Pile; Salesforce described the dataset as publicly available. Many of the creators whose work was included hadn't known about it. Whatever one thinks of the legal arguments, the episode shows the problem with "it was public, so it's fair game": once a scraped dataset is published, it keeps getting reused by people who never touched YouTube themselves, and the creators' videos can outlive their own decision to delete them.</p>
+
+<h2>The consent route: YouTube's third-party training setting</h2>
+<p>In December 2024 YouTube added a setting that lets creators decide. According to YouTube's help page <a href="https://support.google.com/youtube/answer/15509945" target="_blank" rel="noopener">Your content and third-party training</a>:</p>
+<ul>
+    <li>The setting is off by default. A creator who does nothing has not opted in.</li>
+    <li>Creators turn it on in their channel settings in YouTube Studio, and can allow specific companies from a list or all third-party companies.</li>
+    <li>Only public videos that follow YouTube's terms and Community Guidelines are eligible, and all relevant rights holders have to allow it.</li>
+    <li>YouTube says it can't control what a third-party company does with the content, and that companies may not use it even when allowed.</li>
+    <li>It covers third-party companies, separate from YouTube and Google.</li>
+</ul>
+<p>This is the closest thing to a clean, platform-sanctioned answer for commercial training on other people's YouTube videos. If you are building a model, it is the route to ask about, along with direct licences from creators.</p>
+
+<h2>If you want transcripts for a model, legitimately</h2>
+<ul>
+    <li><strong>Your own channel.</strong> The words are yours. Download your own caption tracks, ideally the ones you've corrected, and use them however you like.</li>
+    <li><strong>Permission.</strong> Ask creators directly. For a small, specialised dataset, such as a set of lectures in one field, a short licence agreement with a handful of channels is realistic.</li>
+    <li><strong>Existing licensed corpora.</strong> There are speech and text datasets published with clear licences. Check the licence and where the data came from before you rely on it; the Pile shows that "publicly available" is not the same as cleared.</li>
+    <li><strong>Academic research.</strong> YouTube's <a href="https://research.youtube/" target="_blank" rel="noopener">Researcher Program</a> offers scaled data access to eligible academics. Its policies say research can't be made available for commercial sale, so it's for studying the platform, not for stocking a product.</li>
+</ul>
+<p>Using one transcript in a chat with an AI assistant, say to summarise a lecture for yourself, is a different thing from training. That is reading with help, and I've written about it in <a href="/blog/summarize-youtube-video-with-chatgpt-claude">how to summarise a YouTube video with ChatGPT or Claude</a>. Even there, check your assistant's data settings, because some services can use your conversations to improve their models unless you switch that off.</p>
+
+<h2>If you're a creator</h2>
+<p>The default already protects you from the sanctioned route: unless you switch on third-party training, YouTube won't share your videos for it. Beyond that, your options are limited. Turning off captions doesn't really help. It hurts deaf and hard-of-hearing viewers and anyone watching without sound, and anyone determined to scrape can run their own speech recognition on the audio. A note in your description saying the content is not licensed for AI training costs nothing and records your position, but don't expect it to stop anyone on its own.</p>
+<p>The bigger levers are collective and legal: creator organisations, platform policy and the court cases still in progress. In the EU, the machine-readable opt-out in the directive mentioned above is one place where that position can have legal weight.</p>

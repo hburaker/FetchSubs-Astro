@@ -1,0 +1,213 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ToolWidget from '../components/ToolWidget.astro';
+import Faq from '../components/Faq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../data/landing';
+import type { FaqItem } from '../data/site';
+
+const page = findLanding('youtube-transcript-for-chatgpt');
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do I summarize a YouTube video with ChatGPT?",
+    answer: "Paste the video link into FetchSubs, press Get Transcript and download the TXT file or open RAW. Copy the text into ChatGPT together with a prompt such as: Summarize this YouTube transcript in 5 bullet points. The same works in Claude, Gemini and other AI assistants.",
+  },
+  {
+    question: "Can ChatGPT watch a YouTube video from a link?",
+    answer: "Depending on the version and tools enabled, an AI assistant may not be able to open or read a YouTube page reliably. Giving it the transcript text directly is the most dependable way to make sure it works from what was actually said in the video.",
+  },
+  {
+    question: "Why use TXT instead of SRT for ChatGPT?",
+    answer: "TXT contains only the spoken words, without sequence numbers or timestamps. That means fewer tokens, so more of the video fits in the AI's context window and the model is not distracted by timing lines. Use SRT only when you want the AI to reference times, for example to create chapters.",
+  },
+  {
+    question: "Does FetchSubs summarize videos with AI?",
+    answer: "No. FetchSubs does not run any AI model. It gives you the video's existing captions as TXT, SRT or VTT, or as plain text in a new tab, and you paste that text into the AI assistant of your choice.",
+  },
+  {
+    question: "What if the transcript is too long for ChatGPT?",
+    answer: "Split the TXT file into parts of a manageable size, send them one at a time asking the AI to wait until all parts arrive, then ask for the summary. Alternatively, summarize each part separately and then ask for a combined summary of the summaries.",
+  },
+  {
+    question: "Can I use the transcript with Claude or Gemini?",
+    answer: "Yes. The transcript is plain text, so it works with ChatGPT, Claude, Gemini, Copilot, Perplexity or any other assistant that accepts pasted text or uploaded text files.",
+  },
+  {
+    question: "Is it free to get a YouTube transcript for AI?",
+    answer: "Yes. FetchSubs is free, needs no sign-up, browser extension or installation, and works with watch, youtu.be, Shorts and embed links.",
+  },
+  {
+    question: "Will the AI summary be accurate?",
+    answer: "The summary can only be as good as the transcript and the model. Auto-generated captions may contain misheard words, and AI models can make mistakes or leave things out, so check important facts, figures and quotes against the video.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"YouTube Transcript for ChatGPT & AI"}
+  fullTitle={"YouTube Transcript for ChatGPT & AI Summaries | FetchSubs"}
+  description={"Get a clean, timestamp-free YouTube transcript to paste into ChatGPT, Claude or Gemini for summaries, notes and quizzes. Free, no sign-up."}
+>
+<Breadcrumb name={"Transcript for ChatGPT"} path={'/' + page.slug} />
+
+<div class="hero">
+    <h1>YouTube Transcript for ChatGPT &amp; AI</h1>
+    <p>Get a clean, timestamp-free transcript of any YouTube video with captions and paste it into <strong>ChatGPT</strong>, <strong>Claude</strong> or <strong>Gemini</strong> to summarize the video, pull out key takeaways, make study notes or write a quiz. Download it as <strong>TXT</strong> or open the plain text in a new tab. Free, no sign-up.</p>
+</div>
+
+<ToolWidget button={"Get Transcript"} />
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">How to Summarize a YouTube Video With AI in 3 Steps</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Paste the video link</h3>
+            <p>Copy the YouTube URL, paste it above and press Get Transcript. Watch, youtu.be, Shorts and embed links all work.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Get the TXT or RAW text</h3>
+            <p>Click TXT to save the transcript as a file, or RAW to open the plain text in a new tab where you can select and copy it.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Paste it into your AI assistant</h3>
+            <p>Paste the text or upload the file in ChatGPT, Claude or Gemini, add one of the prompts below and send.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="why-title">
+    <h2 class="section-title" id="why-title">Why Paste a Transcript Instead of a Link?</h2>
+    <p class="content-text">
+        Asking an AI assistant to "summarize this YouTube video" and pasting a URL does not always work. Depending on the model and the tools it has turned on,
+        it may be unable to open the page, may only see the title and description, or may guess at the content. When you give it the transcript, the model
+        works from exactly what was said, and you can see the source text yourself.
+    </p>
+    <h3>Why TXT is the best format for ChatGPT</h3>
+    <p class="content-text">
+        AI models measure input in tokens, and every model has a limit on how much text it can take in at once, its context window. A subtitle file such as SRT
+        repeats a sequence number and a timestamp line for every caption, which can add a large share of extra tokens without adding any meaning. The
+        <strong>TXT</strong> download from FetchSubs keeps only the spoken words, one caption line per row, so more of a long video fits in a single message and
+        the model concentrates on the content instead of timing data. Compare the same moment of a video in both formats:
+    </p>
+    <div class="code-sample" set:html={`SRT (more tokens, includes timings)
+14
+00:00:41,280 --&gt; 00:00:43,920
+the first thing to understand about compound
+
+15
+00:00:43,920 --&gt; 00:00:46,400
+interest is that time matters more than
+
+TXT (words only)
+the first thing to understand about compound
+interest is that time matters more than`} />
+    <p class="content-text">
+        The <strong>RAW</strong> button is the quickest option on a phone or when you do not want to save a file: it opens the same clean text in a new browser
+        tab so you can select all, copy and paste it into the chat. For a deeper look at the plain-text format, see <a href="/youtube-to-text">YouTube to Text</a>;
+        for the general transcript guide, see the <a href="/youtube-transcript">YouTube transcript downloader</a>.
+    </p>
+    <div class="landing-note">
+        FetchSubs does not run any AI itself and does not summarize videos for you. It gives you the existing captions of a YouTube video as text; the
+        summarizing happens in whichever AI assistant you choose. If a video has no captions at all, there is no transcript to export.
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="prompts-title">
+    <h2 class="section-title" id="prompts-title">Ready-to-Use Prompts for YouTube Transcripts</h2>
+    <p class="section-subtitle">
+        Copy a prompt, then paste the transcript directly below it. These work in ChatGPT, Claude, Gemini and most other assistants. Adjust the length,
+        tone and audience to suit you.
+    </p>
+    <h3>1. Short summary</h3>
+    <div class="code-sample" set:html={`Summarize the following YouTube transcript in 5 bullet points,
+then give a one-sentence takeaway. Only use information from the transcript.
+
+[paste transcript]`} />
+    <h3>2. Key takeaways and action items</h3>
+    <div class="code-sample" set:html={`List the 7 most important ideas from this video transcript.
+For each, write one sentence explaining it and, if relevant,
+one practical action the viewer could take.
+
+[paste transcript]`} />
+    <h3>3. Study notes and flashcards</h3>
+    <div class="code-sample" set:html={`Turn this lecture transcript into structured study notes with headings
+and short bullet points. Then create 10 flashcards in the format
+Question | Answer covering the key concepts and definitions.
+
+[paste transcript]`} />
+    <h3>4. Quiz</h3>
+    <div class="code-sample" set:html={`Write a 10-question multiple-choice quiz based only on this transcript.
+Give 4 options per question, mark the correct answer, and add a
+one-line explanation for each answer at the end.
+
+[paste transcript]`} />
+    <h3>5. Blog post outline</h3>
+    <div class="code-sample" set:html={`Using this transcript of my YouTube video, draft a blog post outline:
+an SEO-friendly title, an intro paragraph, 4-6 H2 sections with bullet
+points under each, and a short conclusion. Keep my original examples.
+
+[paste transcript]`} />
+    <h3>6. Chapter timestamps (use the SRT file)</h3>
+    <p class="content-text">
+        For chapters, the model needs to see the timings, so download <strong>SRT</strong> instead of TXT and paste that. This uses more tokens, which is
+        the trade-off for getting real times back.
+    </p>
+    <div class="code-sample" set:html={`Below is an SRT subtitle file of a YouTube video. Split the video into
+5-10 chapters based on topic changes. Output each chapter as
+MM:SS Title, starting with 00:00, using the start times from the SRT.
+
+[paste SRT]`} />
+    <p class="content-text">
+        Working with your own uploads? The same approach turns a video into a newsletter, a LinkedIn post, show notes or a video description. For short
+        vertical clips, start from the <a href="/youtube-shorts-transcript">YouTube Shorts transcript</a> page.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="tips-title">
+    <h2 class="section-title" id="tips-title">Tips for Long Videos and Better Results</h2>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>Split long transcripts</h3>
+            <p>A one-hour talk can run to roughly 8,000-10,000 words. If the assistant says the text is too long, or seems to forget the start, split the TXT into parts.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Send parts in order</h3>
+            <p>Tell the model "I will send this transcript in 3 parts, reply OK until I say done", then ask for your summary once all parts are in.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Summarize, then combine</h3>
+            <p>For very long videos, summarize each part separately and then ask for a final summary of the partial summaries.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Upload the file</h3>
+            <p>Many assistants accept a .txt upload. The downloaded file is named after the video title and language code, which keeps the context clear.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Pick the right language</h3>
+            <p>If the video has several caption languages, download the one you want to work in. Most models can also answer in a different language if you ask.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Check the facts</h3>
+            <p>Auto captions can mishear names and numbers, and models can make mistakes. Verify anything important against the video before you rely on it.</p>
+        </div>
+    </div>
+    <p class="content-text">
+        Many videos only have captions created by YouTube's speech recognition. They are fine for summaries, but they lack punctuation and can misspell
+        technical terms, so it helps to tell the AI "this is an auto-generated transcript, correct obvious recognition errors". Learn more about these tracks on the
+        <a href="/youtube-auto-generated-subtitles">auto-generated subtitles</a> page, see the <a href="/youtube-to-srt">YouTube to SRT</a> guide for timed files,
+        or browse the <a href="/faq">FAQ</a> for anything else.
+    </p>
+</section>
+
+<Faq items={faqs} />
+
+<RelatedTools current={page.slug} />
+</Layout>

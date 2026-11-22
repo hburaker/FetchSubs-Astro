@@ -1,0 +1,96 @@
+---
+title: "How to Copy a YouTube Transcript Without Timestamps"
+summary: "Three ways to get a YouTube transcript without timestamps: YouTube's toggle, a clean TXT export, and tested regexes that strip times from SRT files."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-11-29"
+lang: "en"
+order: 33
+---
+<p>On a computer, open the transcript (description, then <strong>Show transcript</strong>), click the three-dot menu (&#8942;) at the top of the panel and choose <strong>Toggle timestamps</strong>. Then select the text and copy it. That's fine for a short video.</p>
+<p>For anything long, and on any phone, export the captions as plain text instead: paste the link into <a href="/youtube-to-text">FetchSubs</a> and click <strong>TXT</strong> to download just the words, or <strong>RAW</strong> to open them in a new tab and copy from there. And if you already have an SRT or VTT file, two find-and-replace passes in a text editor strip every timestamp. The patterns are further down.</p>
+
+<h2>Method 1: YouTube's timestamp toggle (desktop only)</h2>
+<ol>
+    <li>Open the video on youtube.com in a desktop browser.</li>
+    <li>Expand the description and click <strong>Show transcript</strong> near the bottom.</li>
+    <li>If the video has captions in several languages, pick yours from the selector at the bottom of the panel.</li>
+    <li>Click &#8942; at the top right of the panel and choose <strong>Toggle timestamps</strong>. The times disappear.</li>
+    <li>Click just before the first word, hold the mouse button and drag down past the last line. The panel scrolls as you drag. Release and press <strong>Ctrl+C</strong> (<strong>Cmd+C</strong> on a Mac).</li>
+</ol>
+<p>Don't reach for <strong>Ctrl+A</strong> here; it selects the whole YouTube page, not the panel. On a long video, keep the pointer near the bottom edge of the panel so it keeps scrolling, and go slowly. Chapter titles appear inside the transcript and get copied with everything else, so either delete them afterwards or keep them as section headings. YouTube changes this panel from time to time, and if your menu has no toggle, skip to method 2. Google's own description of the panel is on its <a href="https://support.google.com/youtube/answer/15930243" target="_blank" rel="noopener">View video transcripts</a> help page.</p>
+<p>On iPhone and Android this method doesn't really work. The YouTube app shows the transcript, but it has no timestamp toggle and won't let you select and copy the text properly. If you only want to read it, the app steps are in <a href="/blog/how-to-get-transcript-of-youtube-video">how to get a YouTube transcript on desktop, iPhone and Android</a>.</p>
+
+<h2>Method 2: Export the transcript as plain text</h2>
+<p>This is what I'd use for anything over a few minutes, and on any phone:</p>
+<ol>
+    <li>Copy the video link. In the app, tap <strong>Share</strong>, then <strong>Copy link</strong>. Watch, youtu.be, Shorts and embed links all work.</li>
+    <li>Paste it on <a href="/youtube-to-text">fetchsubs.com/youtube-to-text</a> and press <strong>Get Text</strong>.</li>
+    <li>Find your language in the list. Each track is labelled <em>Official</em> or <em>Auto-generated</em>, and the buttons on each row fetch that exact track.</li>
+    <li>Click <strong>TXT</strong> to save a .txt file, or <strong>RAW</strong> to open the same text in a new tab. Because that tab holds nothing but the transcript, Ctrl+A then Ctrl+C (or long-press, Select All, Copy on a phone) grabs all of it.</li>
+</ol>
+<p>Here is the actual TXT output for <em>Me at the zoo</em>, the 19-second first video on YouTube:</p>
+<pre class="code-sample">All right, so here we are, in front of the
+elephants
+the cool thing about these guys is that they
+have really...
+really really long trunks
+and that's cool</pre>
+<p>No cue numbers, no arrows, no times. The line breaks are where the captions were split on screen, which is why the first sentence spills onto a second line. Joining those lines into paragraphs is covered below.</p>
+
+<h2>Method 3: Strip timestamps from an SRT or VTT file</h2>
+<p>Maybe you already have a subtitle file: one exported from YouTube Studio for your own video, say, or an SRT you downloaded because you wanted the times. An SRT block looks like this (again from <em>Me at the zoo</em>):</p>
+<pre class="code-sample">1
+00:00:01,200 --&gt; 00:00:03,360
+All right, so here we are, in front of the
+elephants
+
+2
+00:00:05,318 --&gt; 00:00:07,974
+the cool thing about these guys is that they
+have really...</pre>
+<p>Every block is a cue number, a timing line, the text, and a blank line. Remove the number, the timing line and the blank lines, and the text is what's left.</p>
+
+<h3>In VS Code</h3>
+<ol>
+    <li>Open the file and press <strong>Ctrl+H</strong> (Cmd+Option+F on a Mac) to open Replace.</li>
+    <li>Turn on regular expressions with the <code>.*</code> button (or Alt+R).</li>
+    <li>Find: <code>^(\d+\n)?[\d:]+[,.]\d{3} --&gt; .*\n</code><br />Replace: leave empty. Click <strong>Replace All</strong>. This removes every cue number and timing line.</li>
+    <li>Find: <code>\n{2,}</code><br />Replace: <code>\n</code>. Click <strong>Replace All</strong>. This removes the blank lines between blocks.</li>
+</ol>
+
+<h3>In Notepad++</h3>
+<ol>
+    <li>Press <strong>Ctrl+H</strong>, set <em>Search Mode</em> to <strong>Regular expression</strong>, and make sure <em>. matches newline</em> is <strong>unchecked</strong>.</li>
+    <li>Find what: <code>^(\d+\R)?[\d:]+[,.]\d{3} --&gt; .*\R</code><br />Replace with: leave empty. Click <strong>Replace All</strong>.</li>
+    <li>Find what: <code>\R{2,}</code><br />Replace with: <code>\r\n</code>. Click <strong>Replace All</strong>.</li>
+</ol>
+<p>I ran the two VS Code patterns over SRT and VTT files downloaded from FetchSubs: <em>Me at the zoo</em>, plus the official and the auto-generated English tracks of Steve Jobs' 15-minute Stanford commencement speech. Once the <code>WEBVTT</code> header was gone, every result matched the TXT export of the same track, line for line. The Notepad++ version is the same expression, with <code>\R</code> (Notepad++'s "any line break") in place of <code>\n</code>; VS Code normalises line endings when it searches, so plain <code>\n</code> is enough there.</p>
+<p>Why it doesn't eat more than it should: the pattern accepts either a comma (SRT) or a dot (VTT) before the milliseconds, and the cue number is optional, so VTT files without numbered cues work too. A caption line that happens to be just a number, like a year on its own, is left alone, because a number is only removed when a timing line follows it. The <code>WEBVTT</code> line at the top of a VTT file you delete by hand.</p>
+
+<h3>Cleaning text you copied with the timestamps on</h3>
+<p>If you copied from YouTube's panel without hiding the times, each line carries something like <code>0:05</code> or <code>1:02:03</code>, either on its own line or in front of the text, depending on the layout. In VS Code this pattern covers both:</p>
+<p>Find: <code>^(\d{1,2}:)?\d{1,2}:\d{2}(\n| )</code><br />Replace: leave empty.</p>
+<p>In Notepad++, use <code>^(\d{1,2}:)?\d{1,2}:\d{2}(\R| )</code>.</p>
+
+<h2>Joining caption lines into paragraphs</h2>
+<p>Captions are cut into short pieces for the screen, not into sentences. To get running text, replace every line break with a space: in VS Code with regex on, find <code>\n</code>; in Notepad++, find <code>\R</code>; in Microsoft Word's Find and Replace (wildcards off), find <code>^p</code>. You end up with one long paragraph, so add breaks by hand where the speaker changes topic, or at the chapter titles if there are any.</p>
+<p>If the text is going into ChatGPT or a similar assistant, skip the joining. Models read line breaks without any trouble. The page on <a href="/youtube-transcript-for-chatgpt">using a YouTube transcript with ChatGPT</a> has prompts for adding punctuation and paragraphs without changing the wording.</p>
+
+<h2>The auto-generated track is the bigger problem</h2>
+<p>Stripping timestamps is the easy part. With an automatic track, the words themselves need work. This is how the auto-generated English track of the Jobs speech starts as a FetchSubs TXT export:</p>
+<pre class="code-sample">[Music]
+this program is brought to you by
+Stanford University please visit us at
+stanford.edu
+thank
+you I'm uh honored to be with you today</pre>
+<p>And the official English track of the same video:</p>
+<pre class="code-sample">This program is brought to you by Stanford University.
+Please visit us at stanford.edu
+Thank You. I am honored to be with you today at your commencement</pre>
+<p>Six lines show most of what goes wrong. There's no punctuation and no sentence capitals, and "thank you" is split across two caption lines; joining lines fixes the split, not the punctuation. The automatic track writes down the speaker's "uh", which may or may not be what you want, depending on whether you need an exact record or something readable. And there are sound tags: the full automatic track has three <code>[Music]</code> and five <code>[Applause]</code> tags, while the official one has none.</p>
+<p>To remove the tags, replace the regex <code>\[(Music|Applause|Laughter)\]</code> with nothing, then run the blank-line step (<code>\n{2,}</code> to <code>\n</code>) again. Don't use a catch-all like <code>\[.*?\]</code> on official captions, where brackets can hold real editorial notes. Names, numbers and technical terms are worth checking against the audio before you quote anything from an automatic track.</p>
+<p>Simplest fix of all: when a video has an official track in your language, download that one. Official captions aren't perfect (this one spells "Beleiveing" at one point), but they come with punctuation, capitals and properly spelled names. The <a href="/youtube-auto-generated-subtitles">auto-generated subtitles</a> page explains how YouTube's machine captions are made.</p>
+
+<h2>Should you remove the timestamps at all?</h2>
+<p>Clean text is easier to read, search, quote and paste, and it's shorter, which matters when an AI tool has a length limit. But the timestamps are how you find a sentence in the video again. If you're writing up research, checking a quote or planning clips, keep an SRT next to your clean copy. You can always strip the times from an SRT later with the patterns above. You can't add them back to plain text.</p>

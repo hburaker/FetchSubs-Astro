@@ -1,0 +1,49 @@
+---
+title: "How to Download YouTube Subtitles on iPhone and Android"
+summary: "Copy the link in the YouTube app, paste it into FetchSubs in Safari or Chrome, pick SRT, VTT, TXT or RAW. Where the file lands and what can go wrong."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 25
+---
+<p>You can download YouTube subtitles on a phone without installing anything: copy the video link from the YouTube app, paste it into FetchSubs in your mobile browser, tap <strong>Download</strong>, then tap SRT, VTT or TXT next to the language you want. On an iPhone the file goes to the Downloads folder in the Files app; on Android it goes wherever Chrome saves downloads, which you can reach from Chrome's Downloads list or the Files app.</p>
+<p>That's the whole process. The rest of this post goes through each step on both systems, explains which button to tap for what you're doing, and covers the few things that can go wrong on a phone.</p>
+
+<h2>Step 1: Copy the video link</h2>
+<p>In the YouTube app, open the video, tap <strong>Share</strong> under the player and choose <strong>Copy link</strong>. If you're watching in a browser instead, copy the address from the address bar.</p>
+<p>The link the app copies is usually a short <code>youtu.be</code> address with a <code>?si=</code> code on the end. You don't need to clean that up. While updating this post I pasted a <code>youtu.be</code> link with the <code>?si=</code> part still attached, and an <code>m.youtube.com</code> link from a mobile browser; FetchSubs found the right video both times. Shorts links work too (more on those on the <a href="/youtube-shorts-transcript">Shorts transcript</a> page).</p>
+
+<h2>Step 2: Paste it into FetchSubs</h2>
+<p>Open fetchsubs.com in Safari, Chrome or whatever browser you use. Tap the box that says <em>Paste a YouTube link</em>, long-press, choose <strong>Paste</strong>, then tap <strong>Download</strong>.</p>
+<p>After a few seconds a card appears with the video's thumbnail, title, channel and length, and under it a list headed <em>Available Subtitle Tracks</em>. Each row is one caption track: the language name, a label saying <strong>(Official)</strong> for captions the creator uploaded or <strong>(Auto-generated)</strong> for YouTube's speech recognition, and four buttons: <strong>SRT</strong>, <strong>VTT</strong>, <strong>TXT</strong> and <strong>RAW</strong>.</p>
+<p>If the same language appears twice, one official and one auto-generated, pick the official one. It was written or checked by a person, and the auto-generated one usually has no punctuation and more mistakes with names.</p>
+<p>If the track list comes up empty, the video has no captions at all. FetchSubs downloads caption tracks that already exist on YouTube; it doesn't create captions from the audio. The <a href="/blog/youtube-transcript-not-available">transcript not available</a> post lists the usual reasons.</p>
+
+<h2>Step 3: Choose the button that fits what you're doing</h2>
+<p>On a phone the choice matters a bit more than on a computer, because files are more awkward to deal with.</p>
+<ul>
+    <li><strong>RAW</strong> opens the plain text in a new browser tab. Nothing is saved to the phone. For reading a transcript, or copying it into a notes app or an AI chat, this is usually the easiest option: open RAW, long-press the text, Select All, Copy.</li>
+    <li><strong>TXT</strong> saves the same text as a file. Choose it if you want to keep the transcript or send it to someone.</li>
+    <li><strong>SRT</strong> saves the captions with their timestamps. You need this if the captions are going into a video editing app or onto another video.</li>
+    <li><strong>VTT</strong> is the web version of SRT. On a phone you rarely need it, unless you're preparing captions for a website.</li>
+</ul>
+<p>The file name is built from the video title and the language code, for example <code>Me_at_the_zoo_en.srt</code>. Auto-generated tracks get <code>_auto</code> before the extension, so you can tell them apart in the Downloads folder.</p>
+
+<h2>Where the file goes on iPhone and iPad</h2>
+<p>Safari saves downloads to the <strong>Downloads</strong> folder in the <strong>Files</strong> app. Open Files, tap <strong>Browse</strong> and look for Downloads. By default that folder sits in iCloud Drive; you can switch it to on-device storage in Safari's Downloads setting in the Settings app. Apple's page <a href="https://support.apple.com/102440" target="_blank" rel="noopener">Where to find downloads on your iPhone or iPad</a> has the current steps. Safari may ask whether you want to download the file first; if it does, tap Download.</p>
+<p>A TXT file opens in a preview straight from Files. SRT and VTT files are plain text as well, but iOS doesn't always know which app should open them, so use the Share button to send them on to a text editor, the Notes app or the editing app you're working in.</p>
+
+<h2>Where the file goes on Android</h2>
+<p>Chrome saves the file to your default download location, which on most phones is the Downloads folder. To find it, open Chrome, tap the three-dot <strong>More</strong> menu and choose <strong>Downloads</strong>, or open your phone's Files app. Google's help page on <a href="https://support.google.com/chrome/answer/95759?hl=en&amp;co=GENIE.Platform%3DAndroid" target="_blank" rel="noopener">downloading files in Chrome for Android</a> has the details. Other browsers have their own downloads list, and phone makers ship different file manager apps, so the exact screens vary.</p>
+<p>Tapping an SRT or TXT file asks you which app to open it with. Any text editor will do. If you want to edit a long transcript properly, a word processor such as Google Docs is more comfortable than a basic editor.</p>
+
+<h2>If something doesn't work</h2>
+<p><strong>RAW does nothing.</strong> RAW opens a new tab, and some mobile browsers treat that as a pop-up. If nothing appears, check whether the browser blocked a pop-up and allow it for fetchsubs.com, or use TXT instead.</p>
+<p><strong>The download doesn't appear.</strong> Look in the browser's own downloads list first, then in the Files app. If it isn't in either, try once more in a normal (not private) tab, and make sure the phone isn't out of storage.</p>
+<p><strong>The text looks garbled.</strong> The files are UTF-8 text. Current apps read that correctly; if an older app shows strange characters in place of accented letters, look for an encoding option and set it to UTF-8.</p>
+<p><strong>You only want to read along.</strong> Then you may not need FetchSubs at all. The YouTube app can show a transcript panel from the video description (YouTube Help: <a href="https://support.google.com/youtube/answer/15930243" target="_blank" rel="noopener">View video transcripts</a>). FetchSubs is for when you want the text outside YouTube, as a file or as text you can copy.</p>
+
+<h2>What a phone is and isn't good for here</h2>
+<p>Grabbing a transcript to read later, pasting it into a chat app, or saving the SRT for a mobile video editor all work well on a phone. Fixing a lot of caption errors doesn't. Editing hundreds of timed blocks on a small screen is slow, and if an auto-generated track needs real cleanup I'd send the SRT to a computer and do it there. The post on <a href="/blog/fix-subtitle-timing-errors-srt-sync-adjustment-guide">fixing subtitle timing</a> covers that part.</p>
+<p>FetchSubs handles one video at a time and doesn't keep the links you paste or the files you download, so there is no history to come back to. If you'll need the transcript again, save the file.</p>

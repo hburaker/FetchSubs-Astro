@@ -1,0 +1,210 @@
+---
+import { ADSENSE_CLIENT, DEFAULT_DESCRIPTION, GA_ID, SITE_AUTHOR, SITE_URL, STYLE_VERSION, jsonLd } from '../data/site';
+import { ENGLISH_LANDING, LOCALIZED_LANDING, type LandingPage } from '../data/landing';
+
+interface Props {
+  /** Short page title; " | FetchSubs" is appended unless fullTitle is given. */
+  title?: string;
+  /** Exact <title> text (overrides title). */
+  fullTitle?: string;
+  description?: string;
+  /** Canonical path such as "/faq". Defaults to the current URL path. */
+  canonicalPath?: string;
+  ogImage?: string;
+  ogType?: string;
+  robots?: string;
+  lang?: string;
+  /** Translations of this page (hreflang). */
+  alternates?: LandingPage[];
+  /** Adds the WebApplication JSON-LD used on pages that embed the tool. */
+  isToolPage?: boolean;
+  /** Pages without publisher content (e.g. 404) must not load AdSense. */
+  noAds?: boolean;
+}
+
+const {
+  title = 'FetchSubs',
+  fullTitle,
+  description = DEFAULT_DESCRIPTION,
+  ogType = 'website',
+  robots = 'index, follow, max-image-preview:large',
+  lang = 'en',
+  alternates = [],
+  isToolPage = false,
+  noAds = false,
+} = Astro.props;
+
+let canonicalPath = Astro.props.canonicalPath ?? Astro.url.pathname.toLowerCase().replace(/\.html$/, '');
+if (canonicalPath.length > 1) canonicalPath = canonicalPath.replace(/\/+$/, '');
+const canonicalUrl = SITE_URL + canonicalPath;
+const pageTitle = fullTitle ?? `${title} | FetchSubs`;
+let ogImage = Astro.props.ogImage ?? '/Content/og-image.png';
+if (!/^https?:/i.test(ogImage)) ogImage = SITE_URL + ogImage;
+const ogLocale = lang === 'tr' ? 'tr_TR' : lang === 'es' ? 'es_ES' : 'en_US';
+const xDefault = alternates.find((a) => a.lang === 'en') ?? alternates[0];
+
+const siteGraph = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': 'https://fetchsubs.com/#website',
+      url: 'https://fetchsubs.com/',
+      name: 'FetchSubs',
+      description: 'Free YouTube subtitle and transcript downloader.',
+      publisher: { '@id': 'https://fetchsubs.com/#organization' },
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'Organization',
+      '@id': 'https://fetchsubs.com/#organization',
+      name: 'FetchSubs',
+      url: 'https://fetchsubs.com/',
+      logo: 'https://fetchsubs.com/apple-touch-icon.png',
+    },
+  ],
+};
+
+const webApp = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'FetchSubs - YouTube Subtitle Downloader',
+  url: canonicalUrl,
+  description,
+  applicationCategory: 'MultimediaApplication',
+  operatingSystem: 'Any',
+  browserRequirements: 'Requires JavaScript. Works in any modern browser.',
+  isAccessibleForFree: true,
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+  featureList: [
+    'Download YouTube subtitles as SRT',
+    'Download YouTube subtitles as VTT',
+    'Export YouTube transcripts as plain text (TXT)',
+    'Manual and auto-generated captions',
+    'All available subtitle languages',
+    'Works with youtube.com, youtu.be and YouTube Shorts links',
+    'No sign-up or installation',
+  ],
+  publisher: { '@id': 'https://fetchsubs.com/#organization' },
+};
+const year = new Date().getFullYear();
+---
+<!doctype html>
+<html lang={lang}>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+  <link rel="dns-prefetch" href="https://pagead2.googlesyndication.com" />
+  <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+  <link rel="preconnect" href="https://pagead2.googlesyndication.com" crossorigin />
+
+  <title>{pageTitle}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" />
+  <link rel="stylesheet" href={`/Content/style.css?v=${STYLE_VERSION}`} />
+  <meta name="description" content={description} />
+  <meta name="robots" content={robots} />
+  <link rel="canonical" href={canonicalUrl} />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+  <meta name="theme-color" content="#0f172a" />
+
+  <meta property="og:site_name" content="FetchSubs" />
+  <meta property="og:title" content={pageTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:type" content={ogType} />
+  <meta property="og:url" content={canonicalUrl} />
+  <meta property="og:image" content={ogImage} />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:locale" content={ogLocale} />
+  {alternates.length > 1 && alternates.map((alt) => <link rel="alternate" hreflang={alt.lang} href={`${SITE_URL}/${alt.slug}`} />)}
+  {alternates.length > 1 && xDefault && <link rel="alternate" hreflang="x-default" href={`${SITE_URL}/${xDefault.slug}`} />}
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={pageTitle} />
+  <meta name="twitter:description" content={description} />
+  <meta name="twitter:image" content={ogImage} />
+
+  <script type="application/ld+json" is:inline set:html={jsonLd(siteGraph)} />
+  {isToolPage && <script type="application/ld+json" is:inline set:html={jsonLd(webApp)} />}
+  <slot name="head" />
+
+  <script async is:inline src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}></script>
+  <script is:inline define:vars={{ GA_ID }}>
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = function () { window.dataLayer.push(arguments); };
+    window.gtag('js', new Date());
+    window.gtag('config', GA_ID);
+  </script>
+  {!noAds && <script async is:inline src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`} crossorigin="anonymous"></script>}
+</head>
+<body>
+  <div class="container">
+    <header>
+      <a href="/" class="logo">FetchSubs</a>
+      <button class="hamburger" id="hamburgerBtn" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <nav id="mainNav">
+        <a href="/">Home</a>
+        <a href="/blog">Blog</a>
+        <a href="/usage">How to Use</a>
+        <a href="/faq">FAQ</a>
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer>
+      <nav aria-label="Free tools">
+        <p class="footer-heading">Free YouTube Subtitle Tools</p>
+        <div class="footer-links">
+          <a href="/">YouTube Subtitle Downloader</a>
+          {ENGLISH_LANDING.map((p) => <a href={`/${p.slug}`}>{p.linkTitle}</a>)}
+        </div>
+        <div class="footer-links">
+          {LOCALIZED_LANDING.map((p) => <a href={`/${p.slug}`} hreflang={p.lang} lang={p.lang}>{p.linkTitle}</a>)}
+          <a href="/faq">FAQ</a>
+          <a href="/blog">Blog</a>
+        </div>
+      </nav>
+      <div class="footer-links">
+        <a href="/about">About</a>
+        <a href="/contact">Contact</a>
+        <a href="/privacy">Privacy Policy</a>
+        <a href="/terms">Terms of Use</a>
+      </div>
+      <p>&copy; {year} FetchSubs · Made by <a href="/about" style="color: inherit;">{SITE_AUTHOR}</a> · Not affiliated with YouTube or Google.</p>
+    </footer>
+  </div>
+
+  <script>
+    const nav = document.getElementById('mainNav');
+    const btn = document.getElementById('hamburgerBtn');
+    if (nav && btn) {
+      btn.addEventListener('click', () => {
+        const isOpen = nav.classList.toggle('nav-open');
+        btn.classList.toggle('is-active', isOpen);
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      });
+      // Close the menu when a link is tapped (mobile).
+      nav.querySelectorAll('a').forEach((link) =>
+        link.addEventListener('click', () => {
+          nav.classList.remove('nav-open');
+          btn.classList.remove('is-active');
+          btn.setAttribute('aria-expanded', 'false');
+        }),
+      );
+    }
+  </script>
+</body>
+</html>

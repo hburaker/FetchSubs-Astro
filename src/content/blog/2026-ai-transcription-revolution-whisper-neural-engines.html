@@ -1,0 +1,50 @@
+---
+title: "YouTube Auto-Captions vs Whisper: Which Transcript to Use"
+summary: "YouTube's automatic captions, OpenAI's Whisper and human transcription compared: what each is good at, where each fails, and how to choose."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 3
+---
+<p>If the video is on YouTube and already has captions, download them; that is the quickest transcript you will get. If there are no captions, or you only have the audio file, run a speech-to-text model such as Whisper. And if the text will be quoted, published or relied on, a person has to check it against the audio, whichever route you started from.</p>
+<p>That's the short version. The rest of this article explains why, and what goes wrong with each option.</p>
+
+<h2>YouTube's automatic captions</h2>
+<p>YouTube runs its own speech recognition on uploaded videos and attaches the result as an automatic caption track. The <a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">Use automatic captioning</a> help page lists more than 60 supported languages, from Afrikaans to Zulu, Turkish included. The track costs nothing and is already sitting next to the video, which is the main argument for it.</p>
+<p>It isn't always there, though. YouTube's own list of reasons includes audio it can't process yet, an unsupported language, a video that is too long, poor sound, a long silence at the start, and overlapping speakers. When none of that applies, you can paste the link into <a href="/youtube-auto-generated-subtitles">FetchSubs</a> and download the track as SRT, VTT or TXT. FetchSubs labels automatic tracks separately from the ones the creator uploaded, so you always know which one you have.</p>
+<p>One thing I noticed while preparing this article: I downloaded the automatic English track of an Associated Press live stream from the Artemis II mission as SRT. The cues overlap. The first one runs from <code>00:00:01,800</code> to <code>00:00:05,080</code>, but the second starts at <code>00:00:03,360</code>. That's because YouTube's automatic captions are timed as rolling lines, two on screen at once. Players handle it fine, but if you open the file in a subtitle editor it may flag every cue as an overlap. For reading or searching, take the TXT version instead.</p>
+<p>The usual weaknesses of automatic captions are well known: names, brands and jargon get misheard, speakers are not labelled, and quality drops sharply with music, crosstalk or a strong accent. Punctuation has improved, as that AP file shows, but you still can't trust it for quotes. I go through this in more detail in <a href="/blog/youtube-auto-generated-subtitles-accuracy">how accurate YouTube's auto-generated subtitles are</a>.</p>
+
+<h2>Whisper and similar speech-to-text models</h2>
+<p>Whisper is OpenAI's open-source speech recognition model. The facts worth knowing, all from the <a href="https://github.com/openai/whisper" target="_blank" rel="noopener">official repository</a> and the paper <a href="https://arxiv.org/abs/2212.04356" target="_blank" rel="noopener">Robust Speech Recognition via Large-Scale Weak Supervision</a>:</p>
+<ul>
+    <li>It was first released in September 2022 and trained on 680,000 hours of multilingual audio collected from the internet.</li>
+    <li>The code and model weights are under the MIT License, so you can run it on your own machine for free.</li>
+    <li>It comes in sizes from <code>tiny</code> (39 million parameters, about 1 GB of video memory) to <code>large</code> (1,550 million, about 10 GB). The <code>turbo</code> model added in 2024 is a faster version of <code>large-v3</code>.</li>
+    <li>It needs <code>ffmpeg</code> installed, and the command-line tool can write TXT, VTT, SRT, TSV and JSON.</li>
+    <li>Its built-in translation only goes into English, and the <code>turbo</code> model isn't trained for translation at all.</li>
+</ul>
+<p>A basic run looks like this:</p>
+<pre class="code-sample">whisper interview.mp3 --model small --language en --output_format srt</pre>
+<p>Two options matter more than the model size for real work. Setting <code>--language</code> stops it guessing from the first 30 seconds, which goes wrong on videos that open with music. And <code>--initial_prompt</code> lets you feed it a line of text containing the names and terms you expect, which helps with spelling.</p>
+<p>The weak spots are documented by OpenAI itself. The <a href="https://github.com/openai/whisper/blob/main/model-card.md" target="_blank" rel="noopener">model card</a> says the output can include text that was never spoken (hallucination), that the model can repeat itself, and that accuracy is uneven across languages, accents and speakers. In practice that means you should be most suspicious of fluent-looking sentences over silence, music or applause. The same model card warns against using it in high-risk decision-making.</p>
+<p>There is also a practical catch with YouTube. Whisper needs an audio file. For your own recordings, that's easy. For somebody else's YouTube video it means downloading the audio, and YouTube's <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">Terms of Service</a> restrict downloading content unless YouTube provides a way, the rights holder agrees, or the law allows it. So Whisper fits best where you own the recording: your podcast, your lecture, your interviews. FetchSubs doesn't do any of this; it doesn't transcribe audio, it only fetches caption tracks that already exist.</p>
+
+<h2>Human transcription</h2>
+<p>For legal, medical and broadcast work, or a research transcript that has to be verbatim with speaker labels, a trained person is still the standard. Most people now combine the two: a machine draft from YouTube or Whisper, then a human pass against the audio. Correcting a decent draft is far quicker than typing from nothing, and it catches the errors that machines make confidently.</p>
+
+<h2>What to check in any machine transcript</h2>
+<p>Whichever tool produced the text, these are the places I'd look first:</p>
+<ul>
+    <li>Names of people, companies and products. A brand the model has never heard of gets replaced with a common word that sounds similar.</li>
+    <li>Numbers. Prices, dates, percentages and measurements are easy to mishear and expensive to get wrong.</li>
+    <li>Moments where people talk over each other. Words disappear, or one speaker's sentence is merged into another's.</li>
+    <li>Silence, music and applause. YouTube tends to leave these blank or mark them; Whisper sometimes fills them with invented text.</li>
+    <li>Tone. The words can be right while sarcasm or emphasis is lost, which matters if you quote someone.</li>
+</ul>
+
+<h2>Choosing between them</h2>
+<p>If the video is on YouTube and has captions, start there. A track the creator uploaded is usually the most accurate thing available, and an automatic one is a reasonable draft. Paste the link into the <a href="/youtube-transcript">YouTube transcript tool</a> and pick the track.</p>
+<p>If the video has no captions at all, FetchSubs can't help, and <a href="/blog/youtube-transcript-not-available">this explainer on missing transcripts</a> lists the usual causes. If it's your own video, upload a corrected caption file in YouTube Studio so viewers benefit too. If it's your own recording outside YouTube, Whisper is a good free option, provided you're comfortable with a command line.</p>
+<p>And if you plan to republish the text, or feed other people's transcripts into an AI system, the questions are no longer technical. See <a href="/blog/training-llms-youtube-transcripts-opportunities-ethics">YouTube transcripts and AI training</a> for that side.</p>

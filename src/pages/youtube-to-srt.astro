@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ToolWidget from '../components/ToolWidget.astro';
+import Faq from '../components/Faq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../data/landing';
+import type { FaqItem } from '../data/site';
+
+const page = findLanding('youtube-to-srt');
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do I convert a YouTube video to SRT?",
+    answer: "Copy the video link, paste it into the box at the top of this page and press Download. FetchSubs lists every subtitle track the video has; click SRT next to the language you want and the .srt file is saved to your device.",
+  },
+  {
+    question: "Is the YouTube to SRT converter free?",
+    answer: "Yes. FetchSubs is completely free, with no sign-up, no watermark, no browser extension and no limit on how many SRT files you download.",
+  },
+  {
+    question: "Can I get an SRT file from auto-generated YouTube captions?",
+    answer: "Yes. Auto-generated (automatic speech recognition) tracks are listed next to manually uploaded subtitles and are clearly labelled, so you can download either one as SRT.",
+  },
+  {
+    question: "What if the video has no subtitles?",
+    answer: "FetchSubs exports caption tracks that already exist on YouTube; it does not transcribe audio itself. Most videos with clear speech have an auto-generated track, but if the creator disabled captions or the video is private, there is nothing to convert.",
+  },
+  {
+    question: "What is the difference between SRT and VTT?",
+    answer: "Both store numbered or cued text with start and end times. SRT uses a comma before the milliseconds (00:00:01,200) and is supported by almost every video editor and player. VTT (WebVTT) starts with a WEBVTT header, uses a dot (00:00:01.200) and is the native format for HTML5 video on the web.",
+  },
+  {
+    question: "Can I download SRT subtitles in other languages?",
+    answer: "Yes. Every language the video offers, including translated tracks uploaded by the creator, appears in the list. Click SRT next to the language you need.",
+  },
+  {
+    question: "Does it work with YouTube Shorts and youtu.be links?",
+    answer: "Yes. Standard watch links, youtu.be short links, YouTube Shorts links and embed links all work.",
+  },
+  {
+    question: "Can I edit the SRT file after downloading?",
+    answer: "Yes. An SRT file is plain text, so you can open it in any text editor or a subtitle editor such as Subtitle Edit or Aegisub to fix wording or timing before using it.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"YouTube to SRT Converter"}
+  fullTitle={"YouTube to SRT Converter – Free SRT Subtitles | FetchSubs"}
+  description={"Convert YouTube captions to an SRT file in seconds. Manual and auto-generated subtitles in every available language, plus VTT. Free, no sign-up."}
+>
+<Breadcrumb name={"YouTube to SRT"} path={'/' + page.slug} />
+
+<div class="hero">
+    <h1>YouTube to SRT Converter</h1>
+    <p>Paste a YouTube link and download its subtitles as an <strong>.srt</strong> file in seconds. Works with manual and auto-generated captions in every available language. Need web captions? Grab <strong>.vtt</strong> from the same list.</p>
+</div>
+
+<ToolWidget button={"Get SRT"} />
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">How to Convert YouTube to SRT in 3 Steps</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Copy the YouTube link</h3>
+            <p>Open the video on YouTube and copy the URL from the address bar or the Share button. Watch, youtu.be and Shorts links all work.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Paste it and press Get SRT</h3>
+            <p>FetchSubs reads the video and lists every caption track it has, marking which ones are official and which are auto-generated.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Click SRT next to your language</h3>
+            <p>The subtitle file downloads instantly, named after the video and the language code, ready for your editor or player.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="what-title">
+    <h2 class="section-title" id="what-title">What an SRT File Looks Like</h2>
+    <p class="content-text">
+        SRT (SubRip Subtitle) is the most widely supported subtitle format. Each caption is a numbered block with a start time,
+        an end time and the text that appears on screen. Here is the start of an SRT file downloaded with FetchSubs:
+    </p>
+    <div class="code-sample" set:html={`1
+00:00:01,200 --&gt; 00:00:03,360
+All right, so here we are, in front of the
+elephants
+
+2
+00:00:05,318 --&gt; 00:00:07,974
+the cool thing about these guys is that they
+have really...`} />
+    <p class="content-text">
+        Because it is plain text, an SRT file is tiny, opens in any text editor and can be imported by virtually every tool that handles video.
+        Timings are taken straight from YouTube, so the captions stay in sync with the original video.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="where-title">
+    <h2 class="section-title" id="where-title">Where You Can Use YouTube SRT Subtitles</h2>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>Video editors</h3>
+            <p>Import the SRT into Premiere Pro, DaVinci Resolve, Final Cut Pro, CapCut or Shotcut to add or burn in captions without retyping them.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Media players</h3>
+            <p>Load the file in VLC, MPV, Plex or Kodi next to a downloaded or offline copy of the video to watch with subtitles.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Translators</h3>
+            <p>Translate the text line by line while keeping the original timing, then re-upload the SRT as a new language track.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Creators</h3>
+            <p>Reuse your own auto-generated captions as a starting point, correct them and upload the clean SRT back to YouTube or to other platforms.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Accessibility</h3>
+            <p>Provide accurate captions for deaf and hard-of-hearing viewers when you embed or republish video content.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Language learners</h3>
+            <p>Study vocabulary in context and load the subtitles into tools that sync text with audio.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="vtt-title">
+    <h2 class="section-title" id="vtt-title">SRT or VTT? Pick the Right Format</h2>
+    <p class="content-text">
+        Every track in the list can be downloaded as <strong>SRT</strong> or <strong>VTT</strong>. Choose <strong>SRT</strong> for desktop video editors,
+        media players and most social platforms. Choose <strong>VTT (WebVTT)</strong> when you add captions to an HTML5 <code>&lt;video&gt;</code> element,
+        a web player such as Video.js or Plyr, or an LMS. If you only need the words without timings, use <a href="/youtube-to-text">YouTube to Text</a> instead.
+    </p>
+    <div class="landing-note">
+        FetchSubs downloads caption tracks that already exist on YouTube. It does not run its own speech recognition, so if a video has no captions at all,
+        there is nothing to export. Most videos with clear speech have an <a href="/youtube-auto-generated-subtitles">auto-generated track</a> you can use.
+    </div>
+</section>
+
+<Faq items={faqs} />
+
+<RelatedTools current={page.slug} />
+</Layout>

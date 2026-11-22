@@ -1,0 +1,77 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { posts } from '../lib/blog';
+import { longDate } from '../data/site';
+---
+<Layout
+  title="Blog – YouTube Subtitle & Transcript Guides"
+  description="Guides on YouTube subtitles and transcripts: SRT vs VTT vs TXT, accessibility, language learning, AI summaries and turning videos into content."
+  canonicalPath="/blog"
+>
+  <div class="blog-container">
+    <div class="hero">
+      <h1>FetchSubs Blog</h1>
+      <p>Insights, tutorials, and tips for working with YouTube subtitles.</p>
+    </div>
+
+    <div class="blog-grid">
+      {posts.map((post) => (
+        <div class="blog-card">
+          {post.cover && <div class="blog-img" style={`background-image: url('${post.cover}')`}></div>}
+          <div class="blog-card-content">
+            <div class="blog-date">{longDate(post.publishDate)}</div>
+            <h2><a href={`/blog/${post.slug}`} style="color: inherit; text-decoration: none;">{post.title}</a></h2>
+            <p>{post.summary}</p>
+            <a href={`/blog/${post.slug}`} class="read-more">Read Full Article</a>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style is:global>
+  .blog-container { padding-bottom: 4rem; }
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+  .blog-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--glass-border);
+    border-radius: 1.5rem;
+    overflow: hidden;
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+  }
+  .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.4);
+    border-color: var(--accent-primary);
+  }
+  .blog-img { height: 200px; background-size: cover; background-position: center; }
+  .blog-card-content { padding: 1.5rem; display: flex; flex-direction: column; flex: 1; }
+  .blog-date {
+    font-size: 0.8rem;
+    color: var(--accent-primary);
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+  .blog-card h2 { font-size: 1.25rem; margin-bottom: 1rem; line-height: 1.4; }
+  .blog-card p { color: var(--text-muted); font-size: 0.95rem; margin-bottom: 1.5rem; flex: 1; }
+  .read-more {
+    color: var(--accent-primary);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .read-more:hover { text-decoration: underline; }
+</style>

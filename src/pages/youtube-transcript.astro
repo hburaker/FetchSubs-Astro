@@ -1,0 +1,198 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ToolWidget from '../components/ToolWidget.astro';
+import Faq from '../components/Faq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../data/landing';
+import type { FaqItem } from '../data/site';
+
+const page = findLanding('youtube-transcript');
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do I get the transcript of a YouTube video?",
+    answer: "Copy the video link, paste it into the box at the top of this page and press Get Transcript. FetchSubs lists every caption track the video has. Click TXT for plain text, SRT or VTT for a transcript with timestamps, or RAW to read the text in a new browser tab.",
+  },
+  {
+    question: "Can I download a YouTube transcript without timestamps?",
+    answer: "Yes. The TXT option saves only the spoken text, one caption line per line, with no numbers and no times. RAW shows the same clean text in a new tab if you just want to read or copy it without saving a file.",
+  },
+  {
+    question: "Can I download a YouTube transcript with timestamps?",
+    answer: "Yes. Choose SRT or VTT. Both formats keep the start and end time of every caption, so you can jump to the exact moment a sentence is spoken or reuse the file as subtitles.",
+  },
+  {
+    question: "Is this YouTube transcript generator free?",
+    answer: "Yes. It is completely free, with no account, no browser extension, no software to install and no limit on the number of transcripts you download.",
+  },
+  {
+    question: "Why does a YouTube video have no transcript?",
+    answer: "A transcript only exists when the video has a caption track. The creator may have turned captions off, the upload may be too new for automatic captions to be ready, the language may not be supported by YouTube speech recognition, or the video may be private or restricted. FetchSubs cannot create a transcript that YouTube does not have.",
+  },
+  {
+    question: "Can I get a transcript in another language?",
+    answer: "Yes, as long as the video has a caption track in that language. Every available language is listed, including translations uploaded by the creator. FetchSubs does not machine-translate transcripts itself.",
+  },
+  {
+    question: "Are auto-generated transcripts accurate?",
+    answer: "They are usually good for clear speech in a common language, but they lack punctuation in places and can misspell names, jargon and numbers. Tracks are labelled Auto-generated or Official in the list, so you can pick the creator's own captions when they exist.",
+  },
+  {
+    question: "Does it work with YouTube Shorts?",
+    answer: "Yes. Paste a Shorts link the same way as a normal video link. Standard watch links, youtu.be short links and embed links work too.",
+  },
+  {
+    question: "How is the transcript file named?",
+    answer: "Files are named after the video title followed by the language code, for example My_Video_Title_en.txt, so transcripts from different videos and languages are easy to tell apart.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"YouTube Transcript Generator"}
+  fullTitle={"YouTube Transcript Generator – Free, No Sign-up | FetchSubs"}
+  description={"Get the full transcript of any YouTube video with or without timestamps. Any language, manual or auto-generated captions. Free, no sign-up."}
+>
+<Breadcrumb name={"YouTube Transcript"} path={'/' + page.slug} />
+
+<div class="hero">
+    <h1>YouTube Transcript Generator</h1>
+    <p>Paste a YouTube link and get the full transcript of the video in seconds, <strong>with timestamps</strong> (SRT or VTT) or <strong>without timestamps</strong> (TXT). Every caption language the video has is listed, and manual and auto-generated tracks are clearly labelled. Free, no sign-up, nothing to install.</p>
+</div>
+
+<ToolWidget button={"Get Transcript"} />
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">How to Get the Transcript of a YouTube Video</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Copy the video URL</h3>
+            <p>Grab the link from the address bar or the Share button. Regular videos, youtu.be links, Shorts and embed URLs are all accepted.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Press Get Transcript</h3>
+            <p>FetchSubs looks up the video and shows its title, length and a list of every caption track, each marked Official or Auto-generated.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Choose a format</h3>
+            <p>Pick TXT for clean text, SRT or VTT to keep the timestamps, or RAW to read the transcript straight away in a new tab.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="timestamps-title">
+    <h2 class="section-title" id="timestamps-title">Transcript With or Without Timestamps</h2>
+    <p class="section-subtitle">
+        The same caption track can be exported four ways. Which one you need depends on whether the timing matters for what you are doing next.
+    </p>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>SRT – with timestamps</h3>
+            <p>Numbered blocks with a start and end time for each line. Best when you want to cite the exact minute a quote was said, or reuse the transcript as subtitles in a video editor. See <a href="/youtube-to-srt">YouTube to SRT</a> for details.</p>
+        </div>
+        <div class="feature-card">
+            <h3>VTT – with timestamps</h3>
+            <p>WebVTT stores the same text and times in the format browsers use for HTML5 video. Choose it for web players, online courses and learning platforms.</p>
+        </div>
+        <div class="feature-card">
+            <h3>TXT – without timestamps</h3>
+            <p>Only the words, one caption line per line, with no numbers and no times. Ideal for reading, quoting, searching and pasting into documents. More on this on <a href="/youtube-to-text">YouTube to Text</a>.</p>
+        </div>
+        <div class="feature-card">
+            <h3>RAW – read in the browser</h3>
+            <p>Opens the timestamp-free text in a new browser tab instead of saving a file. Handy for a quick look, or when you only need a paragraph or two.</p>
+        </div>
+    </div>
+    <p class="content-text">
+        A good rule of thumb: if you will ever need to go back to the video and find a sentence, keep the timestamps. Researchers and journalists often
+        download both versions, the TXT for reading and highlighting and the SRT as a time-coded reference. If you only need the content of the talk,
+        TXT is shorter, easier to skim and much friendlier to paste into a note-taking app or an AI assistant.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="compare-title">
+    <h2 class="section-title" id="compare-title">Getting a Transcript on YouTube vs. With FetchSubs</h2>
+    <p class="content-text">
+        YouTube has a built-in transcript panel. On a computer, open the video, expand the description and click <strong>Show transcript</strong>.
+        A panel opens next to the player with every line and its timestamp, and the menu in the panel lets you hide the timestamps. If the video has captions
+        in more than one language, a language selector appears at the bottom of the panel.
+    </p>
+    <p class="content-text">
+        That is fine for reading along, but it has limits. There is no download button, so the only way to keep the text is to drag-select the whole
+        panel and copy it, which is slow for long videos and often picks up stray timestamps or interface text. The panel also is not available in
+        every layout, and on the mobile app it is easy to lose your place while scrolling.
+    </p>
+    <p class="content-text">
+        FetchSubs reads the same caption tracks and turns them into a proper file. You get the complete transcript in one click, in the format you choose,
+        in any language the video offers, already named after the video title and language code. There is nothing to select by hand, no extension to install
+        and no account to create, and it works the same on a phone, tablet or desktop browser. Short vertical clips work too; see the
+        <a href="/youtube-shorts-transcript">YouTube Shorts transcript</a> page for tips specific to Shorts.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="uses-title">
+    <h2 class="section-title" id="uses-title">Who Uses YouTube Transcripts</h2>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>Students</h3>
+            <p>Turn lectures and tutorials into searchable study notes, highlight key definitions and revise without rewatching an hour of video.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Researchers</h3>
+            <p>Collect interviews, panel talks and conference sessions as text for qualitative analysis, coding and citation with exact timestamps.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Journalists</h3>
+            <p>Check quotes word for word against a time-coded transcript before publishing, and find the moment a statement was made in seconds.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Creators</h3>
+            <p>Pull the transcript of your own uploads to write show notes, chapter lists, video descriptions and social posts from what you actually said.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>SEO and bloggers</h3>
+            <p>Repurpose a video into a blog post or article draft, giving search engines indexable text that matches the video content.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>AI workflows</h3>
+            <p>Paste the transcript into a chatbot to summarise, outline or ask questions about a video. Read the <a href="/youtube-transcript-for-chatgpt">transcript for ChatGPT</a> guide for prompt ideas.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="missing-title">
+    <h2 class="section-title" id="missing-title">What to Do When a Transcript Is Not Available</h2>
+    <p class="content-text">
+        If FetchSubs shows no tracks, or YouTube itself has no Show transcript button, the video has no caption track to export. The usual reasons are:
+    </p>
+    <p class="content-text">
+        <strong>The upload is very new.</strong> YouTube needs some time after upload, and after a live stream ends, before automatic captions appear.
+        Try again later. <strong>Captions are turned off.</strong> Creators can disable or remove captions, including automatic ones.
+        <strong>The language is not supported.</strong> Automatic speech recognition only covers a set of languages, so videos in other languages may only
+        have captions if the creator uploaded them. <strong>There is little or no speech.</strong> Music videos, gameplay without commentary and
+        noisy recordings often produce no usable automatic track. <strong>The video is private or restricted.</strong> FetchSubs can only read
+        videos that are publicly available.
+    </p>
+    <p class="content-text">
+        If the video is your own, you can turn on automatic captions or upload a caption file in YouTube Studio, and the transcript will then be available here.
+        Learn more about how machine captions work and how to judge their quality on the <a href="/youtube-auto-generated-subtitles">auto-generated subtitles</a>
+        page, or browse the general <a href="/faq">FAQ</a>.
+    </p>
+    <div class="landing-note">
+        FetchSubs is a transcript downloader, not a speech-to-text service. It exports caption tracks that already exist on YouTube, exactly as YouTube
+        provides them, and does not listen to the audio or generate text of its own. For everything else, the main <a href="/">YouTube subtitle downloader</a>
+        lists all formats and languages in one place.
+    </div>
+</section>
+
+<Faq items={faqs} />
+
+<RelatedTools current={page.slug} />
+</Layout>

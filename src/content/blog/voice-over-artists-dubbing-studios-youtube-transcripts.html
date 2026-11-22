@@ -1,0 +1,64 @@
+---
+title: "Using a YouTube Transcript as a Dubbing or Voice-Over Script"
+summary: "How to turn a YouTube caption track into a working script for dubbing, voice-over or audio description, and the rights you need before you start."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 24
+---
+<p>A YouTube caption track makes a useful first draft of a dubbing or voice-over script. It gives you what was said and roughly when, which is most of what you need to plan a recording session. It isn't a finished script, though. Caption cues are cut for reading, not speaking, and auto-generated text has errors that become very audible once someone records them. Below is how I'd turn a caption file into something a voice actor can work from, plus the part that comes before all of it: permission.</p>
+
+<h2>First: do you have the right to dub it?</h2>
+<p>A dub or a translated voice-over is a new version of someone else's work. US copyright law, for example, lists translations among its examples of <a href="https://www.law.cornell.edu/uscode/text/17/101" target="_blank" rel="noopener">derivative works</a>, and making those is the copyright owner's right. Being able to download a video's captions doesn't change that.</p>
+<p>So this workflow is for videos you have permission to dub or voice: your own channel, a client who has hired you (ideally with the permission in writing), or material that's free to use. I use NASA's <em>Perseverance Rover's Descent and Touchdown on Mars</em> as the example here because NASA says its content is <a href="https://www.nasa.gov/nasa-brand-center/images-and-media/" target="_blank" rel="noopener">generally not subject to copyright in the United States</a>, with caveats about third-party material and implied endorsement. If you're not sure where a video stands, the <a href="/blog/copyright-youtube-subtitles-what-you-can-do">copyright and YouTube subtitles</a> article goes through the common cases.</p>
+
+<h2>Which file to download</h2>
+<p>Paste the video link into <a href="/youtube-transcript">FetchSubs</a> and look at the list of tracks. If there's an uploaded track as well as an auto-generated one, take the uploaded one. Then download it twice:</p>
+<ul>
+    <li><strong>SRT</strong> for timing. Each cue has a start and end time, which tells you roughly how long each stretch of speech lasts and where the pauses are.</li>
+    <li><strong>TXT</strong> for reading. It's the same text without timestamps, which is easier to read through for meaning, tone and terminology before you get into timing.</li>
+</ul>
+<p>The uploaded track matters more here than for subtitles. On the Perseverance video, the auto-generated track says the velocity is <em>440 m/s</em> where the uploaded one says <em>450 meters per second</em>, and it has <em>Indicate shoot deploy</em> for <em>indicates chute deploy</em>. A typo in a subtitle is a small embarrassment. A wrong number spoken confidently by a voice actor is a factual error in the finished video.</p>
+
+<h2>Turn caption cues into script lines</h2>
+<p>Caption cues break wherever the line got too long, often mid-sentence. These are the first six cues of the uploaded Perseverance track, with each cue's two lines joined:</p>
+<pre class="code-sample">00:00:00,400 --&gt; 00:00:03,280  We are starting the straighten up and fly right maneuver,
+00:00:03,280 --&gt; 00:00:07,360  where the spacecraft will jettison the entry balance masses in preparation for
+00:00:07,360 --&gt; 00:00:11,280  parachute deploy and to roll over to give the radar a better look at the ground.
+00:00:14,160 --&gt; 00:00:20,800  [inaudible] indicates chute deploy. The navigation has confirmed that the parachute has deployed and
+00:00:20,800 --&gt; 00:00:26,560  we are seeing significant deceleration in the velocity. Our current velocity is 450
+00:00:26,560 --&gt; 00:00:30,560  meters per second at an altitude of about 12 kilometers from the surface of Mars.</pre>
+<p>A performer doesn't want <em>is 450</em> at the end of one unit and <em>meters per second</em> at the start of the next. Merge cues into units of speech, usually a sentence or a breath group, and keep the start time of the first cue and the end time of the last:</p>
+<pre class="code-sample">LINE 1   00:00.4 to 00:11.3   (about 11 s)
+We are starting the straighten up and fly right maneuver, where the
+spacecraft will jettison the entry balance masses in preparation for
+parachute deploy and to roll over to give the radar a better look at
+the ground.
+
+         pause, about 3 s
+
+LINE 2   00:14.2 to 00:30.6   (about 16 s)
+[inaudible] indicates chute deploy. The navigation has confirmed that
+the parachute has deployed and we are seeing significant deceleration
+in the velocity. Our current velocity is 450 meters per second at an
+altitude of about 12 kilometers from the surface of Mars.</pre>
+<p>Two cautions about those times. Caption timings are approximate, so treat them as a guide and check the real start and end of each line against the audio. And a caption's end time isn't always when speech stops. Later in the same track, a cue reading <em>About 20 meters off the surface, we're getting signals from MRO</em> stays on screen for almost 10 seconds. Nobody takes 10 seconds to say that. The caption just stayed up until the next one.</p>
+<p>Also mark what the transcript can't tell you: who is speaking, the tone, and anything marked <em>[inaudible]</em>. For those, you need the video, and for anything unclear, the client.</p>
+
+<h2>Dubbing, voice-over and the timing you need</h2>
+<p>How tightly you need to match the original depends on the kind of job.</p>
+<p>In <strong>lip-sync dubbing</strong>, the new audio replaces the original and has to fit the speaker's mouth movements, so the translation is adapted line by line to match length and even lip shapes. The SRT only gives you a starting point. The real timing work happens against the picture.</p>
+<p>In <strong>voice-over</strong>, the new voice plays over the original, which is turned down but still audible. This is common for interviews and documentaries. Timing is looser: each translated line needs to fit roughly inside the original line's window. That's where the merged script above is most useful, because you can see at a glance that line 1 has about 11 seconds and line 2 about 16.</p>
+<p>In <strong>narration replacement</strong>, such as a course video with one off-screen narrator, you re-record the whole narration in the new language. Timing only has to match the visuals, such as a slide changing or an animation starting, not the original voice.</p>
+<p>In all three, the translation usually needs adapting to fit, not just translating. If a translated line comes out much longer than the original window, it needs rewriting, not faster reading. FetchSubs doesn't translate, so that step happens in your translation tool or with a translator. Our guide to <a href="/blog/how-to-translate-youtube-subtitles">translating YouTube subtitles</a> covers the options.</p>
+
+<h2>Audio description</h2>
+<p>Audio description is a narration track that describes important visual information for blind and partially sighted viewers. WCAG 2.2 requires it for prerecorded video at level AA (<a href="https://www.w3.org/WAI/WCAG22/Understanding/audio-description-prerecorded.html" target="_blank" rel="noopener">success criterion 1.2.5</a>). Descriptions normally go into pauses in the dialogue, and a caption file is a quick way to find candidate pauses. In the uploaded Perseverance track, the longest gap between captions runs from 00:57.8 to 01:07.7, almost 10 seconds. There are several more of two to six seconds.</p>
+<p>A gap in the captions is only a candidate, not a guaranteed silence. There may be music, sound effects or speech that wasn't captioned. And the transcript tells you nothing about what's on screen. That's the part the describer writes, and it means watching the video, not reading the captions.</p>
+
+<h2>Putting the result on YouTube</h2>
+<p>If the video is on your own channel, YouTube can host the dubbed audio. Its <a href="https://support.google.com/youtube/answer/13338784" target="_blank" rel="noopener">multi-language audio</a> help page says the feature is available to creators with access to advanced features: in YouTube Studio you open <em>Languages</em>, pick the video, add a language, and add a dub. The file has to be audio-only and roughly the same length as the video. If YouTube has already made an automatic dub for that language, you have to delete it before uploading yours. Viewers can then switch between the original and the dubbed audio in the player.</p>
+
+<h2>What FetchSubs does and doesn't do here</h2>
+<p>FetchSubs gives you the caption tracks that already exist on YouTube, as SRT, VTT or TXT. That's the script's raw material. It doesn't transcribe videos without captions, translate, split text by speaker, or edit anything. If a video has no captions at all, see <a href="/blog/youtube-transcript-not-available">why a YouTube transcript isn't available</a> for what you can do instead.</p>

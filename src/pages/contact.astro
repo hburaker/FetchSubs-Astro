@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { jsonLd } from '../data/site';
+
+const contactPage = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  url: 'https://fetchsubs.com/contact',
+  name: 'Contact FetchSubs',
+  mainEntity: {
+    '@type': 'Organization',
+    '@id': 'https://fetchsubs.com/#organization',
+    name: 'FetchSubs',
+    email: 'halitburakeroglu@gmail.com',
+    founder: { '@type': 'Person', name: 'Halit Burak Eroğlu' },
+  },
+};
+---
+<Layout
+  title="Contact"
+  description="Contact FetchSubs: report a bug, suggest a feature, ask a question or send a copyright or privacy request. Email halitburakeroglu@gmail.com."
+>
+<Fragment slot="head">
+  <script type="application/ld+json" is:inline set:html={jsonLd(contactPage)} />
+</Fragment>
+
+<div class="doc-page">
+    <h1>Contact FetchSubs</h1>
+
+    <p>
+        FetchSubs is run by one person, <a href="/about">Halit Burak Eroğlu</a>. The best way to reach me is by email:
+    </p>
+
+    <div class="contact-box" style="margin: 1.5rem 0 2rem; padding: 1.5rem; background: rgba(56, 189, 248, 0.1); border-radius: 1rem; border: 1px solid var(--accent-primary);">
+        <a href="mailto:halitburakeroglu@gmail.com?subject=FetchSubs" style="color: var(--accent-primary); font-size: 1.2rem; text-decoration: none; font-weight: 700;">halitburakeroglu@gmail.com</a>
+        <p style="margin-top: 0.75rem; font-size: 0.9rem;">I read every message myself and usually reply within a few days. You can write in English or Turkish.</p>
+    </div>
+
+    <h2>Reporting a problem with a video</h2>
+    <p>If a download fails or the subtitles look wrong, please include:</p>
+    <ul>
+        <li>the full YouTube link you pasted,</li>
+        <li>the language and format you chose (SRT, VTT, TXT or RAW),</li>
+        <li>the exact error message, if one was shown, and</li>
+        <li>your browser and device (for example "Chrome on Android").</li>
+    </ul>
+    <p>
+        Before writing, it's worth checking whether the video actually has captions on YouTube: FetchSubs can only download caption tracks
+        that already exist. The <a href="/faq">FAQ</a> covers the most common cases.
+    </p>
+
+    <h2>Feature ideas and feedback</h2>
+    <p>
+        Suggestions shape what gets built next. Tell me what you were trying to do and what got in the way. A sentence about your use case
+        (studying, editing video, translating, research…) helps more than a feature name.
+    </p>
+
+    <h2>Copyright and content requests</h2>
+    <p>
+        FetchSubs does not host videos or store subtitle files; it retrieves caption tracks that YouTube makes publicly available at the moment a
+        visitor requests them. If you are a rights holder and have a concern about how the tool is used with your content, email me with the
+        URL(s) involved and a description of the issue, and I will respond promptly. See the <a href="/terms">Terms of Use</a> for more.
+    </p>
+
+    <h2>Privacy requests</h2>
+    <p>
+        FetchSubs has no user accounts and does not keep the links or files you process. For questions about analytics or advertising cookies,
+        see the <a href="/privacy">Privacy Policy</a> or email me.
+    </p>
+</div>
+</Layout>

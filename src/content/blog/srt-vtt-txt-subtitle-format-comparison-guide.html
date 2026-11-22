@@ -1,0 +1,113 @@
+---
+title: "SRT vs VTT vs TXT: Which Subtitle Format to Download"
+summary: "SRT for video editors and players, VTT for web video, TXT for reading. Real samples of each, the small syntax differences, and the mistakes to avoid."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-16"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 8
+---
+<p>Short answer: download <strong>SRT</strong> if the captions are going into a video editor or a desktop player, <strong>VTT</strong> if they are going onto a web page with an HTML5 <code>&lt;video&gt;</code> element, and <strong>TXT</strong> if you only want the words. All three contain the same text. What changes is whether the timing is kept and how it is written down.</p>
+<p>To make the differences concrete, every sample below is the real output FetchSubs produces for the English captions of <em>Me at the zoo</em>, the 19-second clip that was the first video uploaded to YouTube. The file names it gives you are <code>Me_at_the_zoo_en.srt</code>, <code>Me_at_the_zoo_en.vtt</code> and <code>Me_at_the_zoo_en.txt</code>; an auto-generated track gets <code>_auto</code> added before the extension, so you can tell them apart later.</p>
+
+<h2>SRT: the one almost everything accepts</h2>
+<p>SRT (SubRip) is about as simple as a subtitle format can be. Each caption is a block: a counter, a timing line, one or more lines of text, then a blank line.</p>
+<pre class="code-sample">1
+00:00:01,200 --&gt; 00:00:03,360
+All right, so here we are, in front of the
+elephants
+
+2
+00:00:05,318 --&gt; 00:00:07,974
+the cool thing about these guys is that they
+have really...</pre>
+<p>The detail that trips people up is the <strong>comma</strong> before the milliseconds: <code>00:00:01,200</code>, not <code>00:00:01.200</code>. Hours are always written, even for a 19-second video. There is no header, no styling and no positioning in the basic format, which is exactly why support is so broad.</p>
+<p>SRT is what I'd pick for anything that isn't a web page. Desktop players such as VLC load it, video editors such as DaVinci Resolve and Premiere Pro import it, and YouTube Studio accepts it when you upload captions to your own video (SubRip is on YouTube's <a href="https://support.google.com/youtube/answer/2734698" target="_blank" rel="noopener">list of supported caption files</a>). If you want a player to load the file without asking, give it the same base name as the video and keep both in one folder: <code>lecture.mp4</code> next to <code>lecture.srt</code>.</p>
+<p>The <a href="/youtube-to-srt">YouTube to SRT</a> page has more on this format, and the <a href="/blog/video-editor-guide-subtitles-davinci-resolve-premiere-pro">video editor's guide</a> covers importing SRT into Resolve and Premiere.</p>
+
+<h2>VTT: the format browsers actually play</h2>
+<p>WebVTT is the caption format of the web. The <code>&lt;track&gt;</code> element in HTML expects WebVTT, so if you want captions on a video you host yourself, this is the file you need. It looks a lot like SRT, with a few differences:</p>
+<pre class="code-sample">WEBVTT
+
+1
+00:00:01.200 --&gt; 00:00:03.360
+All right, so here we are, in front of the
+elephants
+
+2
+00:00:05.318 --&gt; 00:00:07.974
+the cool thing about these guys is that they
+have really...</pre>
+<ul>
+    <li>The file has to start with <code>WEBVTT</code>, followed by a blank line before the first cue.</li>
+    <li>Milliseconds come after a <strong>dot</strong>, not a comma.</li>
+    <li>The hours part is optional, so <code>00:01.200</code> is valid too. FetchSubs always writes the hours, which is also valid.</li>
+    <li>The number above each cue is an optional <em>cue identifier</em>. FetchSubs keeps the counter there so the VTT and SRT files line up block for block; players simply ignore it.</li>
+</ul>
+<p>VTT can also do things SRT can't. A timing line can carry cue settings (<code>line</code>, <code>position</code>, <code>size</code>, <code>align</code> and <code>vertical</code>) to move a caption, for example out of the way of on-screen text. Your page's CSS can style the captions through the <code>::cue</code> pseudo-element, and the file itself can hold <code>NOTE</code> comments and <code>STYLE</code> blocks. MDN's <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebVTT_API/Web_Video_Text_Tracks_Format" target="_blank" rel="noopener">WebVTT format reference</a> lists the rules, including one worth knowing if you edit cues by hand: a blank line ends a cue, so the caption text itself can't contain an empty line.</p>
+<p>Hooking a VTT file up to a video takes one line inside the <code>&lt;video&gt;</code> element:</p>
+<pre class="code-sample">&lt;track src="Me_at_the_zoo_en.vtt" kind="subtitles" srclang="en" label="English"&gt;</pre>
+<p>One practical note: browsers usually refuse to load a track from another domain unless it is served with the right CORS headers, so keep the VTT on the same site as the page when you can.</p>
+
+<h2>TXT: just the words</h2>
+<p>TXT drops the counters and the timing lines and keeps the caption text in order:</p>
+<pre class="code-sample">All right, so here we are, in front of the
+elephants
+the cool thing about these guys is that they
+have really...
+really really long trunks
+and that's cool</pre>
+<p>Notice that a caption which was split over two lines on screen stays split here. That keeps the file faithful to the captions, but if you want flowing paragraphs you'll need to join lines yourself; the post on <a href="/blog/copy-youtube-transcript-without-timestamps">copying a transcript without timestamps</a> shows a few ways to do it.</p>
+<p>TXT is the right download for reading, searching, quoting, translating or pasting into an AI chat. It opens in any text editor or notes app. If you don't need a file at all, the <strong>RAW</strong> button shows the same text in a new browser tab so you can read or copy it straight away. More on this on the <a href="/youtube-to-text">YouTube to text</a> page.</p>
+
+<h2>Side by side</h2>
+<table style="width:100%; border-collapse: collapse; margin: 20px 0; color: var(--text-muted);">
+    <tr style="border-bottom: 2px solid var(--glass-border); text-align: left;">
+        <th style="padding: 10px;"></th>
+        <th style="padding: 10px;">SRT</th>
+        <th style="padding: 10px;">VTT</th>
+        <th style="padding: 10px;">TXT</th>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Timing kept</td>
+        <td style="padding: 10px;">Yes</td>
+        <td style="padding: 10px;">Yes</td>
+        <td style="padding: 10px;">No</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Millisecond separator</td>
+        <td style="padding: 10px;">Comma</td>
+        <td style="padding: 10px;">Dot</td>
+        <td style="padding: 10px;">n/a</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Header line</td>
+        <td style="padding: 10px;">None</td>
+        <td style="padding: 10px;"><code>WEBVTT</code> (required)</td>
+        <td style="padding: 10px;">None</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Works with HTML5 &lt;track&gt;</td>
+        <td style="padding: 10px;">No</td>
+        <td style="padding: 10px;">Yes</td>
+        <td style="padding: 10px;">No</td>
+    </tr>
+    <tr style="border-bottom: 1px solid var(--glass-border);">
+        <td style="padding: 10px;">Video editors, desktop players</td>
+        <td style="padding: 10px;">Very widely supported</td>
+        <td style="padding: 10px;">Often supported</td>
+        <td style="padding: 10px;">No</td>
+    </tr>
+    <tr>
+        <td style="padding: 10px;">Reading, notes, AI tools</td>
+        <td style="padding: 10px;">Works, but cluttered</td>
+        <td style="padding: 10px;">Works, but cluttered</td>
+        <td style="padding: 10px;">Best fit</td>
+    </tr>
+</table>
+
+<h2>Mistakes I'd watch for</h2>
+<p><strong>Renaming instead of converting.</strong> Changing <code>.srt</code> to <code>.vtt</code> does not make a WebVTT file: the header is missing and the commas are still there. If you only have an SRT, either download the VTT version as well or add <code>WEBVTT</code> and a blank line at the top and change the comma to a dot in the timing lines only. A find-and-replace on every comma will also change commas in the dialogue.</p>
+<p><strong>Editing timing in TXT.</strong> Once the timestamps are gone, they can't be rebuilt from the text. If there is any chance you'll need the captions back on a video, keep the SRT too. Downloading both costs one extra click.</p>
+<p><strong>Expecting tidy blocks from auto-generated captions.</strong> Subtitles from YouTube's automatic captions follow YouTube's own segmentation, which tends to be short phrases that start and end mid-sentence, without much punctuation. For a professional edit, plan to merge some blocks and fix names. The post on <a href="/blog/youtube-auto-generated-subtitles-accuracy">how accurate auto-generated subtitles are</a> goes into what usually needs fixing.</p>
+<p><strong>Odd characters in an older player.</strong> FetchSubs saves all three formats as UTF-8 text. Current players and editors handle that fine, but if accented letters or non-Latin scripts look garbled in an older program, set its subtitle encoding to UTF-8.</p>

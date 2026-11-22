@@ -1,0 +1,18 @@
+# Rebuilds the site every day so blog posts with a future publishDate go live on their date.
+# Setup: Cloudflare Pages > your project > Settings > Builds > Deploy hooks > create one,
+# then add its URL as the repository secret CF_PAGES_DEPLOY_HOOK.
+name: Scheduled rebuild
+on:
+  schedule:
+    - cron: '15 0 * * *'
+  workflow_dispatch:
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger Cloudflare Pages build
+        env:
+          HOOK: ${{ secrets.CF_PAGES_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$HOOK" ]; then echo "CF_PAGES_DEPLOY_HOOK secret is not set"; exit 1; fi
+          curl -fsS -X POST "$HOOK"

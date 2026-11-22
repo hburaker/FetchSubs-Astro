@@ -1,0 +1,98 @@
+---
+title: "How Accurate Are YouTube Auto-Generated Subtitles? A Real Test"
+summary: "Yes, you can download YouTube auto captions. I compared a real auto-generated track with the official one to show where they go wrong and how to fix them."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-12-06"
+lang: "en"
+order: 34
+---
+<p>Yes, you can download YouTube's auto-generated subtitles. YouTube shows them in the player and the transcript panel but gives viewers no download button, so you need a tool that reads the caption track and saves it as SRT, VTT or TXT.</p>
+<p>As for accuracy, that depends mostly on the audio. With one clear speaker, the ordinary words usually come out right. What reliably suffers is everything around them: names, punctuation, capital letters, where sentences end, and timing. To show what that looks like in practice, I put a real automatic track next to the official captions of the same video.</p>
+
+<h2>Downloading auto-generated subtitles</h2>
+<p>An automatic caption track is a caption track like any other, so it downloads the same way as subtitles the creator uploaded. In FetchSubs, paste the video link (watch, youtu.be, Shorts and embed links all work), press the button and look at the track list. <strong>(Auto-generated)</strong> means YouTube's speech recognition wrote it; <strong>(Official)</strong> means the creator uploaded or typed it. Choose SRT, VTT or TXT on the row you want to save a file, or RAW to read the text in a new tab. When a video has both kinds in the same language, each row fetches its own track, and the automatic one is saved with <code>_auto</code> in the file name. The <a href="/youtube-auto-generated-subtitles">auto-generated subtitles downloader</a> page goes through it step by step.</p>
+<p>Automatic captions only exist in the spoken language of the video (the default audio language, if there are several), and only when YouTube managed to generate them. An empty track list means there's nothing to download; <a href="/blog/youtube-transcript-not-available">why a YouTube transcript is not available</a> goes through the reasons. FetchSubs exports what YouTube has. It doesn't transcribe or translate.</p>
+
+<h2>What YouTube says about accuracy</h2>
+<p>YouTube doesn't publish an accuracy figure. Its help page <a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">Use automatic captioning</a> says the quality may vary, and warns that automatic captions "might misrepresent the spoken content due to mispronunciations, accents, dialects, or background noise." Creators are told to review them in YouTube Studio. Percentages quoted elsewhere come from other test videos and other methods, and say little about the video in front of you. The only honest way to judge a track is to check it, so that's what I did.</p>
+
+<h2>Auto-generated vs official, side by side</h2>
+<p>The video is President Kennedy's 1962 speech at Rice University, as uploaded by the NASA Video channel. One speaker, a recording more than sixty years old, a live audience, a string of proper names in the opening, and an official English track next to YouTube's automatic one. A speech given by a US president in his official capacity is also in the public domain, which means I can show the text freely.</p>
+<p>This is the opening of the <strong>auto-generated</strong> track, exported as SRT in November 2026:</p>
+<pre class="code-sample">1
+00:00:19,039 --&gt; 00:00:24,039
+president pit Mr vice
+
+2
+00:00:21,880 --&gt; 00:00:27,800
+president
+
+3
+00:00:24,039 --&gt; 00:00:32,000
+governor Congressman Thomas Senator Wy
+
+4
+00:00:27,800 --&gt; 00:00:35,200
+and Congressman Miller Mr Webb
+
+5
+00:00:32,000 --&gt; 00:00:38,079
+Bell scientists distinguished guests
+
+6
+00:00:35,200 --&gt; 00:00:40,440
+ladies and gentlemen I appreciate uh</pre>
+<p>And the same passage in the <strong>official</strong> track:</p>
+<pre class="code-sample">President Pitzer, Mr. Vice President, Governor,
+Congressman Thomas, Senator Wiley, and Congressman Miller,
+Mr. Webb, Mr. Bell, scientists, distinguished guests, and ladies and gentlemen:
+I appreciate your president having made me an honorary visiting
+professor, and I will assure you that my first lecture will be very brief.</pre>
+<p>I read on through roughly the first two and a half minutes of both. Here's what differed.</p>
+
+<h3>Names break first</h3>
+<p>Nearly every error in the opening is a name or a title. "President Pitzer" (the university's president) became <code>president pit</code>, "Senator Wiley" became <code>Senator Wy</code>, and "Mr. Bell" lost its title and turned into plain <code>Bell</code>. Speech recognition guesses from sound and context, and an unfamiliar name has no context to lean on. Expect the same with product names, technical terms, place names and foreign words in an English video.</p>
+
+<h3>Ordinary sentences hold up</h3>
+<p>Once Kennedy got past the dignitaries, the automatic words matched the official text sentence after sentence. That's the usual pattern with clear, single-speaker audio. The vocabulary is fine. The formatting isn't.</p>
+
+<h3>No punctuation, no sentence ends</h3>
+<p>There isn't a comma or full stop in the automatic track, so sentences run together: <code>very brief I am delighted to be here and</code>. If you want to read it, quote it or pass it to another tool, putting punctuation back is the biggest single cleanup job.</p>
+
+<h3>Capitals in odd places</h3>
+<p>Capitalisation wasn't just missing, it was erratic. The track has <code>Challenge in a decade of Hope and fear</code>, and capitalises <code>Striking</code>, <code>Manpower</code> and <code>Collective</code> mid-sentence, while starting sentences in lowercase. Capital letters tell you nothing here, neither where a name is nor where a sentence begins.</p>
+
+<h3>Hesitations stay in, and sometimes the words differ</h3>
+<p>The automatic track records what was actually voiced, including <code>uh</code> and a doubled <code>a a state</code>. The official track drops both. In one spot the two disagree on the words: the official track has "a time span of but a half-century", the automatic one <code>a time span of about a half a century</code>. You'd have to listen to that moment to know which is faithful. Official captions of historic speeches are sometimes based on the prepared text, so "official" doesn't automatically mean "verbatim".</p>
+
+<h3>The official track has flaws too</h3>
+<p>Its apostrophes in "Nation's", "man's" and "year's" come out as a superscript one (<code>Nation¹s</code>), an encoding error that most likely crept in when the file was prepared. It also marks the crowd with <code>(Cheers)</code> over the first seconds, which the automatic track doesn't note at all.</p>
+
+<h3>Short cues that overlap</h3>
+<p>Look at the timestamps in the SRT sample again. Each automatic cue holds a handful of words, and each is still on screen when the next starts: cue 1 runs to 00:00:24,039, cue 2 begins at 00:00:21,880. That's because YouTube displays automatic captions as rolling lines. Most players cope, but some editors and players stack the lines or complain about overlaps, and the exported file is awkward to read.</p>
+
+<h2>What makes auto captions better or worse</h2>
+<p>Audio quality matters more than anything else. A close microphone in a quiet room helps; echo, wind, crowd noise and music under the speech all hurt. More speakers make it harder, and when people talk over each other the lines merge, with no indication of who said what, since automatic tracks never label speakers. YouTube itself names accents and dialects as a source of errors. Jargon, names and code get swapped for common words that sound similar.</p>
+<p>Three more things to know. Automatic captions are offered in 67 languages, and there's no reason to assume quality is the same in all of them. Live automatic captions are English only, and after the stream they're replaced by captions from normal processing, which can differ from what viewers saw live. And by default YouTube hides potentially inappropriate words in automatic captions behind a placeholder (an open bracket, two underscores and a closing bracket). Creators can switch that off, but where you see the placeholder, the original word isn't in the file.</p>
+
+<h2>Is the automatic track good enough?</h2>
+<p>For searching a long video, taking notes or studying, usually yes, provided you keep the timestamps so you can jump back to the audio. For quoting someone, only after you've checked the passage against the video; names, numbers and small words like "not" are the ones that bite. For publishing captions or a transcript, treat it as a first draft. YouTube tells creators to review automatic captions, and people who depend on captions deserve correct names and punctuation. For research that needs verbatim speech, the kept hesitations can actually help, but verify anything you analyse closely.</p>
+<p>When a video has both an official and an automatic track in the same language, start with the official one, and still compare a short passage against the audio before you rely on it.</p>
+
+<h2>Cleaning up an automatic track</h2>
+<ol>
+    <li><strong>Pick the format for the job.</strong> SRT if you need timing in a video editor or player, TXT or RAW if you only want the words. The <a href="/blog/srt-vtt-txt-subtitle-format-comparison-guide">SRT vs VTT vs TXT comparison</a> explains the differences, and the <a href="/youtube-to-srt">YouTube to SRT</a> page covers working with timed captions.</li>
+    <li><strong>Fix names first, in one go.</strong> Skim the first few minutes, note how each name was misheard, and use find-and-replace. A mistake like <code>Senator Wy</code> tends to repeat the same way every time.</li>
+    <li><strong>Reset the capitals.</strong> Since they're random, it can be quicker to lowercase everything and then capitalise sentence starts and names yourself.</li>
+    <li><strong>Join lines and punctuate.</strong> In a TXT export every caption fragment is its own line. Join them into paragraphs, then add full stops and commas while listening. An AI assistant can suggest punctuation for a long transcript, but compare its version with the audio, because it may change words too.</li>
+    <li><strong>Decide about fillers.</strong> Drop "uh" and repeated words for a clean read; keep them for a verbatim record.</li>
+    <li><strong>Fix the timing in SRT files.</strong> A subtitle editor such as Subtitle Edit can merge very short cues and fix overlapping display times, so each subtitle shows a whole phrase and clears before the next one.</li>
+    <li><strong>Add speaker labels</strong> for interviews and panels.</li>
+</ol>
+<p>Applied to the excerpt above, you end up with:</p>
+<pre class="code-sample">President Pitzer, Mr. Vice President, Governor, Congressman Thomas,
+Senator Wiley and Congressman Miller, Mr. Webb, Mr. Bell, scientists,
+distinguished guests, ladies and gentlemen: I appreciate your president
+having made me an honorary visiting professor, and I will assure you
+that my first lecture will be very brief.</pre>
+<p>Which is close to the official track, but it took the official track (or the audio) to get there. That's the real cost of auto captions: the words are mostly free, the names and the punctuation are your job.</p>

@@ -1,0 +1,190 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import ToolWidget from '../components/ToolWidget.astro';
+import Faq from '../components/Faq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../data/landing';
+import type { FaqItem } from '../data/site';
+
+const page = findLanding('youtube-to-text');
+
+const faqs: FaqItem[] = [
+  {
+    question: "How do I convert a YouTube video to text?",
+    answer: "Paste the video link into the box at the top of this page and press Get Text. When the list of caption tracks appears, click TXT next to your language to download a text file, or RAW to open the text in a new browser tab.",
+  },
+  {
+    question: "How do I copy a YouTube transcript without timestamps?",
+    answer: "Click RAW next to the language you want. The transcript opens in a new tab as plain text with no timestamps or line numbers, so you can select all and copy it in one go. TXT saves the same text as a file.",
+  },
+  {
+    question: "Is this YouTube to text converter free?",
+    answer: "Yes. It is free to use with no account, no extension and no install. There is no daily limit and no watermark in the text.",
+  },
+  {
+    question: "What is the difference between TXT and RAW?",
+    answer: "They contain exactly the same text. TXT downloads a .txt file named after the video title and language code. RAW does not download anything; it opens the text in a new browser tab so you can read or copy it immediately.",
+  },
+  {
+    question: "Does FetchSubs transcribe the audio of a video?",
+    answer: "No. FetchSubs converts the caption tracks that already exist on YouTube into text. It does not run its own speech recognition, so a video with no captions at all cannot be converted. Most videos with clear speech have an auto-generated track you can use.",
+  },
+  {
+    question: "Why is there no punctuation in my text?",
+    answer: "Auto-generated YouTube captions often have little or no punctuation and no capital letters at the start of sentences. If the creator uploaded their own captions, choose the track marked Official for cleaner text.",
+  },
+  {
+    question: "Can I convert a YouTube video to text in another language?",
+    answer: "Yes, if the video has a caption track in that language. All available languages are listed. FetchSubs does not translate the text itself.",
+  },
+  {
+    question: "Can I paste the text into ChatGPT?",
+    answer: "Yes. The TXT output has no timestamps, which keeps it short and easy for AI tools to read. For very long videos you may need to paste it in parts.",
+  },
+  {
+    question: "Does YouTube to text work on a phone?",
+    answer: "Yes. FetchSubs runs in any modern mobile browser. Paste a watch, youtu.be or Shorts link, then use RAW to read and copy the text without dealing with downloaded files.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"YouTube to Text Converter"}
+  fullTitle={"YouTube to Text Converter – Free TXT Transcript | FetchSubs"}
+  description={"Turn a YouTube video into clean, copyable text. Timestamps stripped, export as TXT, paste into notes, docs or ChatGPT. Free, no sign-up."}
+>
+<Breadcrumb name={"YouTube to Text"} path={'/' + page.slug} />
+
+<div class="hero">
+    <h1>YouTube Video to Text</h1>
+    <p>Convert the captions of any YouTube video into clean, copyable text. Timestamps and line numbers are stripped out, so you get just the words, ready to save as a <strong>.txt</strong> file or paste into notes, documents or ChatGPT. Free, no sign-up.</p>
+</div>
+
+<ToolWidget button={"Get Text"} />
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">How to Convert a YouTube Video to Text</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Paste the link</h3>
+            <p>Copy any YouTube URL, whether it is a watch page, a youtu.be share link, a Short or an embed link, and paste it into the box above.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Press Get Text</h3>
+            <p>You will see the video details and every caption language it has, each labelled as an official or auto-generated track.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Click TXT or RAW</h3>
+            <p>TXT saves a plain text file to your device. RAW opens the same text in a new tab so you can copy it right away.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="sample-title">
+    <h2 class="section-title" id="sample-title">What the Text Output Looks Like</h2>
+    <p class="content-text">
+        The text export contains only what is said in the video. There are no cue numbers, no arrows and no time codes, just the caption lines in order,
+        one per line. Here is the beginning of a TXT file created from a short travel video:
+    </p>
+    <div class="code-sample" set:html={`All right, so here we are, in front of the
+elephants
+the cool thing about these guys is that they
+have really, really, really long trunks
+and that's cool
+and that's pretty much all there is to say`} />
+    <p class="content-text">
+        Line breaks follow the way the captions were split on screen, which is why a sentence can continue on the next line. That makes the text easy to
+        line up with the video if you need to, and if you prefer flowing paragraphs, most editors can join the lines with a single find-and-replace.
+        Because the file is plain UTF-8 text, it opens on any device and keeps accents and non-Latin scripts intact.
+    </p>
+    <p class="content-text">
+        Need the times as well? The same list offers SRT and VTT for every track. The <a href="/youtube-transcript">YouTube transcript</a> page compares
+        transcripts with and without timestamps, and <a href="/youtube-to-srt">YouTube to SRT</a> covers subtitle files for video editors.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="txt-raw-title">
+    <h2 class="section-title" id="txt-raw-title">TXT or RAW: Download or Read in the Browser</h2>
+    <div class="features-grid">
+        <div class="feature-card">
+            <h3>TXT – save a file</h3>
+            <p>Downloads a .txt file named after the video title and language code, for example My_Video_Title_en.txt. Best when you want to keep the text, attach it, or process several videos later.</p>
+        </div>
+        <div class="feature-card">
+            <h3>RAW – open in a new tab</h3>
+            <p>Shows the identical text in a new browser tab without saving anything. Press Ctrl+A and Ctrl+C (or long-press on mobile) to copy the whole transcript in seconds.</p>
+        </div>
+        <div class="feature-card">
+            <h3>Same clean text</h3>
+            <p>Both options strip timestamps and numbering. Pick whichever fits your workflow; you can always come back and grab the other one.</p>
+        </div>
+    </div>
+    <p class="content-text">
+        RAW is the quickest way to <strong>copy a YouTube transcript without timestamps</strong>, which is otherwise awkward on YouTube itself: selecting
+        text in the built-in transcript panel tends to drag timestamps and interface labels along with it. On a phone, RAW also saves you from hunting
+        through the downloads folder for a file you only wanted to paste somewhere once.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="uses-title">
+    <h2 class="section-title" id="uses-title">What You Can Do With the Text</h2>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>Notes and study</h3>
+            <p>Drop a lecture into Notion, OneNote or Obsidian, then highlight, tag and search it instead of scrubbing through the video.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Docs and drafts</h3>
+            <p>Paste into Google Docs or Word to start a blog post, newsletter, report or meeting summary from a recorded talk.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>ChatGPT and other AI tools</h3>
+            <p>Ask an assistant to summarise, outline or quiz you on a video. Timestamp-free text keeps the prompt short. See <a href="/youtube-transcript-for-chatgpt">transcript for ChatGPT</a>.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Quotes and fact-checking</h3>
+            <p>Search the text for a phrase to quote it accurately, then switch to the SRT if you need the exact time it was said.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Language learning</h3>
+            <p>Read along in your target language, look up unfamiliar words and build vocabulary lists from real speech.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Shorts and clips</h3>
+            <p>Pull the script of a short vertical video for captions or reposting. The <a href="/youtube-shorts-transcript">Shorts transcript</a> page has more on that.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="quality-title">
+    <h2 class="section-title" id="quality-title">Getting Clean, Readable Text</h2>
+    <p class="content-text">
+        The quality of the text depends on the caption track you choose. Tracks marked <strong>Official</strong> were written or uploaded by the creator and
+        usually have proper punctuation, capitals and correctly spelled names. Tracks marked <strong>Auto-generated</strong> come from YouTube speech
+        recognition: they are available on far more videos, but sentences often run together, brand names and technical terms may be misheard, and you may
+        see sound tags such as [Music] or [Applause] left in the text.
+    </p>
+    <p class="content-text">
+        A few quick fixes go a long way. Join the lines into paragraphs, run a spell check, search for the names and numbers that matter to you and compare
+        them with the video, and delete sound tags you do not need. If you paste the text into an AI assistant, you can also ask it to add punctuation and
+        paragraph breaks without changing the wording.
+    </p>
+    <div class="landing-note">
+        Looking for AI transcription of the audio? FetchSubs does not listen to the video or transcribe speech itself. It converts the caption tracks
+        that already exist on YouTube into text. The good news is that most videos with clear speech already have an
+        <a href="/youtube-auto-generated-subtitles">auto-generated caption track</a>, which is exactly what this tool turns into text. If no tracks
+        appear for a video, see the <a href="/faq">FAQ</a> for common reasons, or try the main <a href="/">YouTube subtitle downloader</a>.
+    </div>
+</section>
+
+<Faq items={faqs} />
+
+<RelatedTools current={page.slug} />
+</Layout>

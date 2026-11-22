@@ -1,0 +1,211 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ToolWidget from '../components/ToolWidget.astro';
+import Faq from '../components/Faq.astro';
+import RelatedTools from '../components/RelatedTools.astro';
+import type { FaqItem } from '../data/site';
+
+const faqs: FaqItem[] = [
+  { question: "How do I download subtitles from a YouTube video?",
+    answer: "Copy the video link, paste it into the box above and press Download. FetchSubs lists every subtitle track the video has; click SRT, VTT or TXT next to the language you want and the file is saved to your device." },
+  { question: "Is FetchSubs free?",
+    answer: "Yes. FetchSubs is completely free, with no sign-up, no browser extension, no software to install and no download limit." },
+  { question: "Can I download auto-generated subtitles?",
+    answer: "Yes. YouTube's automatic (speech recognition) captions are listed next to the creator's own subtitles and labelled \"Auto-generated\", so you can download either one." },
+  { question: "Does it work for YouTube Shorts?",
+    answer: "Yes. Paste a youtube.com/shorts/ link the same way as a normal video link. youtu.be and embed links work too." },
+  { question: "What if the video has no subtitles or transcript?",
+    answer: "FetchSubs exports caption tracks that already exist on YouTube; it does not transcribe audio itself. If the creator turned captions off, the video is private, or YouTube has not generated captions yet, there is nothing to download." },
+  { question: "What is the difference between SRT and VTT?",
+    answer: "Both contain the text with start and end times. SRT is supported by almost every video editor and media player; VTT (WebVTT) is the native caption format for HTML5 video on websites." },
+  { question: "How do I get a YouTube transcript without timestamps?",
+    answer: "Choose TXT to download the spoken text only, one caption per line, or RAW to open the same clean text in a new browser tab so you can read or copy it immediately." },
+  { question: "Can I download subtitles in other languages?",
+    answer: "Yes. Every language the video offers appears in the list, including translations uploaded by the creator. Pick the language and the format you need." },
+];
+---
+<Layout
+  title="YouTube Subtitle Downloader"
+  fullTitle="YouTube Subtitle Downloader – SRT, VTT, TXT | FetchSubs"
+  description="Paste a YouTube link and download subtitles or the transcript as SRT, VTT, TXT or RAW. Any language, auto-generated included. Free, no sign-up."
+  canonicalPath="/"
+  isToolPage
+>
+<div class="hero">
+    <h1>YouTube Subtitle Downloader</h1>
+    <p>Download subtitles and transcripts from any YouTube video as SRT, VTT or TXT, or read the RAW text online. Every available language, manual and auto-generated captions. Free, no sign-up.</p>
+</div>
+
+<ToolWidget />
+
+<!-- =============== FEATURES SECTION =============== -->
+<section class="content-section" aria-labelledby="features-title">
+    <h2 class="section-title" id="features-title">Why Choose FetchSubs?</h2>
+    <p class="section-subtitle">
+        FetchSubs is a free, browser-based YouTube subtitle downloader that works without any login, API key, or software installation.
+        Whether you need subtitles for learning, research, accessibility, or content creation, we've got you covered.
+    </p>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">&#9889;</div>
+            <h3>Instant Results</h3>
+            <p>Paste a YouTube link and get subtitles in seconds. No waiting, no queues, no hidden steps. Our server-side processing fetches the transcript the moment you click download.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#127757;</div>
+            <h3>Multi-Language Support</h3>
+            <p>Download subtitles in any language available on the video — English, Spanish, French, German, Turkish, Japanese, and hundreds more. Both manual and auto-generated tracks are supported.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#128193;</div>
+            <h3>Multiple Output Formats</h3>
+            <p>Export your transcript as an SRT file for video editors, VTT for web players, plain TXT for reading and translation, or view the raw untouched output directly in your browser.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#128274;</div>
+            <h3>100% Private</h3>
+            <p>We don't store your video URLs, subtitle content, or any personal data. Every request is processed in real time and nothing is saved to a database. Your privacy is fully respected.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#128241;</div>
+            <h3>Works on Any Device</h3>
+            <p>FetchSubs is fully responsive and works seamlessly on smartphones, tablets, and desktops. Download subtitles on the go directly from your mobile browser — no app needed.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">&#127379;</div>
+            <h3>Completely Free</h3>
+            <p>No subscription, no premium tier, no sign-up required. FetchSubs is and always will be free to use. We believe subtitle access should be open to everyone around the world.</p>
+        </div>
+    </div>
+</section>
+
+<!-- =============== HOW IT WORKS SECTION =============== -->
+<section class="content-section" aria-labelledby="howto-title">
+    <h2 class="section-title" id="howto-title">How to Download YouTube Subtitles</h2>
+    <p class="section-subtitle">Getting subtitles from any YouTube video takes just three simple steps. No technical knowledge required.</p>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Copy the YouTube URL</h3>
+            <p>Open any YouTube video in your browser. Copy the full link from the address bar — it can be a standard watch link, a Shorts link, or even a shared short URL like <code style="color:var(--accent-primary); font-size:0.8rem;">youtu.be/...</code>. All formats are accepted.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Paste &amp; Click Download</h3>
+            <p>Paste the link into the search box at the top of this page and press &ldquo;Download&rdquo; or hit Enter. FetchSubs will automatically detect the video and retrieve all available subtitle tracks for it.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Choose Format &amp; Save</h3>
+            <p>Select the language and your preferred format from the results — SRT, VTT, TXT, or RAW. The file will be downloaded to your device instantly, ready to use in any application.</p>
+        </div>
+    </div>
+</section>
+
+<!-- =============== FORMATS SECTION =============== -->
+<section class="content-section" aria-labelledby="formats-title">
+    <h2 class="section-title" id="formats-title">Understanding Subtitle Formats</h2>
+    <p class="section-subtitle">
+        FetchSubs supports four export formats, each designed for a different workflow. Knowing which format to choose will save you time and effort.
+    </p>
+
+    <div class="format-badges">
+        <span class="badge badge-srt">SRT</span>
+        <span class="badge badge-vtt">VTT</span>
+        <span class="badge badge-txt">TXT</span>
+        <span class="badge badge-raw">RAW</span>
+    </div>
+
+    <p class="content-text">
+        <strong>SRT (SubRip Subtitle)</strong> is the most widely used subtitle format in the world. It stores timestamped text in a numbered sequence, making it compatible with virtually every video player (VLC, Windows Media Player, MPV), video editor (DaVinci Resolve, Premiere Pro, Final Cut Pro), and streaming platform. If you're adding subtitles to a video file or uploading captions to a platform, SRT is usually your best choice.
+    </p>
+    <p class="content-text">
+        <strong>VTT (WebVTT)</strong> is the web standard for subtitles, designed specifically for use with HTML5 &lt;video&gt; elements. If you're building a website, embedding videos in a web app, or working with a Content Delivery Network (CDN), VTT is the format you need. It supports additional styling options compared to SRT and is natively understood by modern browsers.
+    </p>
+    <p class="content-text">
+        <strong>TXT (Plain Text)</strong> strips away all timing and formatting data, giving you only the spoken words as clean text. This is perfect for reading a transcript, summarizing a lecture, running the text through a translation tool, or feeding it into an AI language model. It's also the best format for copying and pasting content quickly.
+    </p>
+    <p class="content-text">
+        <strong>RAW</strong> opens the clean transcript text directly in a new browser tab, with no file download. It is the quickest way to read a transcript, copy a passage, or paste the whole text into a translator or an AI assistant such as ChatGPT (see <a href="/youtube-transcript-for-chatgpt">YouTube transcript for ChatGPT</a>).
+    </p>
+</section>
+
+<!-- =============== USE CASES SECTION =============== -->
+<section class="content-section" aria-labelledby="usecases-title">
+    <h2 class="section-title" id="usecases-title">Who Uses FetchSubs?</h2>
+    <p class="section-subtitle">
+        From students to professionals, millions of people have reasons to extract transcripts from YouTube. Here are some of the most common use cases.
+    </p>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>&#127891; Language Learners</h3>
+            <p>Download subtitles from YouTube videos in your target language. Study vocabulary in context, practice pronunciation, and follow along with native speakers at your own pace.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>&#9855; Accessibility</h3>
+            <p>Provide accurate captions for deaf or hard-of-hearing viewers. Repurpose YouTube's auto-generated or manual subtitles for use in your own video content effortlessly.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>&#9997; Content Creators</h3>
+            <p>Repurpose video content into blog posts, newsletters, or social media threads. Turn a 30-minute video's transcript into a keyword-rich article in minutes.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>&#128300; Researchers</h3>
+            <p>Analyse speech patterns, study rhetoric, or train NLP models. Bulk transcripts from academic talks, interviews, and documentaries are just a few clicks away.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>&#127916; Video Editors</h3>
+            <p>Import SRT files directly into your editing timeline to add captions or burned-in subtitles. Sync perfectly with the original timing without transcribing manually.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>&#127760; Translators</h3>
+            <p>Use the TXT export to feed transcripts into DeepL, Google Translate, or a professional CAT tool. Translate entire videos at document speed, not line by line.</p>
+        </div>
+    </div>
+</section>
+
+<!-- =============== EDITORIAL CONTENT SECTION =============== -->
+<section class="content-section" aria-labelledby="about-tool-title">
+    <h2 class="section-title" id="about-tool-title">The Complete Guide to YouTube Subtitles &amp; Transcripts</h2>
+
+    <p class="content-text">
+        YouTube is home to over 800 million videos covering every imaginable topic &mdash; from university-level physics lectures to cooking tutorials, documentary films to live music performances. But the spoken word inside a video is often locked away, inaccessible to those who prefer reading, those who speak a different language, or those building tools that need structured text data. That's exactly the problem <strong>FetchSubs</strong> was built to solve.
+    </p>
+
+    <p class="content-text">
+        A <strong>YouTube subtitle file</strong> is a time-coded text document that maps every word spoken in a video to the exact moment it appears on screen. YouTube generates these automatically using its speech recognition system &mdash; a process called <em>automatic speech recognition</em> (ASR) &mdash; and also allows video creators to upload their own manually written captions. Both types are available through FetchSubs, and our system clearly labels each track so you always know what you're downloading.
+    </p>
+
+    <p class="content-text">
+        <strong>Why are subtitles so valuable?</strong> The answer goes far beyond simple accessibility. Subtitles are the bridge between video content and the text-based world. Search engines cannot watch videos, but they can index text. When you convert a YouTube video to a transcript using FetchSubs and publish that text on your website, you create an SEO asset that can drive organic traffic for years. This is a technique widely used by professional content marketers and digital agencies.
+    </p>
+
+    <p class="content-text">
+        For <strong>educators and students</strong>, the benefits are equally significant. Research consistently shows that reading along with audio improves comprehension and information retention. Students can download lecture transcripts, annotate them, and review them offline without needing a video connection. A 90-minute lecture that would take two hours to re-watch can be read and highlighted in 20 minutes.
+    </p>
+
+    <p class="content-text">
+        Language learners represent one of the largest groups of FetchSubs users. The immersion method of language acquisition &mdash; consuming media exclusively in the target language &mdash; is widely endorsed by linguists and polyglots. YouTube provides an essentially infinite library of authentic, native-speaker content in every major language. By downloading subtitles in the target language, learners can study vocabulary in real context, mine sentences for flashcard software like Anki, or follow along word by word with a video. This technique is at the core of methodologies like AJATT (All Japanese All The Time) and FSRS-based spaced repetition learning.
+    </p>
+
+    <p class="content-text">
+        <strong>Auto-generated vs. manual subtitles</strong> &mdash; what's the difference? When a video creator uploads captions themselves, those are called <em>manual subtitles</em>. They tend to be very accurate, properly punctuated, and sometimes include descriptions of non-speech audio (like [music] or [applause]). <em>Auto-generated subtitles</em>, on the other hand, are produced by YouTube's ASR system in real time. They've improved dramatically over the past decade and are now highly accurate for clearly spoken English, but they can struggle with strong accents, technical jargon, multiple speakers, or noisy background audio. FetchSubs downloads whichever tracks YouTube makes available, and marks auto-generated ones clearly.
+    </p>
+
+    <p class="content-text">
+        From a <strong>developer's perspective</strong>, FetchSubs fills a gap that Google's official YouTube Data API doesn't. The API does not expose subtitle content directly &mdash; accessing captions programmatically requires OAuth authentication, quota management, and navigating complex permission systems. FetchSubs, built on the open-source <em>YoutubeExplode</em> library, provides a clean and straightforward way to retrieve transcript data without touching the official API or requiring any account credentials.
+    </p>
+
+    <p class="content-text">
+        <strong>Privacy and ethics</strong> are core values of this project. FetchSubs only retrieves subtitle data that YouTube itself makes publicly available. If a creator has disabled subtitles or set their video to private, FetchSubs cannot access it. We do not bypass any restrictions, we do not collect user data, and we do not monetize the transcripts we fetch. The tool exists purely as a convenience layer on top of data that is already public.
+    </p>
+
+    <p class="content-text">
+        Looking ahead, the demand for video transcript tools will only grow. As AI assistants, large language models, and retrieval-augmented generation (RAG) systems become mainstream, structured text extracted from video will be increasingly valuable. FetchSubs provides a simple, reliable, and free gateway to that content &mdash; no API key, no credit card, no account. Just paste a link and download.
+    </p>
+</section>
+
+<Faq items={faqs} />
+
+<RelatedTools heading="Free YouTube Subtitle & Transcript Tools" />
+</Layout>

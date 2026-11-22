@@ -1,0 +1,190 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import ToolWidget from '../../components/ToolWidget.astro';
+import Faq from '../../components/Faq.astro';
+import RelatedTools from '../../components/RelatedTools.astro';
+import { alternatesOf, findLanding } from '../../data/landing';
+import type { FaqItem } from '../../data/site';
+
+const page = findLanding('tr/youtube-transkript-indir');
+
+const faqs: FaqItem[] = [
+  {
+    question: "YouTube videosunun transkripti nasıl alınır?",
+    answer: "Videonun linkini kopyalayıp bu sayfanın üstündeki kutuya yapıştırın ve İndir düğmesine basın. FetchSubs videodaki tüm altyazı dillerini listeler; istediğiniz dilin yanındaki TXT düğmesine tıklarsanız zaman damgası olmayan düz metin transkript, SRT veya VTT düğmesine tıklarsanız zamanlamalı altyazı dosyası indirilir.",
+  },
+  {
+    question: "YouTube videoyu metne çevirme ücretsiz mi?",
+    answer: "Evet. FetchSubs tamamen ücretsizdir. Üye olmanız, tarayıcı eklentisi kurmanız veya program indirmeniz gerekmez ve indirebileceğiniz dosya sayısında bir sınır yoktur.",
+  },
+  {
+    question: "YouTube altyazı SRT olarak nasıl indirilir?",
+    answer: "Linki yapıştırıp İndir düğmesine bastıktan sonra listeden istediğiniz dili bulun ve yanındaki SRT düğmesine tıklayın. Dosya, video adı ve dil kodu ile adlandırılmış .srt uzantılı olarak cihazınıza kaydedilir ve Premiere Pro, DaVinci Resolve, CapCut veya VLC gibi programlarda doğrudan açılabilir.",
+  },
+  {
+    question: "Otomatik altyazılar indirilebilir mi?",
+    answer: "Evet. YouTube'un konuşma tanıma ile oluşturduğu otomatik altyazılar, içerik sahibinin yüklediği altyazılarla birlikte listelenir ve “(Otomatik)” etiketiyle ayrıca belirtilir. İkisini de SRT, VTT veya TXT olarak indirebilirsiniz.",
+  },
+  {
+    question: "Videoda altyazı yoksa transkript alabilir miyim?",
+    answer: "Hayır. FetchSubs sesi kendisi yazıya dökmez; yalnızca YouTube'da zaten bulunan altyazı izlerini dışa aktarır. Net konuşma içeren videoların çoğunda otomatik altyazı bulunur, ancak içerik sahibi altyazıyı kapattıysa ya da video gizliyse indirilecek bir transkript olmaz.",
+  },
+  {
+    question: "YouTube Shorts transkripti indirilebilir mi?",
+    answer: "Evet. youtube.com/shorts/ ile başlayan Shorts linklerini normal video linkleri gibi yapıştırabilirsiniz. youtube.com/watch, youtu.be ve embed linkleri de çalışır.",
+  },
+  {
+    question: "Telefondan YouTube transkript indirebilir miyim?",
+    answer: "Evet. FetchSubs tarayıcıda çalışan bir web sitesidir, uygulama kurmanız gerekmez. YouTube uygulamasında Paylaş menüsünden linki kopyalayın, bu sayfayı telefonunuzun tarayıcısında açın, linki yapıştırın ve dosyayı indirin.",
+  },
+  {
+    question: "Videoda Türkçe altyazı yoksa ne yapabilirim?",
+    answer: "FetchSubs yalnızca videoda gerçekten bulunan dilleri listeler, çeviri yapmaz. Türkçe altyazı yoksa örneğin İngilizce transkripti TXT veya SRT olarak indirip ardından dilediğiniz bir çeviri aracıyla Türkçeye çevirebilirsiniz.",
+  },
+];
+---
+<Layout
+  lang={page.lang}
+  canonicalPath={'/' + page.slug}
+  isToolPage
+  alternates={alternatesOf(page)}
+  title={"YouTube Transkript ve Altyazı İndirme"}
+  fullTitle={"YouTube Transkript ve Altyazı İndir – Ücretsiz | FetchSubs"}
+  description={"YouTube linkini yapıştırın, transkripti veya altyazıyı SRT, VTT ya da TXT olarak indirin. Tüm diller, otomatik altyazılar dahil. Ücretsiz."}
+>
+<Breadcrumb name={"YouTube Transkript İndir"} path={'/' + page.slug} homeName={"Ana Sayfa"} />
+
+<div class="hero">
+    <h1>YouTube Transkript ve Altyazı İndirme</h1>
+    <p>YouTube videosunun linkini yapıştırın, transkriptini veya altyazısını saniyeler içinde <strong>SRT</strong>, <strong>VTT</strong> ya da düz metin <strong>TXT</strong> olarak indirin. Videoda hangi diller varsa hepsi listelenir, otomatik altyazılar da dahil. Ücretsizdir; üyelik, eklenti veya program gerekmez.</p>
+</div>
+
+<ToolWidget
+    placeholder={"YouTube linkini yapıştırın, ör. https://www.youtube.com/watch?v=..."}
+    button={"İndir"}
+    loading={"Video bilgileri ve altyazılar getiriliyor..."}
+    tracksHeading={"Mevcut Altyazı ve Transkriptler"}
+    duration={"Süre:"}
+    source={"Kaynak:"}
+    watch={"Videoyu İzle"}
+    auto={"(Otomatik)"}
+    official={"(Resmî)"}
+    networkError={"Ağ hatası veya sunucuya ulaşılamıyor. Lütfen linkin geçerli bir YouTube linki olduğundan emin olun."}
+    downloadError={"İndirme sırasında bir ağ hatası oluştu. Lütfen tekrar deneyin."}
+    invalidUrl={"Bu bir YouTube linkine benzemiyor. Lütfen youtube.com, youtu.be veya Shorts linki yapıştırın."}
+    noTracks={"Bu videonun YouTube'da altyazısı veya otomatik oluşturulmuş altyazısı yok."}
+/>
+
+<section class="content-section" aria-labelledby="steps-title">
+    <h2 class="section-title" id="steps-title">YouTube Transkript Nasıl Alınır? 3 Adımda Anlatım</h2>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">1</div>
+            <h3>Adım 1: Video linkini kopyalayın</h3>
+            <p>Videoyu YouTube'da açın ve adres çubuğundaki ya da Paylaş menüsündeki linki kopyalayın. Normal video, youtu.be, Shorts ve embed linkleri çalışır.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">2</div>
+            <h3>Adım 2: Yapıştırıp İndir'e basın</h3>
+            <p>FetchSubs videoyu okur ve sahip olduğu tüm altyazı izlerini listeler. Hangisinin içerik sahibince yüklendiği, hangisinin otomatik oluşturulduğu yanında yazar.</p>
+        </div>
+        <div class="step-card">
+            <div class="step-number">3</div>
+            <h3>Adım 3: Formatı seçin</h3>
+            <p>İstediğiniz dilin yanındaki SRT, VTT veya TXT düğmesine tıklayın; dosya hemen iner. Metni yalnızca görmek istiyorsanız RAW ile yeni sekmede açın.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="formats-title">
+    <h2 class="section-title" id="formats-title">YouTube Videoyu Metne Çevirme: Hangi Formatı Seçmeli?</h2>
+    <p class="content-text">
+        Listedeki her dil dört farklı şekilde alınabilir. Hangisini seçeceğiniz, transkripti nerede kullanacağınıza bağlıdır:
+    </p>
+    <p class="content-text">
+        <strong>SRT</strong> en yaygın altyazı formatıdır. Her satır numaralandırılır, başlangıç ve bitiş süresiyle birlikte kaydedilir. Video düzenleme programları,
+        medya oynatıcılar ve sosyal medya platformlarının neredeyse tamamı SRT kabul eder. YouTube altyazı SRT indirme ihtiyacınız varsa doğru seçim budur.
+    </p>
+    <div class="code-sample" set:html={`1
+00:00:01,200 --&gt; 00:00:03,900
+Merhaba, bugünkü videoda size
+
+2
+00:00:03,900 --&gt; 00:00:06,450
+ekşi maya ekmeğinin nasıl yapıldığını anlatacağım.`} />
+    <p class="content-text">
+        <strong>VTT (WebVTT)</strong> SRT'ye çok benzer, ancak web için tasarlanmıştır. Kendi sitenizdeki HTML5 video oynatıcıya veya bir eğitim platformuna altyazı eklerken VTT kullanın.
+    </p>
+    <p class="content-text">
+        <strong>TXT</strong> zaman damgalarını tamamen atar ve yalnızca konuşulan metni satır satır verir. Not almak, metni bir belgeye aktarmak veya bir yapay zekâ aracına yapıştırmak için en pratik format budur.
+        Aynı videonun TXT çıktısı şöyle görünür:
+    </p>
+    <div class="code-sample" set:html={`Merhaba, bugünkü videoda size
+ekşi maya ekmeğinin nasıl yapıldığını anlatacağım.`} />
+    <p class="content-text">
+        <strong>RAW</strong> ise hiçbir dosya indirmeden aynı temiz metni tarayıcınızda yeni bir sekmede açar. Hızlıca okumak ya da bir bölümü seçip kopyalamak istediğinizde işinizi görür.
+        Formatlar hakkında daha ayrıntılı bilgi için İngilizce <a href="/youtube-to-srt">YouTube to SRT</a> ve <a href="/youtube-to-text">YouTube to Text</a> sayfalarımıza göz atabilirsiniz.
+    </p>
+</section>
+
+<section class="content-section" aria-labelledby="who-title">
+    <h2 class="section-title" id="who-title">YouTube Transkripti Kimin İşine Yarar?</h2>
+    <div class="use-cases-grid">
+        <div class="use-case-card">
+            <h3>Öğrenciler</h3>
+            <p>Ders videolarının ve konferans kayıtlarının metnini alıp not çıkarın, önemli kısımların altını çizin ve sınav öncesi videoyu baştan izlemeden tekrar yapın.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>İçerik üreticileri</h3>
+            <p>Kendi videonuzun otomatik altyazısını indirip düzeltin; blog yazısına, bültene ya da sosyal medya gönderisine dönüştürerek içeriğinizi yeniden kullanın.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Video editörleri</h3>
+            <p>SRT dosyasını Premiere Pro, DaVinci Resolve, Final Cut Pro veya CapCut'a aktararak altyazıları baştan yazmadan videoya ekleyin.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Dil öğrenenler</h3>
+            <p>İngilizce, Almanca veya İspanyolca videoların transkriptiyle bilmediğiniz kelimeleri bağlam içinde çalışın, cümleleri sesle birlikte takip edin.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Araştırmacılar ve gazeteciler</h3>
+            <p>Röportaj, panel ve haber videolarındaki ifadeleri metin içinde arayın, doğru alıntı yapın ve kaynaklarınızı düzenli tutun.</p>
+        </div>
+        <div class="use-case-card">
+            <h3>Erişilebilirlik</h3>
+            <p>İşitme engelli izleyiciler için videoları kendi sitenize gömerken ya da yeniden yayımlarken altyazı ve metin sürümünü birlikte sunun.</p>
+        </div>
+    </div>
+</section>
+
+<section class="content-section" aria-labelledby="youtube-title">
+    <h2 class="section-title" id="youtube-title">YouTube'da Transkript Nasıl Açılır, FetchSubs Ne Farkı Yaratır?</h2>
+    <p class="content-text">
+        YouTube'un kendi arayüzünde de transkripti görebilirsiniz: bilgisayarda videonun açıklamasını genişletip <strong>“Transkripti göster”</strong> düğmesine tıkladığınızda
+        sağda zaman damgalı bir metin paneli açılır. Ancak bu panel bir dosya vermez. Metni almak için uzun listeyi elle seçip kopyalamanız gerekir; zaman damgaları da
+        metnin arasına karışır. Mobil uygulamada ise metni dosya olarak kaydetmenin bir yolu yoktur.
+    </p>
+    <p class="content-text">
+        FetchSubs, YouTube transkript alma işini tek adıma indirir ve aynı altyazı izlerini doğrudan dosya olarak verir: zaman damgasız düz metin için TXT, zamanlamalı altyazı için SRT veya VTT. Videodaki her dil tek bir
+        listede görünür, otomatik altyazı indirme de aynı şekilde çalışır. Kısa videolar için Shorts transkript almak da mümkündür; ayrıntılar İngilizce
+        <a href="/youtube-shorts-transcript">YouTube Shorts Transcript</a> sayfasında. Tüm dillerde altyazı indirmek için <a href="/">ana sayfadaki aracı</a> da kullanabilirsiniz.
+    </p>
+    <p class="content-text">
+        <strong>Otomatik altyazı mı, resmî altyazı mı?</strong> Listede “(Resmî)” olarak işaretlenen izler içerik sahibinin kendisinin yüklediği altyazılardır ve genellikle
+        noktalama ile yazımı daha düzgündür. “(Otomatik)” izler ise YouTube'un konuşma tanıma sistemi tarafından oluşturulur. Net konuşulan videolarda oldukça başarılıdırlar,
+        fakat noktalama eksik olabilir; özel isimler, teknik terimler ve gürültülü bölümler yanlış yazılabilir. Transkripti bir ödevde, makalede veya altyazı olarak
+        yayımlamadan önce kısaca gözden geçirmenizi öneririz. Aynı dilde iki iz varsa önce resmî olanı denemek çoğu zaman daha temiz bir sonuç verir.
+    </p>
+    <div class="landing-note">
+        <strong>Transkript yoksa ne olur?</strong> FetchSubs sesi kendisi yazıya dökmez; yalnızca YouTube'da zaten var olan altyazı izlerini dışa aktarır.
+        Net konuşma içeren videoların çoğunda YouTube'un oluşturduğu otomatik altyazı bulunur. Ancak içerik sahibi altyazıları kapattıysa, video çok yeniyse
+        ve otomatik altyazı henüz hazırlanmadıysa ya da video gizliyse listede hiçbir dil görünmez. Bu durumda bir konuşma tanıma
+        (speech-to-text) programı kullanmanız gerekir.
+    </div>
+</section>
+
+<Faq items={faqs} heading={"Sıkça Sorulan Sorular"} />
+
+<RelatedTools current={page.slug} heading={"Diğer Ücretsiz Araçlar (İngilizce)"} />
+</Layout>

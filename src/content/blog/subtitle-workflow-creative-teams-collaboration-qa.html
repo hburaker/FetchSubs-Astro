@@ -1,0 +1,70 @@
+---
+title: "A Subtitle Workflow for Small Teams: File Names, Edits and QA"
+summary: "A practical subtitle workflow for teams of two or more: who does what, how to name and version SRT files, and a QA checklist you can partly automate."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-04-01"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 28
+---
+<p>When one person handles subtitles, the process lives in their head. Once two or three people are involved, most problems come from coordination rather than from the subtitles themselves: someone edits an old version, two people fix the same file, or nobody is sure which file was approved. This article sets out a small, practical process for that situation. It's not a broadcast-grade system. It's the minimum structure that stops a team from shipping the wrong file.</p>
+
+<h2>The four steps, whoever does them</h2>
+<p>Every subtitle job goes through the same four steps, whether one person does them all or four people split them:</p>
+<ol>
+    <li><strong>Get the source file.</strong> If the video is already on YouTube with captions, download the track as SRT with <a href="/youtube-to-srt">FetchSubs</a>. If it isn't, the source comes from a transcription tool or service, or from the script.</li>
+    <li><strong>Edit the text.</strong> Fix misheard words, names and numbers, apply the team's style rules, and mark anything that can't be heard clearly.</li>
+    <li><strong>Fix the timing and line breaks.</strong> Remove overlaps, split or merge cues, and keep lines within your length limit.</li>
+    <li><strong>QA.</strong> Someone checks the finished file against the video and signs it off.</li>
+</ol>
+<p>The one rule I'd insist on is that the person who does step 4 isn't the person who did step 2. You read what you meant to type, not what you typed. A second reader catches errors the editor won't. In a team of two, that just means each person checks the other's files.</p>
+<p>If you also translate, translation sits between steps 2 and 3, and it should start from the edited source file rather than the raw download. Otherwise every error in the source gets translated too. Our guide to <a href="/blog/translating-youtube-subtitles-multilingual-content-guide">translating YouTube subtitles</a> covers that part.</p>
+
+<h2>Name files so the name tells you the state</h2>
+<p>FetchSubs names downloads after the video title and language, plus <code>_auto</code> for auto-generated tracks. For example, NASA's Perseverance landing video gives <code>Perseverance_Rover_s_Descent_and_Touchdown_on_Mars_en_auto.srt</code>. That's fine for one person, but titles change and get long, so I'd rename the file as soon as it enters a shared folder. A pattern that works:</p>
+<pre class="code-sample">{videoId}_{language}_{source}_v{nn}_{status}.srt
+
+4czjS9h4Fpg_en_auto_v01_draft.srt
+4czjS9h4Fpg_en_auto_v02_review.srt
+4czjS9h4Fpg_en_auto_v03_approved.srt</pre>
+<p>The YouTube video ID never changes, so files stay linked to the right video even if the title is rewritten. Recording whether you started from the auto or the uploaded track helps when someone later asks why a file has a certain quirk. A version number that only goes up, and a status word from a short fixed list, mean anyone opening the folder can tell what's current without opening anything.</p>
+<p>Never overwrite an approved file. If something changes after approval, it becomes the next version and goes back through QA.</p>
+
+<h2>One editor per file at a time</h2>
+<p>Desktop subtitle editors like Subtitle Edit and Aegisub are single-user tools. If two people open the same SRT from a shared drive and both save, one person's work is lost. The simple fix is a rule plus a place to record it: a shared spreadsheet or task board with one row per file and a column for who has it. You claim the file before opening it and release it when you've saved the new version.</p>
+<p>If your team already uses Git, it's a good fit for subtitles. SRT is plain text, so a diff shows exactly which lines changed between versions, which is very handy at QA time. Reviewers who don't want to edit the file can leave notes as a timecode plus a comment (for example, <em>01:56 says pba, should this be PVA?</em>), and the editor applies them.</p>
+
+<h2>Keep a glossary</h2>
+<p>Most errors that get past QA are names and terms, so a shared glossary is worth more than any tool. NASA's Perseverance video is a good illustration. I downloaded its uploaded English track and its auto-generated one and compared them. They disagree on several terms:</p>
+<ul>
+    <li>The uploaded track has <em>pba is nominal</em>; the auto track has <em>PVA is nominal</em>.</li>
+    <li>The uploaded track has <em>TRN safety bravo</em>; the auto track has <em>TR and safety bravo</em>.</li>
+    <li>The uploaded track writes <em>skycrane</em>; the auto track writes <em>sky crane</em>.</li>
+    <li>The auto track has <em>sinking the sand of past life</em> where the uploaded one has <em>seeking the signs of past life</em>.</li>
+</ul>
+<p>The last one is just a speech recognition error. The first three are harder: you can't settle them by listening, and even the official track may not be right. Someone who knows the subject, or the original script, has to decide, and that decision goes in the glossary so every later video uses the same spelling.</p>
+
+<h2>A QA checklist</h2>
+<p>Some checks need a person watching the video. Others are just arithmetic on the file and can be done by a short script before anyone presses play. For the arithmetic, you need agreed numbers. If your team doesn't have its own style guide, Netflix publishes a detailed one: its <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/217350977-English-USA-Timed-Text-Style-Guide" target="_blank" rel="noopener">English (USA) guide</a> allows 42 characters per line, two lines at most and up to 20 characters per second for adult content, and its <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/215758617-Timed-Text-Style-Guide-General-Requirements" target="_blank" rel="noopener">general requirements</a> set each subtitle between five-sixths of a second and seven seconds on screen.</p>
+<p><strong>Checks a script can do:</strong></p>
+<ul>
+    <li>The file parses, numbering is sequential, and every end time is after its start time.</li>
+    <li>No cue overlaps the next one.</li>
+    <li>No line is longer than your limit, and no cue has more than two lines.</li>
+    <li>No cue is shorter than the minimum or longer than the maximum duration.</li>
+    <li>Reading speed (characters divided by seconds) is under your limit.</li>
+</ul>
+<p>To see what this catches, I ran those checks against both Perseverance tracks, counting spaces as characters. The auto-generated track had no long lines, but 55 of its 63 cues overlapped the next one. The uploaded track had no overlaps, but 25 of its 57 lines were over 42 characters, 3 cues stayed on screen longer than 7 seconds (the longest for 10.7), and 5 cues were faster than 20 characters per second. None of that makes NASA's track bad; it was made for YouTube's player, not for Netflix. It does show that two reasonable-looking files can fail in completely different ways, and that you have to decide what you're checking against before you check.</p>
+<p><strong>Checks a person has to do, with the video playing:</strong></p>
+<ul>
+    <li>Every name, product and technical term matches the glossary.</li>
+    <li>Numbers match the audio. In the Perseverance tracks, the auto version says 440 m/s where the uploaded one says 450 meters per second.</li>
+    <li>Line breaks fall at natural points, not between an article and its noun.</li>
+    <li>Speaker changes are marked the way your style guide says.</li>
+    <li>Subtitles appear when the speech starts, and the last one doesn't hang around after the video ends.</li>
+    <li>Non-speech sounds that matter are captioned, if your captions are meant for deaf and hard-of-hearing viewers.</li>
+</ul>
+<p><strong>The final check:</strong> load the approved file into whatever it's going to, whether that's YouTube Studio, the video editor or the client's player, and watch the first and last minute there. A file that passes everything else can still fail on an encoding problem or a format the target doesn't accept. If it's going into an editor, <a href="/blog/video-editor-guide-subtitles-davinci-resolve-premiere-pro">importing SRT files into Resolve and Premiere</a> covers the common problems, and timing issues are covered in <a href="/blog/fix-subtitle-timing-errors-srt-sync-adjustment-guide">fixing subtitle timing in SRT files</a>.</p>
+
+<h2>Keep it small</h2>
+<p>None of this needs special software. A shared folder, a naming rule, a spreadsheet saying who has which file, a glossary and a checklist will cover a small team's subtitle work. Add tools when a specific problem keeps coming back, not before.</p>

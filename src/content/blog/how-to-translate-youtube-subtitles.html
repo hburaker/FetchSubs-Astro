@@ -1,0 +1,102 @@
+---
+title: "How to Translate YouTube Subtitles and Keep the Timings"
+summary: "Use YouTube's auto-translate, a creator's translated track, or download the SRT and translate it in DeepL, Subtitle Edit or an AI with timings intact."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-12-20"
+lang: "en"
+order: 36
+---
+<p>If you only want to follow a video in your own language, you don't need to download anything: turn on captions and use <strong>Auto-translate</strong> in the YouTube player's settings. If the creator has uploaded a translation, choose that instead, since a human translation is usually better than a machine one. And if you need a translated subtitle <em>file</em> to study, edit or upload, download the original captions as SRT and translate the file with a tool that leaves the timings alone, such as DeepL, Subtitle Edit or an AI assistant given strict instructions.</p>
+<p>Those three routes cover almost every case. Below is how each one works, where each falls short, and how to check that a translated SRT file still lines up with the video.</p>
+
+<h2>Option 1: YouTube's built-in auto-translate</h2>
+<p>YouTube can machine-translate an existing caption track while you watch. On a computer, start the video, turn captions on with the <strong>CC</strong> button, click the <strong>Settings</strong> gear, choose <strong>Subtitles/CC</strong>, then <strong>Auto-translate</strong>, and pick a language.</p>
+<p>The mobile app labels things differently. According to YouTube Help (<a href="https://support.google.com/youtube/answer/100078?hl=en&amp;co=GENIE.Platform%3DAndroid" rel="noopener" target="_blank">Android</a>, <a href="https://support.google.com/youtube/answer/100078?hl=en&amp;co=GENIE.Platform%3DiOS" rel="noopener" target="_blank">iPhone and iPad</a>), you tap <strong>Settings</strong> in the player, then <strong>Captions</strong>, and select a language; if yours isn't listed, tap <strong>Auto-translate</strong> and choose it there. YouTube reshuffles its player menus from time to time, so if a label looks different on your device, look for the captions section of the player settings.</p>
+<p>It is convenient, with three limits worth knowing:</p>
+<ul>
+    <li>It needs a caption track to start from. A video with no captions at all has nothing to translate, and the option won't appear.</li>
+    <li>It translates whichever track is selected, mistakes included. If that track is YouTube's own speech recognition, a misheard word becomes a mistranslated word, and the result drifts further from what was said.</li>
+    <li>It exists only in the player. The translation is not saved as a caption track on the video, so there is nothing to download. FetchSubs can't get it either: the language list shows the tracks the video really has, and auto-translations aren't among them.</li>
+</ul>
+
+<h2>Option 2: Use a translation the creator uploaded</h2>
+<p>Many popular, educational and official videos come with translated tracks uploaded by the creator or their team. They appear as separate languages in the player's caption menu, and they are the same tracks FetchSubs lists when you paste the link, each downloadable as SRT, VTT or TXT. When I fetched the official <em>Never Gonna Give You Up</em> video, the list had English, English (auto-generated), German (Germany), Japanese, Portuguese (Brazil) and Spanish (Latin America). Note the two English tracks: FetchSubs marks the creator's as (Official) and YouTube's as (Auto-generated), and each row's buttons download that row's track, so you can pick the official one as your source. The Stanford upload of Steve Jobs' 2005 commencement address has nine tracks, from Arabic to Khmer.</p>
+<p>If you plan to compare languages or build bilingual subtitles, know that a translated track is its own file, not a line-by-line copy of the original. The first video ever uploaded to YouTube, <em>Me at the zoo</em>, has an English track and a German one. This is how each begins, exactly as downloaded:</p>
+<pre class="code-sample">English (6 captions in total)
+1
+00:00:01,200 --&gt; 00:00:03,360
+All right, so here we are, in front of the
+elephants
+
+German (4 captions in total)
+1
+00:00:00,000 --&gt; 00:00:05,067
+Also hier sind wir vor den Elefanten.</pre>
+<p>The German track has fewer captions, different start and end times, and a full sentence per caption. Caption 2 in English is not caption 2 in German. If you need two languages perfectly aligned, translate the original SRT yourself (option 3), because then the translation inherits the original timings.</p>
+
+<h2>Option 3: Download the SRT and translate the file</h2>
+<p>This is the route when you need a file to keep, edit or upload. FetchSubs doesn't translate anything; it gives you the original captions, and the translation happens in whichever tool you choose.</p>
+
+<h3>Download the best source track as SRT</h3>
+<p>Paste the link into the <a href="/youtube-to-srt">YouTube to SRT</a> tool and download the most accurate track, ideally the creator's rather than the auto-generated one. Choose SRT, not TXT. TXT drops the timings, and you would have to put them back by hand, which is harder than it sounds: TXT is not one line per caption. In the English example above, the first caption spans two lines and the TXT keeps that line break, so the line count of a TXT file doesn't match the caption count. Re-pairing translated lines with timings is a reliable way to introduce errors. (The <a href="/blog/srt-vtt-txt-subtitle-format-comparison-guide">format comparison</a> goes into the differences.)</p>
+<p>If the only track is auto-generated, fix the obvious recognition errors before translating, especially names and numbers. No translator, human or machine, can correct a word that was misheard in the first place.</p>
+
+<h3>DeepL</h3>
+<p>DeepL lists SRT among the file types its <a href="https://developers.deepl.com/docs/api-reference/document" rel="noopener" target="_blank">document translation</a> accepts, and its <a href="https://www.deepl.com/en/features/document-translation/srt" rel="noopener" target="_blank">SRT page</a> says it translates the subtitle text without changing the timecodes. The catch is the plan. At the time of writing, SRT upload in the web translator and desktop apps is limited to certain paid Pro plans, while the DeepL API, including the free API plan, accepts SRT files. Per-file limits apply: 150 KB on most plans that support SRT. The SRT of the 15-minute Stanford speech is about 22 KB, so only very long videos run into that. Plans change, so check that page before you count on it.</p>
+
+<h3>Google Translate</h3>
+<p>Google Translate's document upload on a computer accepts <a href="https://support.google.com/translate/answer/2534559?hl=en&amp;co=GENIE.Platform%3DDesktop" rel="noopener" target="_blank">.docx, .pdf, .pptx and .xlsx files</a>, not .srt or .txt. It still works with a detour:</p>
+<ol>
+    <li>Open the SRT in a text editor, copy everything into a new Word document and save it as .docx.</li>
+    <li>Upload the .docx in the Documents tab of Google Translate and download the translation.</li>
+    <li>Copy the translated text into a plain-text editor such as Notepad (not a word processor) and save it as a new .srt file in UTF-8.</li>
+    <li>Check the result carefully. Machine translation is built for prose, so make sure the caption numbers and the <code>--&gt;</code> timecode lines came back unchanged and that no captions were merged.</li>
+</ol>
+<p>For a short clip, pasting the SRT text into the normal translation box does the same job, with the same need to check.</p>
+
+<h3>Subtitle Edit</h3>
+<p><a href="https://github.com/SubtitleEdit/subtitleedit" rel="noopener" target="_blank">Subtitle Edit</a> is a free, open-source subtitle editor for Windows, macOS and Linux, and it gives you the most control. Its documentation describes an <a href="https://niksedk.github.io/subtitleedit-avalonia/features/auto-translate.html" rel="noopener" target="_blank">Auto translate</a> feature (menu <strong>Auto translate &rarr; Auto translate&hellip;</strong>) with a choice of engines: Google Translate (V1) and MyMemory without an API key; DeepL, Microsoft Translator, OpenAI ChatGPT, Anthropic Claude and Groq with your own key; and local options such as Ollama, LM Studio and LibreTranslate. You choose the source and target language, run it, review the original and the translation side by side, and save as SRT. Because it translates caption by caption, the numbering and timings stay where they were. Those menu names come from the documentation for the current version; older releases may label things differently.</p>
+<p>If you are going to edit the translation anyway, this is the option I'd pick, since you end up in a subtitle editor regardless.</p>
+
+<h3>An AI assistant</h3>
+<p>ChatGPT, Claude, Gemini and similar assistants are good at subtitle translation and often handle tone and context better than sentence-by-sentence machine translation. Their weakness is the opposite of DeepL's: left to themselves, they tidy up. Short captions get merged, numbering gets redone, and a two-line caption becomes one long sentence. The prompt has to rule that out explicitly:</p>
+<pre class="code-sample">Translate the subtitle text in the SRT file below from [source language]
+into [target language].
+
+Rules:
+- Keep every caption number and every timecode line exactly as it is.
+- Translate only the text lines. Keep one translated caption for each
+  original caption: never merge, split, add or drop captions.
+- Keep each caption about as long as the original so it can be read in
+  the same time. Use at most two lines per caption.
+- Keep names, brand names and on-screen terms as they are unless there is
+  an established translation.
+- Translate sound tags such as [Music] or [Applause], keeping the brackets.
+- Output only the SRT, in a single code block, with nothing before or after.
+
+[paste SRT]</pre>
+<p>The rule about one caption per caption is the one that matters most; the rest protect readability. <em>Nothing before or after</em> saves you from deleting a friendly introduction before you can use the file.</p>
+<p>For long videos, send the file in parts of around a hundred captions, cutting between two captions, and join the outputs in order. If the video uses specialist vocabulary, add a short glossary to the prompt (each source term followed by the translation you want), so a term is translated the same way in every part. And if you only need to understand the video rather than keep subtitles, a translated summary is much less work; see <a href="/blog/summarize-youtube-video-with-chatgpt-claude">how to summarize a YouTube video with ChatGPT or Claude</a>.</p>
+
+<h2>Check the translated SRT before you use it</h2>
+<p>Whatever tool you used, a two-minute check catches the problems that break subtitle files. The translation should have the same number of captions as the original, with numbering still in sequence and one blank line between captions. Every timecode line should be identical to the original, in the form <code>00:00:01,200 --&gt; 00:00:03,360</code>: comma before the milliseconds, arrow intact. Save the file as UTF-8 so accented letters and non-Latin scripts display properly. Then load it next to the video in a player such as VLC and skim the start, the middle and the end.</p>
+<p>If you are comfortable running a small script, this Python snippet compares the timecodes of two SRT files and reports every difference:</p>
+<pre class="code-sample">import re, sys
+
+def timings(path):
+    with open(path, encoding="utf-8-sig") as f:
+        return re.findall(r"^\d\d:\d\d:\d\d,\d\d\d --&gt; \d\d:\d\d:\d\d,\d\d\d", f.read(), re.M)
+
+a, b = timings(sys.argv[1]), timings(sys.argv[2])
+print(len(a), "cues in original,", len(b), "in translation")
+for i, (x, y) in enumerate(zip(a, b), 1):
+    if x != y:
+        print("Cue", i, "timing changed:", x, "/", y)</pre>
+<p>Save it as <code>check_srt.py</code> and run <code>python check_srt.py original.srt translated.srt</code>. A clean translation prints a single line with matching counts, such as <em>6 cues in original, 6 in translation</em>. As a test, I ran it on the English and German tracks of <em>Me at the zoo</em>. It reported 6 captions against 4 and flagged all four shared positions as different, which is the independent segmentation from option 2 showing up exactly as expected.</p>
+
+<h2>A working file is not the same as a good translation</h2>
+<p>A file can pass every check above and still read badly. A few things make the difference.</p>
+<p>Start from the best source. A creator-uploaded track beats an auto-generated one, and English is not always the original language of a video; translating from the language it was recorded in avoids stacking two translations on top of each other.</p>
+<p>Watch idioms, jokes and wordplay, which machine translation renders literally. They are worth a manual pass even when the rest is fine. Reading speed needs the same attention: some languages need more words for the same meaning, and if a translated caption ends up much longer than the original, shorten the text rather than stretch the timing.</p>
+<p>For personal viewing, machine or AI translation is usually good enough. For subtitles other people will rely on, get a fluent speaker to review them. And keep ownership in mind: translating captions for your own understanding or study is one thing, but publishing a translation of someone else's subtitles is another, so ask the creator first.</p>
+<p>If the videos are your own, you can upload the finished SRT in YouTube Studio as an additional language; YouTube's help article on <a href="https://support.google.com/youtube/answer/2734796" rel="noopener" target="_blank">adding subtitles and captions</a> covers the steps. To grab the original text in any of a video's languages first, start from the <a href="/youtube-transcript">YouTube transcript downloader</a>.</p>

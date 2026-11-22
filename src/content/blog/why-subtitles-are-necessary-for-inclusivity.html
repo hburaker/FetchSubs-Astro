@@ -1,0 +1,67 @@
+---
+title: "Subtitles and Inclusivity: A Caption Checklist for Creators"
+summary: "What makes captions usable for deaf and hard-of-hearing viewers: correct words, speaker and sound labels, readable timing, and a free way to get there."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-13"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 7
+---
+<p>If you publish video, your captions are the soundtrack for every viewer who is deaf or hard of hearing. YouTube's automatic captions give you a first draft, but that is all they are: they mishear names, drop punctuation, rarely say who is talking and mostly ignore sounds that aren't speech. This checklist covers what to fix, roughly in the order I'd fix it, followed by a free workflow for doing it on YouTube.</p>
+
+<p>The audience is not small. The <a href="https://www.who.int/news-room/fact-sheets/detail/deafness-and-hearing-loss" target="_blank" rel="noopener">World Health Organization's fact sheet</a> (last updated March 2026) puts the number of people who need rehabilitation for disabling hearing loss at about 430 million. Add people watching with the sound off, people in noisy places and people following a language they're still learning, and a large part of any audience reads your captions at some point.</p>
+
+<h2>What counts as a good caption</h2>
+<p>The W3C, which publishes the web accessibility guidelines (WCAG), describes captions as a text version of the speech <em>and</em> the non-speech audio a viewer needs to understand the content. Its <a href="https://www.w3.org/WAI/media/av/captions/" target="_blank" rel="noopener">captions guide</a> is also blunt about automatic captions: unless they are fully accurate, they don't meet user needs or accessibility requirements. So the job is to turn a machine draft into text a deaf viewer can rely on. Everything below serves that.</p>
+
+<h2>The checklist</h2>
+
+<h3>1. Get the words right, especially the rare ones</h3>
+<p>Speech recognition handles everyday vocabulary well and stumbles on the words that carry the meaning: people's names, product names, places, numbers, acronyms and jargon. A hearing viewer barely notices a misspelled name because they heard it. A deaf viewer has nothing to check it against. Read the whole track once. Keep a list of the terms your channel uses often, because the same mistakes tend to come back in every video and a find-and-replace pass fixes most of them. Watch the small words too: a dropped "not" reverses a sentence.</p>
+<p>If you want to see what typical automatic errors look like, our <a href="/blog/youtube-auto-generated-subtitles-accuracy">side-by-side test of auto-generated and official captions</a> compares the two tracks of the same video line by line.</p>
+
+<h3>2. Say who is speaking when it isn't obvious</h3>
+<p>If the shot clearly shows who is talking, you often don't need a label. When the speaker is off-screen, on a call, or the camera is on slides, you do. Netflix's <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/217350977-English-USA-Timed-Text-Style-Guide" target="_blank" rel="noopener">English timed text style guide</a> is a sensible reference: speaker IDs go in square brackets, in lowercase except for names, on the same line as the dialogue, and only when the speaker can't be identified visually. Unnamed people get a descriptor.</p>
+<pre class="code-sample">[Ana] Let's start with the budget.
+[man] Which version, the one from March?</pre>
+
+<h3>3. Label the sounds that matter</h3>
+<p>Not every sound, only the ones that change what a viewer understands: a phone that interrupts the speaker, laughter from the audience, music that shifts the mood, a crash off-camera that makes everyone turn around. Background hum doesn't need a label. The same Netflix guide puts sound effects in brackets too, for example <code>[phone buzzing]</code> or <code>[audience laughs]</code>.</p>
+<p>A real example: I downloaded the English track of "Me at the zoo", the first video uploaded to YouTube, with FetchSubs. It isn't an automatic track (FetchSubs lists it as Official), and one of its six cues is a sound rather than speech:</p>
+<pre class="code-sample">5
+00:00:14,421 --&gt; 00:00:15,733
+(baaaaaaaaaaahhh!!)</pre>
+<p>That's better than nothing, because a deaf viewer learns there's a loud noise. It doesn't say what made it, though. A label that names the source and describes the sound tells the viewer more than a phonetic spelling.</p>
+
+<h3>4. Leave each caption on screen long enough to read</h3>
+<p>Netflix's guide sets a limit of 42 characters per line, two lines at most, and a reading speed of up to 20 characters per second for adult programmes (17 for children's). You don't need to follow a streaming service's rules to the letter, but they are a good sanity check: a cue with 80 characters that stays up for one second asks the viewer to read 80 characters per second, which nobody can do. When a cue is too dense, split it in two. For talking-head videos I'd also cut filler ("you know", false starts) when it adds nothing to the meaning.</p>
+
+<h3>5. Break lines where the sentence breaks</h3>
+<p>Netflix's rule of thumb is to break after punctuation or before a conjunction or preposition, and never to separate an article from its noun or a first name from a last name. The first version below splits a name; the second doesn't:</p>
+<pre class="code-sample">Tomorrow I'll talk to Maria
+Santos about the new schedule.
+
+Tomorrow I'll talk to
+Maria Santos about the new schedule.</pre>
+
+<h3>6. Keep captions off the important part of the frame</h3>
+<p>With closed captions, the kind viewers switch on and off, the player decides where the text goes, usually near the bottom. So don't put your own key text there, such as a lower third with a web address or a phone number, or captions will sit on top of it. If you burn captions into the picture instead, you control the placement, but viewers lose the ability to turn them off, resize them or pick another language. The trade-offs are covered in <a href="/blog/open-captions-vs-closed-captions-difference-guide">open captions vs closed captions</a>.</p>
+
+<h3>7. Say out loud what only appears on screen</h3>
+<p>Captions help people who can't hear. They do nothing for people who can't see. If a chart, a code snippet or a price appears only on screen, describe it in the narration. WCAG calls this audio description, and building it into your script is the cheapest way to provide it. It also helps anyone who later reads the transcript instead of watching.</p>
+
+<h2>A free workflow for YouTube</h2>
+<ol>
+    <li>Upload the video and wait for YouTube's automatic captions. They don't appear instantly, and longer videos take longer.</li>
+    <li>Paste the video link into the <a href="/youtube-auto-generated-subtitles">auto-generated subtitles downloader</a>, press <strong>Find Captions</strong>, and download the track marked (Auto-generated) as SRT.</li>
+    <li>Edit the SRT in a text editor or a free subtitle editor such as Subtitle Edit. Fix the words first, then add speaker and sound labels, then check line length and breaks. Leave the cue numbers and the timestamp lines (<code>00:00:14,421 --&gt; 00:00:15,733</code>) alone unless you actually want to retime something.</li>
+    <li>In YouTube Studio, open <strong>Subtitles</strong>, select the video, choose the language, click <strong>Add</strong>, pick <strong>Upload file</strong> and then <strong>With timing</strong>, choose your file and save. YouTube's <a href="https://support.google.com/youtube/answer/2734796" target="_blank" rel="noopener">help page on adding subtitles</a> has the current steps. If you prefer to edit in the browser, our <a href="/blog/youtube-built-in-subtitle-editor-tutorial">YouTube Studio subtitle editor tutorial</a> covers that route.</li>
+    <li>Watch a few minutes with the sound off. If you can follow it without guessing, it's ready.</li>
+</ol>
+<p>One thing I'd avoid is uploading the automatic track back unchanged. In the player, machine captions carry an "(auto-generated)" label, and that label is a useful warning to viewers. Re-uploading the same text under your own name removes the warning without fixing a single word.</p>
+
+<h2>Translated subtitles</h2>
+<p>Translate from your corrected captions, never from the raw automatic ones; every error in the source gets copied into each language. Our guide to <a href="/blog/translating-youtube-subtitles-multilingual-content-guide">translating YouTube subtitles</a> walks through the process.</p>
+
+<h2>Do you have to caption?</h2>
+<p>For an individual creator on YouTube, usually not. For businesses, schools, public bodies and broadcasters it often is, depending on the country and the sector; our <a href="/blog/digital-accessibility-law-wcag-video-transcripts-guide">guide to accessibility law for video</a> covers the main US and EU rules. And to see captions from the other side of the screen, read <a href="/blog/how-deaf-hard-of-hearing-use-subtitles-online-video">how deaf and hard-of-hearing viewers use captions on YouTube</a>. Most of the items on this checklist make more sense once you've read it.</p>

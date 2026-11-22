@@ -1,0 +1,61 @@
+---
+title: "YouTube SEO and Captions: What They Actually Do for Discovery"
+summary: "What captions and transcripts can and can't do for YouTube search, Google and ad revenue, based on YouTube's own help pages, plus a test you can run."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 0
+---
+<p>Captions are not a documented YouTube ranking factor. YouTube has never said that uploading a subtitle file moves a video up in search, so anyone promising a specific boost is guessing. What accurate captions do is make a video usable for more people: viewers on mute, viewers watching in their second language, viewers who are deaf or hard of hearing. That feeds the signals YouTube does say it uses. This post separates what is documented from what isn't, and ends with a small test you can run on your own channel instead of trusting anyone's rule of thumb, including mine.</p>
+
+<h2>What YouTube says it ranks on</h2>
+<p>YouTube's help page <a href="https://support.google.com/youtube/answer/16090438" target="_blank" rel="noopener">How YouTube search works</a> names three elements: relevance, engagement and quality. Relevance covers how well the title, tags, description and video content match the query. Engagement includes things like watch time for a particular video on a particular query. Quality is about signs that a channel shows expertise, authoritativeness and trustworthiness on a topic.</p>
+<p>Captions aren't mentioned. "Video content" could include what is spoken, and YouTube obviously processes speech, since it generates automatic captions. But the page doesn't say how spoken words or uploaded caption tracks are weighed, and I'm not going to pretend to know. So I think of captions as an indirect help:</p>
+<ul>
+    <li>A corrected track gives YouTube an accurate text version of what you said, instead of a speech-recognition guess that turns a product name into three random words. If spoken words count toward relevance at all, correct ones can't hurt.</li>
+    <li>People who can't turn the sound on can still follow along. Those are viewers who would otherwise leave in the first minute, and watch time is one of the engagement signals YouTube names.</li>
+    <li>Some viewers search only for captioned videos. YouTube has a <b>Subtitles/CC</b> search filter, described on its <a href="https://support.google.com/youtube/answer/3029103" target="_blank" rel="noopener">Search for videos with captions</a> page. It's a small audience, but a real one.</li>
+</ul>
+
+<h2>Where a transcript helps outside YouTube</h2>
+<p>Google Search indexes text on pages. If you embed a video on your own site, the words on that page are what Google can read. A written version of the video gives the page something to be found for, which a bare embed doesn't.</p>
+<p>Be precise about what Google documents, though. Its <a href="https://developers.google.com/search/docs/appearance/video" target="_blank" rel="noopener">video SEO best practices</a> cover things like dedicated watch pages, unique titles and descriptions, and structured data. Transcripts aren't mentioned. The benefit of publishing one is the ordinary benefit of having useful text on a page, not a special video signal. And a raw transcript pasted under a video is not much of a page; an edited article is better for readers and for search. Our guide to <a href="/blog/how-to-convert-youtube-videos-to-blog-content">turning your videos into blog posts</a> covers that step.</p>
+<p>There is one documented link between timestamps and Google results: key moments. Google's <a href="https://developers.google.com/search/docs/appearance/structured-data/video" target="_blank" rel="noopener">video structured data</a> documentation says that for YouTube videos you can specify timestamps and labels in the YouTube description. Those are the same timestamps YouTube uses for chapters, and its <a href="https://support.google.com/youtube/answer/9884579" target="_blank" rel="noopener">Video Chapters</a> page lists the rules: the first timestamp is 00:00, there are at least three, and each chapter is at least 10 seconds long. An SRT file is handy here because every caption line already has a start time.</p>
+
+<h2>Say your topic plainly</h2>
+<p>You don't need keyword density. If a video is about replacing a bike chain, say "bike chain" when you introduce the topic, name the tools and parts correctly, and make sure the captions spell them correctly. Repeating a phrase every thirty seconds makes the video worse to watch, which hurts the engagement that YouTube does measure.</p>
+
+<h2>A caption workflow you can repeat</h2>
+<ol>
+    <li><b>Set the language and wait.</b> Make sure the video's language is set in its details (see <a href="https://support.google.com/youtube/answer/6304325" target="_blank" rel="noopener">Change the language of your uploaded video</a>). Automatic captions may not be ready right after upload; YouTube says processing time depends on how complex the audio is.</li>
+    <li><b>Download the automatic track.</b> Paste the link into <a href="/youtube-auto-generated-subtitles">FetchSubs</a>. You get a list of every caption track the video has, with auto-generated tracks labelled as such. Take SRT if you plan to upload the corrected file with its timing, TXT if you only need the text.</li>
+    <li><b>Fix what speech recognition gets wrong.</b> YouTube's own <a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">automatic captioning</a> page warns that accents, dialects, mispronunciation and background noise cause mistakes. In practice the worst errors are names, numbers and jargon. A find-and-replace pass catches the repeated ones.</li>
+    <li><b>Upload the corrected file.</b> In YouTube Studio, open <b>Subtitles</b>, pick the video, click <b>Add</b> under subtitles, choose <b>Upload file</b> and then <b>With timing</b> (YouTube's <a href="https://support.google.com/youtube/answer/2734796" target="_blank" rel="noopener">Add subtitles &amp; captions</a> page has the full steps). If you'd rather edit inside YouTube, see our <a href="/blog/youtube-built-in-subtitle-editor-tutorial">subtitle editor tutorial</a>.</li>
+    <li><b>Reuse the text.</b> The corrected transcript is a good base for the description, chapter titles and a written version of the video.</li>
+</ol>
+<p>When you edit an SRT file, change only the text lines. This is the first cue of "Me at the zoo", the first video uploaded to YouTube, as FetchSubs exports it:</p>
+<pre class="code-sample">1
+00:00:01,200 --&gt; 00:00:03,360
+All right, so here we are, in front of the
+elephants</pre>
+<p>The number and the timestamp line need to stay exactly as they are, including the comma before the milliseconds. If a stray edit breaks that line, the upload may fail or the caption may land in the wrong place.</p>
+
+<h2>Captions in other languages</h2>
+<p>A translated subtitle track lets people who don't speak your language actually watch the video. The part YouTube explicitly ties to search is metadata: its <a href="https://support.google.com/youtube/answer/4792576" target="_blank" rel="noopener">translation tools</a> page says translated titles and descriptions can show up in search results for viewers who speak those languages. So if you translate anything, start with the title and description, then add subtitles so the click isn't wasted. If your channel isn't in English, <a href="/blog/youtube-subtitle-seo-non-english-channels-global-reach">Subtitle SEO for non-English channels</a> goes through this in detail.</p>
+
+<h2>What about ad revenue?</h2>
+<p>Captions don't change how YouTube pays you, but they can affect what revenue depends on. YouTube's <a href="https://support.google.com/youtube/answer/9314357" target="_blank" rel="noopener">ad revenue analytics</a> page explains that CPMs vary by geography because ad competition differs between regions, so the same number of views can earn very different amounts depending on where viewers are. Mid-roll ads are only available on monetised videos that are <a href="https://support.google.com/youtube/answer/6175006" target="_blank" rel="noopener">8 minutes or longer</a>, and they only earn anything if people are still watching when the break comes.</p>
+<p>If captions keep viewers who watch on mute, or who find your accent or pace hard to follow, those viewers add to watch time and reach the mid-roll breaks. That is a plausible mechanism, not a measured one. Nobody can honestly give you a percentage. Your own analytics, compared before and after, is the only number worth having.</p>
+
+<h2>Test it on your own channel</h2>
+<p>Pick ten older videos with similar, steady view counts. Upload corrected captions to five and leave the other five alone for four to six weeks. Then compare, in YouTube Analytics:</p>
+<ul>
+    <li>views from <b>YouTube search</b> in the <b>Reach</b> tab, including the search terms card;</li>
+    <li>average view duration;</li>
+    <li>the <b>Top subtitle/CC languages</b> card in the <b>Audience</b> tab, which shows how many viewers actually turn captions on.</li>
+</ul>
+<p>Ten videos is a small sample, and seasonality or a new upload can move numbers on its own, so look for a consistent difference rather than one good week. YouTube also notes that some reports are limited for smaller channels. Even with those caveats, this tells you more about your audience than a general claim in a blog post.</p>
+
+<h2>What captions won't fix</h2>
+<p>A weak title, a misleading thumbnail or a video that doesn't deliver what it promises will lose viewers with or without captions. Captions remove friction for people who want to watch and give YouTube and Google accurate text. That is worth doing for its own sake, for accessibility first, and any search benefit is a bonus you can measure.</p>

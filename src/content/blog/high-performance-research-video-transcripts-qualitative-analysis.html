@@ -1,0 +1,69 @@
+---
+title: "Using YouTube Transcripts for Qualitative Research"
+summary: "How to turn public YouTube videos into text for qualitative coding: logging your sample, checking caption accuracy, citing timestamps and research ethics."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 4
+---
+<p>Public YouTube videos can be good qualitative data: speeches, patient vlogs, product reviews, classroom tutorials, community debates. To code them you need them as text, and the fastest way to get that text is to download the caption track the video already has. This article walks through doing that carefully enough that it holds up in a methods section, and covers the ethical questions that come with studying people who never agreed to be studied.</p>
+
+<h2>What this approach can and can't do</h2>
+<p>FetchSubs reads caption tracks that YouTube already publishes for a video anyone can watch. It does not transcribe audio, it can't open private videos, and it only handles one video at a time. So it suits small and medium samples of <strong>public</strong> videos, the kind you would otherwise transcribe by hand.</p>
+<p>It is not a tool for your own interviews or focus groups. Those recordings should go through whatever transcription process your ethics board approved. Uploading a confidential interview to YouTube just to get automatic captions would be a data protection problem in itself.</p>
+<p>It is also not a way to collect thousands of videos. YouTube's <a href="https://www.youtube.com/t/terms" target="_blank" rel="noopener">Terms of Service</a> prohibit accessing the service by automated means such as scrapers without permission, and FetchSubs' own <a href="/terms">terms</a> rule out automated, high-volume requests. For large-scale work, YouTube runs a <a href="https://research.youtube/" target="_blank" rel="noopener">Researcher Program</a> that gives scaled access to public data through the official API. Its <a href="https://research.youtube/policies/" target="_blank" rel="noopener">policies</a> require you to be a student, faculty member or research staff at an accredited, degree-granting institution, and to intend to publish your findings.</p>
+
+<h2>Step 1: Log your sample as you build it</h2>
+<p>Videos get edited, made private or deleted, and caption tracks can change after upload. Keep a log from the first day, one row per video. A spreadsheet with these columns is enough:</p>
+<ul>
+    <li>video ID and full URL</li>
+    <li>channel name, title and upload date</li>
+    <li>how you found it (search terms, date of search, or the channel you browsed)</li>
+    <li>length</li>
+    <li>the caption track you used: language, and whether it was uploaded by the creator or generated automatically</li>
+    <li>the date you downloaded it, and the file names you saved</li>
+</ul>
+<p>FetchSubs shows every track a video has and labels the automatic ones, so the track column is quick to fill in. For example, the first video ever uploaded to YouTube, "Me at the zoo", currently lists two tracks, English and German, both uploaded rather than automatic. The archived news live streams I checked while writing about live captions, by contrast, had only automatic tracks, and one had none at all. That difference matters for how much checking each transcript needs, so record it.</p>
+
+<h2>Step 2: Download two versions of each transcript</h2>
+<p>I'd download every video twice:</p>
+<ul>
+    <li><strong>TXT</strong> for coding. Plain text with no timestamps imports cleanly into analysis software. The <a href="/youtube-to-text">YouTube to text</a> page does this directly.</li>
+    <li><strong>SRT</strong> for reference. Each line carries a start and end time, so when a coded passage needs context you can jump to that exact moment in the video. SRT is also what you want for citing timestamps (see below).</li>
+</ul>
+<p>Name files consistently, for example <code>channel_2026-03-14_jNQXAC9IVRw.txt</code>, with the video ID in every name. It is the one identifier that doesn't change when a title does.</p>
+
+<h2>Step 3: Check accuracy before you code</h2>
+<p>Automatic captions are not verbatim research transcripts. They drop false starts and fillers, mishear names and specialist terms, and never label speakers. Creator-uploaded tracks are usually better, but they are sometimes a cleaned-up script rather than what was actually said.</p>
+<p>A workable routine for each video:</p>
+<ol>
+    <li>Pick a few short stretches spread across the video and compare the text with the audio.</li>
+    <li>Note the kinds of errors you find (names, numbers, missing words, merged speakers).</li>
+    <li>Correct every passage you intend to quote, against the audio, not against the caption.</li>
+    <li>Add speaker labels by hand wherever more than one person talks.</li>
+</ol>
+<p>Then say in your methods section which transcripts came from automatic captions and how you checked them. Reviewers will ask, and it is better to have the answer written down. If you want to know what kind of errors to expect, I wrote up <a href="/blog/youtube-auto-generated-subtitles-accuracy">where YouTube's auto-generated subtitles go wrong</a>.</p>
+
+<h2>Step 4: Import and code</h2>
+<p>Qualitative analysis software (CAQDAS) accepts plain-text documents. Commercial options include NVivo, MAXQDA and ATLAS.ti; free, open-source ones include <a href="https://www.taguette.org/" target="_blank" rel="noopener">Taguette</a> and <a href="https://github.com/ccbogel/QualCoder" target="_blank" rel="noopener">QualCoder</a>. Attach your log columns as document attributes (channel type, upload year, track type) so you can compare groups later, including checking whether your findings hold for the subset with creator-uploaded captions.</p>
+<p>Code in the text, but keep the video close. Anything where meaning depends on delivery, such as irony, hesitation or a gesture, needs a look at the original before you code it.</p>
+
+<h2>Citing what people said</h2>
+<p>Cite the video, not the transcript file. In APA 7 style a YouTube video reference looks like this:</p>
+<pre class="code-sample">jawed. (2005, April 23). Me at the zoo [Video]. YouTube. https://www.youtube.com/watch?v=jNQXAC9IVRw</pre>
+<p>For a direct quote, APA asks for the timestamp where the quote begins, for example (jawed, 2005, 0:05). This is where the SRT file earns its place: the start time of the cue is right there.</p>
+
+<h2>Ethics: public is not the same as consented</h2>
+<p>The fact that anyone can watch a video doesn't settle the ethical questions. The Association of Internet Researchers' <a href="https://aoir.org/reports/ethics3.pdf" target="_blank" rel="noopener">Internet Research: Ethical Guidelines 3.0</a> is the reference most ethics boards know, and it treats the public/private distinction as a starting point for judgement, not an answer. A few points to think through before you start:</p>
+<ul>
+    <li><strong>Review.</strong> Many institutions still expect an ethics review or a formal exemption for research on public online content, especially on health, politics, minors or other vulnerable groups. Ask before collecting, not after.</li>
+    <li><strong>Who is speaking.</strong> A politician's speech and a teenager's vlog are both public, but the risks of quoting them are very different.</li>
+    <li><strong>Traceability.</strong> A verbatim quote can be pasted into a search engine and traced back to the video and the person. For private individuals, consider paraphrasing or leaving out identifying details.</li>
+    <li><strong>Personal data.</strong> If you work under the GDPR or a similar law, transcripts of identifiable people are personal data even when the video is public. Store your dataset accordingly.</li>
+    <li><strong>Copyright.</strong> Quoting short passages in analysis is a different thing from publishing full transcripts in a supplementary file. See <a href="/blog/copyright-youtube-subtitles-what-you-can-do">what you can and can't do with YouTube subtitles</a>.</li>
+</ul>
+<p>FetchSubs doesn't keep the links you look up or the files you download. Once the files are on your computer, how they are stored and shared is up to you and your data management plan.</p>
+
+<h2>What a transcript leaves out</h2>
+<p>A transcript records words. It misses tone, facial expression, editing, music, on-screen text and the comments under the video, all of which can carry meaning. For some questions that's fine; for others it's the whole point. Treat the transcript as an index into the video rather than a replacement for it, and say in your limitations section what you didn't analyse.</p>

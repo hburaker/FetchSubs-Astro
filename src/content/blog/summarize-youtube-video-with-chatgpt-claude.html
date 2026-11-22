@@ -1,0 +1,168 @@
+---
+title: "How to Summarize a YouTube Video with ChatGPT or Claude"
+summary: "Summarize a YouTube video in ChatGPT, Claude or Gemini from its transcript: TXT or SRT, 8 prompts and why they're worded that way, long videos."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-12-13"
+lang: "en"
+order: 35
+---
+<p>Give the assistant the transcript, not the link. Download the video's captions as plain text, paste or upload them into ChatGPT, Claude or Gemini, and say what the summary is for. That last part changes the result more than the choice of assistant does, so most of this post is about prompts: eight of them, each with a note on why it is worded the way it is, so you can adapt them instead of copying them blindly.</p>
+
+<h2>Why the transcript beats the link</h2>
+<p>Some assistants can read YouTube links in some setups. Google documents a Gemini app feature that can <a href="https://support.google.com/gemini/answer/16622858" rel="noopener" target="_blank">find and explain YouTube content</a>, but it needs you to be signed in with Keep Activity turned on. Elsewhere, the assistant may not be able to open the video at all, may see only the title and description, or may write a plausible summary of a video it never read. From the answer alone you often can't tell which of these happened.</p>
+<p>A transcript takes the guessing out. You know exactly what the model received, you can search the same text yourself, and the same file works in every assistant. The catch is that a transcript only holds what was said. Slides, code on screen, charts and product shots are not in it, so for a video that leans on visuals, treat the summary as a summary of the narration.</p>
+
+<h2>Step 1: Download the right track in the right format</h2>
+<p>Paste the video link into <a href="/youtube-transcript-for-chatgpt">FetchSubs</a>; watch, youtu.be, Shorts and embed links all work. You get a list of every caption track on the video, each marked <strong>(Official)</strong> if the creator uploaded it or <strong>(Auto-generated)</strong> if YouTube's speech recognition produced it. Plenty of videos have both in the same language, and the gap between them is bigger than people expect. Steve Jobs' 2005 Stanford commencement address, on Stanford's own channel, is a good example. These are the first lines of each English track as TXT:</p>
+<pre class="code-sample">Official track
+This program is brought to you by Stanford University.
+Please visit us at stanford.edu
+Thank You. I am honored to be with you today at your commencement
+from one of the finest universities in the world.
+
+Auto-generated track
+[Music]
+this program is brought to you by
+Stanford University please visit us at
+stanford.edu
+thank
+you I'm uh honored to be with you today
+for your commencement from one of the
+finest universities in the
+[Applause]
+world truth be</pre>
+<p>Every button downloads the track on its own row, so pick the official one when it exists. If you download both, the auto-generated file is easy to tell apart: its name ends in <code>_auto</code>, as in <code>Steve_Jobs__2005_Stanford_Commencement_Address_en_auto.txt</code>.</p>
+<p>Then choose a format:</p>
+<ul>
+    <li><strong>TXT</strong> is the spoken words and nothing else. It is the right choice for summaries, notes and questions.</li>
+    <li><strong>SRT</strong> adds a number and a start and end time to every caption. Use it only when you want the answer tied to timestamps.</li>
+    <li><strong>RAW</strong> opens the same text as TXT in a new tab. On a phone that is usually the quickest route: select all, copy, paste into the chat app.</li>
+</ul>
+<p>The size difference is worth knowing. I downloaded the official English track of the 15-minute Stanford speech in both formats. The TXT came to 2,298 words and about 12,400 characters; the SRT had 244 captions and about 21,500 characters, because every caption carries a number and two timestamps. Using OpenAI's <a href="https://help.openai.com/en/articles/4936856-what-are-tokens-and-how-to-count-them" rel="noopener" target="_blank">rule of thumb of about four characters per token</a>, that is roughly 3,100 tokens against 5,400. On the auto-generated track, which cuts the speech into 341 shorter captions, the SRT is twice the size of the TXT. So TXT is the default, and SRT is worth its extra length only when you need the times back. There is more on the three formats in the <a href="/blog/srt-vtt-txt-subtitle-format-comparison-guide">SRT vs VTT vs TXT comparison</a>.</p>
+
+<h2>Step 2: Give the model the transcript and a little context</h2>
+<p>Short transcripts can be pasted straight into the message. For anything longer I'd upload the downloaded file instead; FetchSubs names it after the video title and language, so a file called <code>Steve_Jobs__2005_Stanford_Commencement_Address_en.txt</code> already tells the model what it is reading.</p>
+<p>Whatever the prompt, I wrap it in the same frame:</p>
+<pre class="code-sample">This is the transcript of a YouTube video titled [title] by [channel].
+The captions are [uploaded by the creator / auto-generated], so expect
+some misheard words. Base your answer only on the text between the tags.
+
+&lt;transcript&gt;
+[paste transcript]
+&lt;/transcript&gt;
+
+[your prompt from the list below]</pre>
+<p>Each line has a job. The title and channel tell the model who is talking, which helps it resolve names. The note about auto-generated captions lets it read past filler like <em>uh</em> and odd word choices instead of quoting them back as if they were meaningful. The tags draw a hard line between the speaker's words and your request, which matters when a speaker says things like <em>summarize this</em> or <em>ignore that</em>. And the request goes last: Anthropic's <a href="https://platform.claude.com/docs/en/build-with-claude/prompt-engineering/claude-prompting-best-practices" rel="noopener" target="_blank">prompting guide</a> recommends putting long documents near the top and the question at the end. For a short clip the order hardly matters; for a two-hour lecture it does.</p>
+
+<h2>Step 3: Ask for the summary you actually need</h2>
+<p><em>Summarize this video</em> gets you a generic paragraph. Each prompt below replaces the last line of the frame above and names a specific use. They work in ChatGPT, Claude, Gemini and most other assistants. Change the numbers and the language as you like, but keep the constraints: they are what make the output checkable.</p>
+
+<h3>1. A summary at three depths</h3>
+<pre class="code-sample">Summarize this video at three levels:
+1. One sentence: the single main point.
+2. One paragraph of up to 80 words for someone who has not seen it.
+3. Five bullets with the most important supporting points, in the order
+   they appear in the video.
+Finish with one line: who would get the most out of watching the full video.</pre>
+<p>This is the one I use to decide whether a video deserves my time. You can stop reading at any level. <em>In the order they appear</em> is there because models like to regroup points by their own idea of importance, which makes them hard to find again in the video. The closing line forces a judgement rather than another restatement.</p>
+
+<h3>2. Key points with timestamps (paste the SRT)</h3>
+<pre class="code-sample">The text below is an SRT subtitle file. List the 8 most important points
+made in the video. For each point give:
+- the start time of the caption where it begins, as MM:SS (HH:MM:SS if the
+  video is longer than an hour), copied from the SRT, never estimated
+- one sentence explaining the point
+- a short verbatim quote of no more than 15 words from that part.
+Order the points by time.</pre>
+<p>This is the prompt that justifies the bigger SRT file. <em>Copied from the SRT, never estimated</em> is the important phrase: without it, a model will happily round or invent a plausible time, and a wrong timestamp is worse than none. Asking for the caption's <em>start</em> time matters with auto-generated tracks, where captions overlap. The short verbatim quote gives you something to search for if the time turns out to be off.</p>
+
+<h3>3. Study notes for a lecture or tutorial</h3>
+<pre class="code-sample">Turn this lecture into study notes.
+- Group the content under the topics the speaker actually covers, in order.
+- Under each topic: the key idea in plain words, any definition given,
+  and the example the speaker used to illustrate it.
+- Then list every technical term with a one-line definition based on how
+  the speaker used it.
+- End with 5 questions a student should be able to answer after this
+  lecture, without answers.
+If something is unclear or seems misheard in the transcript, flag it
+instead of guessing.</pre>
+<p>Two phrases do most of the work. <em>The topics the speaker actually covers</em> stops the model from laying a textbook outline over the lecture and padding it with material the lecturer never mentioned. <em>Based on how the speaker used it</em> keeps definitions tied to this course rather than to a dictionary. The questions come without answers so that you test yourself instead of rereading. The last line is for auto captions, which are most likely to mangle exactly the technical terms you are trying to learn.</p>
+
+<h3>4. Decisions and action items from a meeting or webinar</h3>
+<pre class="code-sample">Extract from this recording:
+1. Decisions that were made or announced.
+2. Action items or recommendations, each with who it applies to and any
+   deadline, but only if the transcript states them. Write not stated
+   otherwise.
+3. Numbers, dates, prices and versions mentioned, with what they refer to.
+4. Open questions or things the speaker said would be covered later.
+Use short bullet points. Do not add advice of your own.</pre>
+<p>Ask for a list of fields and a model will try to fill every one of them, including owners and deadlines nobody mentioned. Giving it an explicit fallback (<em>not stated</em>) makes an empty answer acceptable. <em>Do not add advice of your own</em> is there because assistants like to append helpful recommendations that read as if they came from the meeting.</p>
+
+<h3>5. Separating claims from evidence</h3>
+<pre class="code-sample">Act as a careful, neutral reviewer of this video.
+1. List the main factual claims the speaker makes.
+2. For each, say whether the speaker gives evidence (data, a named source,
+   a demonstration), only an anecdote, or nothing, and whether it is a
+   fact claim, an opinion or a prediction.
+3. Point out any important counter-arguments or context the video leaves out.
+4. List which claims I should verify independently before relying on them.
+Do not state whether claims are true unless you can say how you know;
+mark anything you are unsure about.</pre>
+<p>A neutral summary of a persuasive video is still persuasive; it just repeats the speaker's case in fewer words. For videos about health, money, news or anything that sells something, this prompt asks what kind of support each claim has, which the transcript can answer. It deliberately does not ask the model to rule on whether claims are true. The model has no access to the speaker's sources and may be working from outdated knowledge, so the useful output is a list of things for you to check, not a verdict.</p>
+
+<h3>6. A summary in another language</h3>
+<pre class="code-sample">The transcript below is in [source language]. Write a summary in
+[your language] with a short paragraph followed by 6 bullet points.
+Keep names, product names and technical terms in their original form,
+with a translation in brackets the first time they appear.
+If a sentence in the transcript is ambiguous, say so rather than guess.</pre>
+<p>Useful for a video in a language you don't speak, or an English video you want to pass on to someone who doesn't. Download the track in the language the video was recorded in, which is usually the most accurate. Names and terms stay in the original so you can still search the source transcript for them.</p>
+
+<h3>7. Comparing two videos</h3>
+<pre class="code-sample">Below are transcripts of two videos on the same topic, labelled A and B.
+1. Summarize each in 3 bullet points.
+2. Where do they agree?
+3. Where do they disagree or give different numbers? Quote both sides
+   briefly.
+4. What does each cover that the other does not?
+5. Which argument is better supported by evidence given in the videos,
+   and why?
+
+&lt;video_a title="[title A]"&gt; [transcript A] &lt;/video_a&gt;
+&lt;video_b title="[title B]"&gt; [transcript B] &lt;/video_b&gt;</pre>
+<p>Two reviews of the same product, two lectures on one topic, two sides of a debate: this is where transcripts pay off most. The separate tags keep the model from mixing up who said what, and the brief quotes let you check that a disagreement is real rather than a paraphrase that drifted. The last question is limited to evidence <em>given in the videos</em> for the same reason as in prompt 5.</p>
+
+<h3>8. One question, answered from the transcript</h3>
+<pre class="code-sample">Using only this transcript, answer: [your question].
+Quote the sentence or sentences that support your answer word for word.
+If the transcript does not answer the question, say so plainly
+instead of answering from general knowledge.</pre>
+<p>Sometimes you don't want a summary at all, only the two minutes of a long video that answer your question. Requiring a quote anchors the answer to the text (Anthropic's guide above suggests the same thing for long documents). The last sentence gives the model explicit permission to say the answer isn't there. Without it, a model asked about a topic it knows will often answer anyway, and you won't be able to tell that the answer didn't come from the video.</p>
+
+<h2>Long videos: summarize in parts</h2>
+<p>Every model can take in only so much text at once. The limit depends on the model and often on your plan, and it changes with each release, so check your assistant's documentation rather than trusting a number from an article. When you hit it, the app either refuses the input, warns that the conversation is too long, or quietly skips parts of the video. The last one is the one to worry about. The <a href="https://arxiv.org/abs/2307.03172" rel="noopener" target="_blank">Lost in the Middle</a> study found that language models use information at the start and end of a long input more reliably than material in the middle, so even a transcript that fits can be summarized unevenly.</p>
+<p>For scale: the 15-minute Stanford speech is about 2,300 words, and a two-hour podcast at a similar pace would be roughly eight times that. For anything that long, I split first and combine afterwards:</p>
+<ol>
+    <li>Cut the transcript into parts of a few thousand words, at the end of a sentence and ideally where the topic changes. If you are working from SRT, cut between captions and write down the time range of each part, for example 00:00&ndash;25:00.</li>
+    <li>Summarize each part with the same prompt, preferably in a fresh chat each time.</li>
+    <li>Paste the partial summaries into one final message and merge them. They are short, so the model sees the whole video at once.</li>
+</ol>
+<pre class="code-sample">Prompt for each part:
+This is part [2] of [4] of a video transcript, covering [25:00-50:00].
+Summarize only this part in up to 10 bullets. Keep names, numbers and
+any conclusions exactly as stated. Note anything that seems to continue
+from the previous part or into the next.
+
+Prompt for the final step:
+Below are summaries of the consecutive parts of one video. Merge them
+into a single summary: one paragraph overview, then the key points in
+order with the part they came from. Remove repetition, but do not drop
+any number, name or conclusion.</pre>
+<p><em>Do not drop any number, name or conclusion</em> is there because merging is where details disappear; a model compressing four summaries into one will cut specifics before it cuts generalities.</p>
+
+<h2>Check the summary before you rely on it</h2>
+<p>A summary is only as good as the transcript and the model, and both make mistakes. Look again at the auto-generated Stanford track above: a <code>[Music]</code> tag, no punctuation, <em>thank</em> and <em>you</em> split across two captions, an <code>[Applause]</code> tag in the middle of a sentence. Most models cope with that, but names, figures and technical terms are where recognition errors and model errors pile up. If you want to know what typically goes wrong, see <a href="/blog/youtube-auto-generated-subtitles-accuracy">how accurate YouTube's auto-generated subtitles are</a>.</p>
+<p>A few minutes of checking catches most problems. Pick three claims from the summary and find them in the video, using the timestamps from prompt 2 or a search of the TXT file for a distinctive word. Search the transcript word for word for every quote and number you plan to reuse. Then ask the model: <em>Which statements in your summary are not directly supported by the transcript?</em> It won't catch everything, but it often flags its own additions.</p>
+<p>One last point on what FetchSubs does: it runs no AI. It gives you the captions a video already has, as SRT, VTT, TXT or plain text in a new tab, free and without sign-up, and the summarizing happens in whichever assistant you choose. A video with no captions has nothing to export. If plain text is all you need, the <a href="/youtube-to-text">YouTube to Text</a> page does just that.</p>

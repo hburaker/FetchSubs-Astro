@@ -1,0 +1,94 @@
+---
+title: "How to Fix Subtitle Timing in SRT Files: Offset, Drift, Overlaps"
+summary: "Work out whether your SRT has a constant offset, drift, edit-point jumps or overlapping cues, then fix it with Subtitle Edit, Aegisub or a short script."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-12"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 21
+---
+<p>Out-of-sync subtitles almost always have one of four causes: everything is shifted by the same amount, the error grows as the video plays, the timing jumps at specific points because the video was re-edited, or the cues overlap each other. Each one has a different fix, so the first job is working out which one you have. That takes about two minutes and three timestamps.</p>
+
+<h2>What you're actually editing</h2>
+<p>An SRT file is plain text. Each cue has a number, a start and end time, and one or two lines of text:</p>
+<pre class="code-sample">14
+00:00:33,280 --&gt; 00:00:38,160
+Heat shield set. Perseverance has now</pre>
+<p>Times are hours, minutes, seconds and milliseconds, with a comma before the milliseconds. (WebVTT uses a full stop there, which is one of the few real differences between the formats.) Every timing fix below comes down to changing these numbers: adding a fixed amount, multiplying by a ratio, or adjusting a few cues by hand.</p>
+
+<h2>Diagnose it with three checks</h2>
+<p>Play the video with the subtitles on and note how far off they are at three points: the first line, a line near the middle, and a line near the end. Write down whether the subtitle is early or late, and roughly by how much.</p>
+<ul>
+    <li><strong>Same error at all three points:</strong> a constant offset. The file was made for a version of the video with a different start, such as one with an intro or a few seconds of black at the beginning.</li>
+    <li><strong>Error grows steadily from start to end:</strong> drift. The file was timed against a version that plays at a different speed.</li>
+    <li><strong>Correct in some sections and wrong in others, with sudden jumps:</strong> the video was re-cut after the subtitles were made. Scenes were added, removed or moved.</li>
+    <li><strong>Timing roughly right, but lines stack up, flicker or appear early:</strong> overlapping cues. This one is very common with YouTube's auto-generated captions, and I look at it in detail below.</li>
+</ul>
+
+<h2>Constant offset: shift everything</h2>
+<p>This is the easy case. If the speech starts at 00:00:00,400 and your file's first cue starts at 00:00:02,400, every cue is 2,000 milliseconds late, so you subtract 2,000 from every timestamp.</p>
+<p>In <strong>Subtitle Edit</strong>, the free open-source editor, that's <em>Sync → Adjust all times…</em>, where you enter the offset in milliseconds. Those menu names come from the <a href="https://niksedk.github.io/subtitleedit-avalonia/faq.html" target="_blank" rel="noopener">Subtitle Edit 5 FAQ</a>; version 5 runs on Windows, Linux and Apple Silicon Macs, and older versions may label things slightly differently. Most video editors can also do it: select every subtitle clip on the timeline and move them together.</p>
+<p>A common real-world version of this: you cut a 40-second Short out of a long video, starting at 12:30. The long video's subtitles still count from zero, so you shift them back by 12 minutes 30 seconds and delete the cues that fall outside the clip.</p>
+
+<h2>Drift: rescale the timing</h2>
+<p>If the subtitles are right at the start and further off as the video goes on, a shift won't help. The classic cause is frame rate. Films shot at 24 frames per second (or 23.976 for video) have traditionally been sped up to 25 fps for PAL broadcast, which makes them about 4% shorter. Subtitles timed against the faster version run ahead of the slower one. The arithmetic: a line at exactly 60:00 in the 25 fps version is spoken at 60 × 25 ÷ 23.976 ≈ 62:34 in the 23.976 fps version. After an hour, the subtitles are two and a half minutes early.</p>
+<p>Subtitle Edit handles this with <em>Sync → Change frame rate…</em>, where you pick the source and target frame rates. If you don't know the rates, <em>Sync → Visual sync…</em> or <em>Sync → Point sync…</em> let you match one line near the start and one near the end to the audio, and the program stretches everything in between.</p>
+<p>This isn't a problem you'll usually see with YouTube captions themselves. They're timed in milliseconds against the file YouTube serves, so frame rate doesn't come into it. Drift shows up when a YouTube caption file is used with a different copy of the video, such as a broadcast master or a re-export at another speed.</p>
+
+<h2>Edit-point jumps: fix it section by section</h2>
+<p>If the video was re-cut, there's no single formula. Find the first cue where the timing goes wrong, work out the offset for that section, and shift only the cues from there up to the next cut. Repeat for each section. A waveform view helps a lot here, because you can see where speech starts after each cut. Subtitle Edit can display a waveform for the video you've loaded. In <strong>Aegisub</strong>, you time lines against the audio waveform directly.</p>
+<p>If the new edit is very different, it's often faster to start again from a fresh caption file. If the re-cut video is on YouTube with captions, download that track instead of repairing the old one.</p>
+
+<h2>Overlapping cues from YouTube auto captions</h2>
+<p>This is the problem I see most with downloaded files, and it confuses people because the timing looks almost right. I downloaded the auto-generated English track of NASA's <em>Perseverance Rover's Descent and Touchdown on Mars</em> with FetchSubs. Here are its first three cues:</p>
+<pre class="code-sample">1
+00:00:00,400 --&gt; 00:00:04,240
+We are starting the straighten up and
+
+2
+00:00:02,080 --&gt; 00:00:06,560
+fly right maneuver where the spacecraft
+
+3
+00:00:04,240 --&gt; 00:00:08,639
+will jettison the entry balance masses</pre>
+<p>Cue 2 starts at 2.08 seconds, but cue 1 doesn't end until 4.24. On YouTube that's by design: auto captions roll up, with the previous line staying on screen while the next one appears beneath it. In an SRT file, though, each cue is independent. A player or editor has to show two cues at once, and depending on the software that looks like stacked lines, text that jumps around, or captions that seem to arrive early. In this file, 55 of the 63 cues overlap the one after them. The same video's uploaded English track has 30 cues and none overlap.</p>
+<p>So the first fix is simple: if the video has an uploaded track as well as an auto-generated one, use the uploaded one. FetchSubs labels which is which when it lists the tracks, and the <a href="/youtube-auto-generated-subtitles">auto-generated subtitles page</a> explains the difference.</p>
+<p>If the auto track is all there is, Subtitle Edit's <em>Tools → Fix common errors…</em> has a <em>Fix overlapping display times</em> option (see <a href="https://niksedk.github.io/subtitleedit-avalonia/features/fix-common-errors.html" target="_blank" rel="noopener">its documentation</a>). Or, if you're comfortable with Python, this short script ends each cue where the next one starts:</p>
+<pre class="code-sample">import re, sys
+
+TIME = re.compile(r&quot;(\d+):(\d+):(\d+),(\d+) --&gt; (\d+):(\d+):(\d+),(\d+)&quot;)
+
+def ms(h, m, s, f):
+    return ((int(h) * 60 + int(m)) * 60 + int(s)) * 1000 + int(f)
+
+def fmt(t):
+    h, t = divmod(t, 3600000)
+    m, t = divmod(t, 60000)
+    s, f = divmod(t, 1000)
+    return f&quot;{h:02}:{m:02}:{s:02},{f:03}&quot;
+
+src = open(sys.argv[1], encoding=&quot;utf-8-sig&quot;).read()
+cues = []
+for block in re.split(r&quot;\n\s*\n&quot;, src.strip()):
+    lines = block.splitlines()
+    g = TIME.match(lines[1]).groups()
+    cues.append([ms(*g[:4]), ms(*g[4:]), lines[2:]])
+
+for cur, nxt in zip(cues, cues[1:]):
+    if cur[1] &gt; nxt[0]:
+        cur[1] = nxt[0]   # end this cue where the next one starts
+
+with open(sys.argv[2], &quot;w&quot;, encoding=&quot;utf-8&quot;) as out:
+    for i, (start, end, text) in enumerate(cues, 1):
+        out.write(f&quot;{i}\n{fmt(start)} --&gt; {fmt(end)}\n&quot; + &quot;\n&quot;.join(text) + &quot;\n\n&quot;)</pre>
+<p>Run it as <code>python trim_overlaps.py input.srt output.srt</code>. On the Perseverance file, it brought the overlaps from 55 to zero, and the first cues became 0.400–2.080, 2.080–4.240 and 4.240–6.560.</p>
+<p>There's a trade-off, and it's worth knowing before you ship the result. Trimming makes each cue shorter. The longest cue went from about 8 seconds to under 5, and 10 cues ended up faster than 20 characters per second, which is the reading-speed ceiling in <a href="https://partnerhelp.netflixstudios.com/hc/en-us/articles/217350977-English-USA-Timed-Text-Style-Guide" target="_blank" rel="noopener">Netflix's English style guide</a>. For something people will actually watch, I'd go one step further and merge pairs of one-line cues into two-line cues. Subtitle Edit's <em>Fix short lines that can be merged</em> option does a first pass of that.</p>
+
+<h2>Smoothing the timing in Aegisub</h2>
+<p>Aegisub's <a href="https://aegisub.org/docs/latest/timing_post-processor/" target="_blank" rel="noopener">Timing Post-Processor</a> is useful after a rough sync. It can add lead-in and lead-out time to every line, close small gaps so neighbouring lines meet, and snap line boundaries to video keyframes. It won't fix an offset or drift. It's a polishing step for files where the timing is already roughly right.</p>
+
+<h2>Using a YouTube caption file as a reference</h2>
+<p>Say you have a subtitle file for a video, perhaps a translation someone made, and you suspect its timing is off. If the same video is on YouTube with captions, download that track with <a href="/youtube-to-srt">FetchSubs</a> and compare a few start times. If the YouTube track's line at 00:01:07,680 matches your file's line at 00:01:09,680, and the gap is the same near the end, you have a 2-second offset. If the gap grows, you have drift, and you have the two points you need for a point sync.</p>
+<p>Keep in mind that the reference only applies to the exact video on YouTube. And auto-generated cue boundaries are approximate even when the overall sync is right, so compare line starts in a few places rather than trusting one cue.</p>
+<p>When the file is fixed, you can upload it back to your own video in YouTube Studio: open <em>Subtitles</em>, add or pick the language, choose <em>Upload file</em> and then <em>With timing</em>, as described in YouTube's <a href="https://support.google.com/youtube/answer/2734796" target="_blank" rel="noopener">Add subtitles &amp; captions</a> help page. If you'd rather fix a few lines directly on YouTube, the <a href="/blog/youtube-built-in-subtitle-editor-tutorial">YouTube subtitle editor tutorial</a> covers that, and if you're bringing the file into a video editor, see <a href="/blog/video-editor-guide-subtitles-davinci-resolve-premiere-pro">importing SRT files into Resolve and Premiere</a>.</p>

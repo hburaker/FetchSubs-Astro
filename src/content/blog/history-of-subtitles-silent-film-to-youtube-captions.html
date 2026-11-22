@@ -1,0 +1,60 @@
+---
+title: "The History of Subtitles: From Silent Film to YouTube Captions"
+summary: "How on-screen text went from silent-film title cards to translated subtitles, TV closed captions, the SRT file and YouTube's automatic captions."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-04-14"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 29
+---
+<p>Text on screen is older than sound in film. Silent films carried their dialogue on title cards; the arrival of sound created translated subtitles for foreign audiences; deaf viewers had to wait until 1970s television for captions made with them in mind; and the SRT files that YouTube and FetchSubs use today descend from a hobbyist program for copying subtitles off DVDs. This is that history, kept to the dates and names I could check against a source.</p>
+
+<h2>Title cards in the silent era</h2>
+<p>Silent films used <strong>intertitles</strong>: lines of dialogue or narration on a card, filmed and cut in between the shots. They weren't overlaid on the picture the way subtitles are. According to <a href="https://en.wikipedia.org/wiki/Intertitle" target="_blank" rel="noopener">Wikipedia's article on intertitles</a>, the British Film Catalogue credits Robert W. Paul's <em>Our New General Servant</em> (1898) as the first British film to use them, and <em>Scrooge, or, Marley's Ghost</em> (1901) is another early example. As films grew longer and their stories more complicated, title cards became a standard part of them. The first Academy Awards even included an award for title writing, given to Joseph W. Farnham, and it was never presented again because sound made title cards obsolete.</p>
+<p>With the dialogue on cards, a deaf viewer could follow a silent film largely as a hearing viewer did. Synchronised sound changed that, and it would be decades before the gap was closed.</p>
+
+<h2>Sound arrives, and subtitles with it</h2>
+<p><em>The Jazz Singer</em> (1927) brought synchronised dialogue to a feature film, and with spoken dialogue came a language problem. An essay in <a href="https://cabinetmagazine.org/issues/46/mcmahon.php" target="_blank" rel="noopener">Cabinet magazine</a> describes how the industry tried several answers at once. American studios briefly shot separate versions of the same film in different languages, around 1929 to 1931; the English <em>Dracula</em> and the Spanish-language <em>Drácula</em> are the famous pair. Italy's government banned non-Italian dialogue in films in 1929, which meant dubbing. And distributors started superimposing translated text on the picture.</p>
+<p>Exactly when that started is disputed. The same essay notes that the scholar Henrik Gottlieb places superimposed subtitles at the Paris premiere of <em>The Jazz Singer</em> on 26 January 1929, while the film historian Kristin Thompson describes translations projected on a separate screen beside the film. Either way, subtitles spread quickly: they were standard practice in Istanbul by November 1929, and by the mid-1930s subtitles were the usual way European films were shown in the United States. Some large European markets, Germany among them, chose dubbing instead, while much of the rest of Europe chose subtitles, which were cheaper.</p>
+<p>These subtitles were made for hearing audiences who didn't understand the language. They translated the dialogue and nothing else: no speaker labels, no sounds. That difference between subtitles and captions still exists today.</p>
+
+<h2>Captions for deaf viewers come through television</h2>
+<p>Captioning designed for deaf and hard-of-hearing viewers developed on American television. The dates below come from <a href="https://en.wikipedia.org/wiki/Closed_captioning" target="_blank" rel="noopener">Wikipedia's closed captioning article</a>:</p>
+<ul>
+    <li><strong>December 1971:</strong> closed captioning is first demonstrated in the US, at a conference in Knoxville, Tennessee.</li>
+    <li><strong>15 February 1972:</strong> a second demonstration at Gallaudet College, where ABC and the National Bureau of Standards showed captions embedded in an episode of <em>The Mod Squad</em>.</li>
+    <li><strong>1972:</strong> regular open-captioned broadcasts begin on PBS with <em>The French Chef</em>, Julia Child's cooking show made at WGBH in Boston.</li>
+    <li><strong>1973:</strong> the closed captioning system is encoded and broadcast with the PBS station WETA.</li>
+    <li><strong>1976:</strong> the FCC sets aside line 21 of the TV signal for caption data. Hidden there, captions only appeared on sets with a decoder, which is why they were called "closed".</li>
+    <li><strong>1979:</strong> the National Captioning Institute is created. In the UK, the BBC starts broadcasting subtitles for deaf viewers through its teletext system the same year.</li>
+    <li><strong>16 March 1980:</strong> regularly scheduled closed captioning begins on American television.</li>
+    <li><strong>1982:</strong> the National Captioning Institute develops real-time captioning for live broadcasts.</li>
+    <li><strong>1990:</strong> the Television Decoder Circuitry Act requires TV sets with screens of 13 inches or more to display captions, effective from 1 July 1993. The Americans with Disabilities Act is also signed in 1990.</li>
+    <li><strong>1996:</strong> the Telecommunications Act adds a section to US communications law directing the FCC to require captioning of most TV programming. The FCC's rules took effect on 1 January 1998 and were phased in over the following years.</li>
+</ul>
+<p>The open/closed distinction from this period is still the one we use online: a caption track you switch on is closed, text burned into the picture is open. Our <a href="/blog/open-captions-vs-closed-captions-difference-guide">guide to open vs closed captions</a> explains what each means for a video you publish today.</p>
+
+<h2>DVDs, SubRip and the .srt file</h2>
+<p>DVDs store subtitles as images rather than text, which makes them hard to edit or reuse. Around 1999 and 2000, a developer known as Brain wrote <strong>SubRip</strong>, a free Windows program that used character recognition to read those subtitle images and save the text with its timings. <a href="https://en.wikipedia.org/wiki/SubRip" target="_blank" rel="noopener">Wikipedia's SubRip article</a> notes that most subtitles distributed on the internet use its .srt format. The format is about as simple as it could be: a number, a time range, one or two lines of text, and a blank line. Here's a cue from the English track of "Me at the zoo", downloaded with FetchSubs:</p>
+<pre class="code-sample">3
+00:00:07,974 --&gt; 00:00:12,616
+really really long trunks</pre>
+<p>That simplicity is why SRT outlived the program that created it. Any text editor can open it, and almost every video player and editor can read it.</p>
+
+<h2>Captions in the browser: WebVTT</h2>
+<p>When HTML5 added the <code>&lt;track&gt;</code> element for captions, it needed a caption format of its own. According to the same Wikipedia article, a format called WebSRT was specified in 2010, based on parts of SubRip but not fully compatible with it, and later renamed <strong>WebVTT</strong>. YouTube started supporting it in April 2013. The same cue as a VTT file differs only slightly: the file starts with a <code>WEBVTT</code> line, and the milliseconds come after a dot instead of a comma.</p>
+<pre class="code-sample">WEBVTT
+
+3
+00:00:07.974 --&gt; 00:00:12.616
+really really long trunks</pre>
+<p>For which format to use today, see our <a href="/blog/srt-vtt-txt-subtitle-format-comparison-guide">SRT, VTT and TXT comparison</a>.</p>
+
+<h2>YouTube: from no captions to automatic ones</h2>
+<p>YouTube's first video, "Me at the zoo", went up on 23 April 2005, with no way to add captions. That came on 28 August 2008, when YouTube's official blog announced a <a href="https://youtube.googleblog.com/2008/08/new-captions-feature-for-videos.html" target="_blank" rel="noopener">captions feature</a> that let uploaders add a caption file for each language.</p>
+<p>On 19 November 2009, Google announced automatic captions, generated by its speech recognition. The technical lead on YouTube's captioning work was Ken Harrenstien, a deaf Google engineer. At launch, automatic captions were available on only a few partner channels, alongside a feature called automatic caption timing: upload a plain transcript, and speech recognition works out when each line is spoken. A year later, in a <a href="https://blog.youtube/news-and-events/happy-birthday-automatic-captions/" target="_blank" rel="noopener">post marking the anniversary</a>, YouTube said there had been around 200,000 captioned videos on the site before automatic captions, and that since March 2010 captions had been available for almost any video with clearly spoken English.</p>
+<p>Automatic captions now exist in many languages, but YouTube's <a href="https://support.google.com/youtube/answer/6373554" target="_blank" rel="noopener">help page</a> still warns that their quality varies and that they may misrepresent what was said. They made captions nearly universal on YouTube; they did not make them reliable. That's why the difference between an automatic track and one a person has checked still matters, as our <a href="/blog/youtube-auto-generated-subtitles-accuracy">accuracy comparison</a> shows.</p>
+<p>As for "Me at the zoo": when I checked it with FetchSubs on 22 November 2026, the video that launched YouTube without any captions had two tracks that weren't machine-made, English and German. The English one even writes out a sound effect, <code>(baaaaaaaaaaahhh!!)</code>, the way a caption for deaf viewers should flag a noise that matters.</p>
+
+<h2>What the history explains</h2>
+<p>A few everyday confusions make more sense with this background. "Subtitles" and "captions" are used interchangeably online, but they come from two different traditions: translation for hearing audiences, and access for deaf ones. "Closed" is a leftover from decoder boxes and line 21. And the most common subtitle format on the web is a plain text file because it started as a hobbyist's way of getting text out of DVD images. If you publish video for an organisation, the legal side of this story continues in our <a href="/blog/digital-accessibility-law-wcag-video-transcripts-guide">guide to accessibility law for video</a>.</p>

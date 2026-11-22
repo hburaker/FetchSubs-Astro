@@ -1,0 +1,51 @@
+---
+title: "How to Build a Personal Knowledge Library from YouTube Videos"
+summary: "A simple system for remembering what you learn on YouTube: save the transcript, write notes in your own words, review them with spaced repetition."
+author: "Halit Burak Eroğlu"
+publishDate: "2026-02-25"
+updatedDate: "2026-11-22"
+lang: "en"
+order: 19
+---
+<p>Most of what you learn from a good YouTube lecture is gone within a week, not because the video was bad but because nothing made you retrieve it again. The fix is old and unglamorous: write down a few ideas in your own words, turn them into questions, and answer those questions again later. A transcript makes every step of that cheaper. This post describes a system small enough to keep using.</p>
+
+<h2>Why watching isn't enough</h2>
+<p>In the 1880s Hermann Ebbinghaus memorised lists of nonsense syllables and measured how much effort it took to relearn them after different delays. Most of the loss happened early, in the first hours and days. <a href="https://doi.org/10.1371/journal.pone.0120644" target="_blank" rel="noopener">Murre and Dros (2015)</a> repeated the experiment with one participant over about 70 hours of learning and got a very similar curve.</p>
+<p>Ebbinghaus chose nonsense syllables precisely to remove meaning, so his numbers don't transfer directly to a lecture on economics. The shape is the useful part: if you don't come back to something soon, a lot of it goes.</p>
+<p>What brings it back? The <a href="https://doi.org/10.1177/1529100612453266" target="_blank" rel="noopener">2013 review by Dunlosky and colleagues</a> compared ten common study techniques and gave its highest rating to just two: practice testing (making yourself recall the answer) and distributed practice (spreading reviews out over time). Re-reading, highlighting and summarising all got low ratings. That's worth sitting with, because highlighting a transcript feels like learning. It mostly isn't. The transcript is raw material for questions, not the end product.</p>
+
+<h2>The system: capture, write, ask, review</h2>
+
+<h3>1. Capture the transcript</h3>
+<p>When a video is worth remembering, paste its link into FetchSubs and download the <a href="/youtube-to-text">TXT transcript</a>. If there's a track from the creator, use it; it has punctuation and fewer misheard words than the automatic one. Two practical details I ran into while testing:</p>
+<ul>
+    <li>The file name comes from the video title and language, cut off when the title is long. Randy Pausch's lecture downloads as <code>Randy_Pausch_s_Last_Lecture__Achieving_Your_Childh_en.txt</code>, and an automatic track gets <code>_auto</code> before the extension. Rename files to something you'll recognise in a year.</li>
+    <li>The TXT file contains only the spoken text, not the video link. Paste the URL as the first line so you can always get back to the source.</li>
+</ul>
+<p>Keep all transcripts in one folder. Plain text files are searchable with any desktop search and will open in any editor twenty years from now.</p>
+
+<h3>2. Write a few notes in your own words</h3>
+<p>Don't try to note everything. Pausch's 76-minute lecture is about 12,600 words in the creator's English track, which is something like 40 to 50 pages of a paperback. Pick the five to ten ideas you'd want to explain to someone else, and give each one its own short note, written without copying sentences across. If you can't write it without looking, you haven't understood it yet, and that's useful to know now rather than later.</p>
+<p>One note per idea (people who use the Zettelkasten method call these atomic notes) has a practical advantage: a single idea can be linked to notes from other videos and books, whereas "notes on video X" just sits in a pile. Any notes app works. Obsidian, which stores notes as plain Markdown files in a folder, sits nicely next to a folder of TXT transcripts, but a paper notebook works too.</p>
+<p>Add a timestamped link to the moment each idea comes from. Find the time in the <a href="/youtube-to-srt">SRT version</a> of the captions, then add <code>&amp;t=754s</code> (the number of seconds) to the end of a normal watch URL, or <code>?t=754</code> to a youtu.be link. When you review a note and want the context, one click takes you there.</p>
+
+<h3>3. Turn notes into questions</h3>
+<p>For each note, write one question whose answer is the note. "What problem was the speaker's method meant to solve?" is better than "Define X", because it asks you to reconstruct an idea, not repeat a phrase. An AI assistant can draft questions from a transcript if you're short on time (see <a href="/blog/summarize-youtube-video-with-chatgpt-claude">summarising YouTube videos with ChatGPT or Claude</a>), but writing them yourself is half the learning, so I'd only use that for long videos and edit what it gives you.</p>
+
+<h3>4. Review on a schedule</h3>
+<p>Put the questions into a spaced-repetition app. <a href="https://apps.ankiweb.net/" target="_blank" rel="noopener">Anki</a> is the common choice: free on Windows, macOS, Linux and Android, with a paid iOS app, and it schedules each card for the point where you're likely to start forgetting it. A few minutes a day is enough if you keep the cards few and good. If you'd rather not use an app, a note that says "review on" with a date three days, then two weeks, then two months out does a rougher version of the same job.</p>
+
+<h2>What this looks like for one video</h2>
+<p>For an hour-long lecture: download the transcript (under a minute), skim it and mark the ideas worth keeping (perhaps twenty minutes, since you're skimming rather than reading every line), write five to eight short notes and a question for each (twenty minutes or so), and then a couple of minutes a day of review for the next few weeks. That's a lot more than just watching, which is why it's only worth doing for videos you actually want to remember. For everything else, watch and enjoy it.</p>
+
+<h2>Keep the system small</h2>
+<p>Frameworks like Zettelkasten, Tiago Forte's PARA (Projects, Areas, Resources, Archives) and the "second brain" idea are useful if you like structure, but the common failure isn't choosing the wrong framework. It's capturing far more than you ever review. A folder of 300 transcripts you never open is a backup, not a library. A few dozen notes you've been quizzed on are worth more.</p>
+<p>Some limits to be honest about:</p>
+<ul>
+    <li>Transcripts carry only the words. If the point of a video is a diagram, a demo or code on screen, take a screenshot or sketch it in your note.</li>
+    <li>Automatic captions get names and technical terms wrong. Check anything you're going to put on a card.</li>
+    <li>FetchSubs only downloads captions that already exist. If a video has none, it has no transcript to give you.</li>
+</ul>
+
+<h2>Related reading</h2>
+<p>If you mainly want to get through work videos faster, rather than remember them long-term, see <a href="/blog/boost-productivity-transcripts-save-time-every-week">how transcripts save time at work</a>. Students and teachers will find classroom-specific ideas in <a href="/blog/benefits-of-subtitles-for-students-and-educators">subtitles for students and educators</a>, and language learners in <a href="/blog/science-of-immersion-language-learning-youtube-subtitles">YouTube subtitles for language learning</a>.</p>
