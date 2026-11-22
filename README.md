@@ -12,6 +12,20 @@ fetchsubs.com'un sunucusuz sürümü. Cloudflare Workers'ın ücretsiz planında
   - Altyazı dosyası YouTube'dan doğrudan ziyaretçinin tarayıcısına iner. İmzalı link IP'ye bağlı değil ve CORS'a açık.
   - SRT, VTT ve TXT dönüşümü `src/lib/captions.ts` içinde yapılır.
   - `/api/caption` (`worker/caption.js`) yalnızca doğrudan indirme başarısız olursa yedek olarak kullanılır.
+- **Eski sunucuya yedekleme:** YouTube, Cloudflare IP'lerinden gelen istekleri çoğu zaman "bot" diye reddediyor. Bu durumda Worker, eski ASP.NET FetchSubs sunucusuna (`LEGACY_API_ORIGIN`) sunucudan sunucuya sorar:
+  - `/api/video` → eski sunucunun `/fetch-info` adresi (altyazı listesi)
+  - `/api/subtitle` → eski sunucunun `/fetch-subs` adresi (hazır SRT/VTT/TXT dosyası)
+  - Tarayıcı eski sunucuyla hiç konuşmaz, bu yüzden eski sunucuda CORS ayarı gerekmez.
+
+## Önemli: alan adını taşımadan önce
+
+`LEGACY_API_ORIGIN` şu an `https://fetchsubs.com`, çünkü eski sunucu hâlâ bu adreste. `fetchsubs.com`'u bu Worker'a bağladığınız anda Worker kendine istek atmaya başlar ve araç çalışmaz. Bu yüzden önce:
+
+1. Cloudflare DNS'te eski sunucunun IP'sine giden yeni bir kayıt açın, örneğin `api.fetchsubs.com`.
+2. Plesk'te bu adı eski siteye alias olarak ekleyin (ve SSL sertifikasına dahil edin).
+3. `https://api.fetchsubs.com/fetch-info` adresinin çalıştığını kontrol edin.
+4. `wrangler.toml` içinde `LEGACY_API_ORIGIN = "https://api.fetchsubs.com"` yapıp push edin.
+5. Ancak bundan sonra `fetchsubs.com`'u Worker'a bağlayın.
 
 ## Komutlar
 
@@ -65,7 +79,8 @@ Bu GitHub Actions'ın ücretsiz kotası içinde kalır.
 | Sayfalar | `src/pages/` |
 | Ortak şablon | `src/layouts/Layout.astro` |
 | Altyazı aracı | `src/components/ToolWidget.astro`, `src/lib/tool.ts` |
-| API (Worker) | `worker/index.js`, `worker/video.js`, `worker/caption.js` |
+| API (Worker) | `worker/index.js`, `worker/video.js`, `worker/subtitle.js`, `worker/caption.js` |
+| Eski sunucu adresi | `wrangler.toml` → `LEGACY_API_ORIGIN` |
 | Yönlendirmeler (301) | `public/_redirects` |
 | Güvenlik başlıkları, önbellek | `public/_headers` |
 | Engellenen videolar | `wrangler.toml` → `BLOCKED_VIDEO_IDS` |

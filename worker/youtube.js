@@ -43,3 +43,25 @@ export function blockedIds(env) {
 }
 
 export const BLOCKED_MESSAGE = 'Subtitles for this video are not available through FetchSubs at the request of the rights holder.';
+
+// ---------------------------------------------------------------------------------------------------------------
+// Legacy backend: the original ASP.NET FetchSubs server. YouTube flags Cloudflare's IPs as bots, so when the direct
+// call fails the Worker asks the old server (whose IP YouTube accepts) instead. Server-to-server, so no CORS needed.
+// Set LEGACY_API_ORIGIN in wrangler.toml; leave it empty to disable the fallback.
+
+export function legacyOrigin(env) {
+  return String(env.LEGACY_API_ORIGIN || '').trim().replace(/\/+$/, '');
+}
+
+export async function legacyPost(env, path, params) {
+  const res = await fetch(legacyOrigin(env) + path, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8', Accept: 'application/json' },
+    body: new URLSearchParams(params).toString(),
+    signal: AbortSignal.timeout(25000),
+  });
+  if (!res.ok) throw new Error(`Legacy server responded with HTTP ${res.status}`);
+  const type = res.headers.get('Content-Type') || '';
+  if (!type.includes('json')) throw new Error('Legacy server did not return JSON');
+  return res.json();
+}
